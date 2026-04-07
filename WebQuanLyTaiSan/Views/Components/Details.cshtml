@@ -1,0 +1,102 @@
+﻿@model WebQuanLyTaiSan.Models.Component
+
+@{
+    ViewData["Title"] = "Chi tiết linh kiện";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-info text-white d-flex justify-content-between align-items-center py-3">
+            <h4 class="mb-0"><i class="fas fa-microchip"></i> Thông tin chi tiết linh kiện</h4>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-light btn-sm shadow-sm text-info fw-bold">
+                    <i class="fas fa-edit"></i> Chỉnh sửa
+                </a>
+            </div>
+        </div>
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-md-6 border-end text-center text-md-center-start">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="text-secondary border-bottom pb-2 mb-0">Thông tin định danh</h5>
+
+                        <div class="text-center p-2 bg-light rounded border border-dashed ms-2 shadow-sm">
+                            <i class="fas fa-qrcode fa-3x text-dark mb-1"></i>
+                            <div class="small text-muted mb-0 fw-bold">SN: @Model.SerialNumber</div>
+                        </div>
+                    </div>
+
+                    <dl class="row text-start">
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8 fw-bold">@Model.Name</dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.SerialNumber)</dt>
+                        <dd class="col-sm-8"><code>@Model.SerialNumber</code></dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Category)</dt>
+                        <dd class="col-sm-8 text-primary">@Model.Category?.Name</dd>
+                    </dl>
+                </div>
+
+                <div class="col-md-6 ps-md-4 mt-3 mt-md-0">
+                    <h5 class="text-secondary border-bottom pb-2 mb-3">Tình trạng & Giá trị</h5>
+                    <dl class="row">
+                        <dt class="col-sm-5">@Html.DisplayNameFor(model => model.Price)</dt>
+                        <dd class="col-sm-7 text-success fw-bold fs-5">
+                            @Model.Price.ToString("N0") <small>VNĐ</small>
+                        </dd>
+
+                        <dt class="col-sm-5">@Html.DisplayNameFor(model => model.Status)</dt>
+                        <dd class="col-sm-7">
+                            @{
+                                var statusClass = Model.Status == "Trong kho" ? "bg-info" :
+                                (Model.Status == "Đang sử dụng" ? "bg-success" : "bg-danger");
+                            }
+                            <span class="badge @statusClass px-3 py-2">@Model.Status</span>
+                        </dd>
+
+                        <dt class="col-sm-5">Đang lắp tại máy</dt>
+                        <dd class="col-sm-7">
+                            @if (Model.Computer != null)
+                            {
+                                <a asp-controller="Computers" asp-action="Details" asp-route-id="@Model.ComputerId" class="text-decoration-none">
+                                    <i class="fas fa-desktop"></i> @Model.Computer.AssetCode - @Model.Computer.Name
+                                </a>
+                            }
+                            else
+                            {
+                                <span class="text-muted italic">Chưa gán máy (Trong kho)</span>
+                            }
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-12">
+                    <h5 class="text-secondary border-bottom pb-2 mb-3">Lịch sử hệ thống</h5>
+                    <div class="row small text-muted">
+                        <div class="col-md-6">
+                            <i class="fas fa-clock"></i> Ngày tạo: @Model.CreatedAt?.ToString("dd/MM/yyyy HH:mm")
+                        </div>
+                        @if (Model.UpdatedAt != null)
+                        {
+                            <div class="col-md-6 text-md-end">
+                                <i class="fas fa-user-edit"></i> Cập nhật cuối: @Model.UpdatedAt?.ToString("dd/MM/yyyy HH:mm")
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 pt-3 border-top d-flex justify-content-end gap-2">
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning px-4 shadow-sm fw-bold">
+                    <i class="fas fa-edit"></i> Chỉnh sửa
+                </a>
+                <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                    <i class="fas fa-undo"></i> Quay lại danh sách
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

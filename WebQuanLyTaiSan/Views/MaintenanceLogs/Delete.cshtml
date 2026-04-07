@@ -1,0 +1,52 @@
+﻿@model WebQuanLyTaiSan.Models.MaintenanceLog
+
+@{
+    ViewData["Title"] = "Xóa nhật ký bảo trì";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card shadow border-0">
+                <div class="card-header bg-danger text-white py-3">
+                    <h4 class="mb-0"><i class="fas fa-trash-alt me-2"></i>Xác nhận xóa nhật ký</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-exclamation-circle text-danger fa-3x mb-3"></i>
+                        <h5 class="text-secondary">Bạn có chắc chắn muốn xóa bản ghi này?</h5>
+                        <p class="text-muted small">Hành động này sẽ loại bỏ vĩnh viễn chi phí bảo trì khỏi lịch sử máy tính.</p>
+                    </div>
+
+                    <div class="bg-light rounded p-3 mb-4 border">
+                        <dl class="row mb-0">
+                            <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.RepairDate)</dt>
+                            <dd class="col-sm-7 fw-bold">@Model.RepairDate.ToString("dd/MM/yyyy")</dd>
+
+                            <dt class="col-sm-5 text-muted">Máy tính liên quan</dt>
+                            <dd class="col-sm-7 text-primary">
+                                <strong>@Model.Computer?.Name</strong> (@Model.Computer?.AssetCode)
+                            </dd>
+
+                            <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.Cost)</dt>
+                            <dd class="col-sm-7 text-danger fw-bold">@Model.Cost.ToString("N0") đ</dd>
+
+                            <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.Description)</dt>
+                            <dd class="col-sm-7 small">@Model.Description</dd>
+                        </dl>
+                    </div>
+
+                    <form asp-action="Delete" class="d-flex gap-2 justify-content-center border-top pt-3">
+                        <input type="hidden" asp-for="Id" />
+                        <button type="submit" class="btn btn-danger px-4 shadow-sm">
+                            <i class="fas fa-check-circle"></i> Xác nhận xóa
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                            <i class="fas fa-times"></i> Hủy bỏ
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,210 @@
+﻿@model IEnumerable<WebQuanLyTaiSan.Models.MaintenanceLog>
+
+@{
+    ViewData["Title"] = "Nhật ký bảo trì";
+}
+
+<div class="card shadow-sm border-0 rounded-3">
+    <div class="card-header bg-white py-3">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h4 class="text-primary fw-bold mb-0">
+                    <i class="fas fa-history me-2"></i>Nhật ký Sửa chữa & Bảo trì
+                </h4>
+                <small class="text-muted">Theo dõi chi phí và lịch sử vận hành thiết bị</small>
+            </div>
+            <div class="col-md-6 text-md-end mt-2 mt-md-0">
+                <div class="d-inline-flex align-items-center bg-danger-subtle px-3 py-2 rounded-pill border border-danger-subtle me-2">
+                    <i class="fas fa-coins text-danger me-2"></i>
+                    <span class="fw-bold text-danger mb-0" id="totalCostDisplay">
+                        Tổng: @Model.Sum(x => x.Cost).ToString("N0") đ
+                    </span>
+                </div>
+                <a asp-action="Create" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                    <i class="fas fa-plus-circle me-1"></i> Thêm nhật ký
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="bg-light p-3 border-bottom">
+            <div class="d-flex align-items-center">
+                <span class="text-secondary small fw-bold me-3 text-uppercase">Bộ lọc nhanh:</span>
+                <div class="btn-group btn-group-sm shadow-sm rounded-pill overflow-hidden" role="group">
+                    <button type="button" class="btn btn-secondary px-3 active" onclick="filterLogs('all', this)">
+                        <i class="fas fa-list me-1"></i> Tất cả
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary px-3" onclick="filterLogs('high-cost', this)">
+                        <i class="fas fa-money-bill-wave me-1"></i> Chi phí cao (> 1tr)
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary px-3" onclick="filterLogs('this-month', this)">
+                        <i class="fas fa-calendar-check me-1"></i> Trong tháng @DateTime.Now.Month
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show m-3 border-0 shadow-sm" role="alert">
+                <i class="fas fa-check-circle me-2"></i> @TempData["Success"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0 no-datatable" id="maintenanceTable">
+                <thead class="bg-light text-secondary text-uppercase small fw-bolder">
+                    <tr>
+                        <th class="ps-4">Ngày sửa chữa</th>
+                        <th>Thiết bị</th>
+                        <th>Nội dung thực hiện</th>
+                        <th class="text-end">Chi phí</th>
+                        <th class="text-center pe-4">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light text-primary rounded p-2 me-2 text-center" style="width: 40px;">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </div>
+                                    <span class="fw-bold">@item.RepairDate.ToString("dd/MM/yyyy")</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-dark">@item.Computer?.Name</div>
+                                <span class="badge bg-dark-subtle text-dark border-dark-subtle" style="font-size: 0.7rem;">
+                                    @item.Computer?.AssetCode
+                                </span>
+                            </td>
+                            <td>
+                                <div class="text-wrap" style="max-width: 300px; font-size: 0.9rem;" title="@item.Description">
+                                    @item.Description
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <span class="fw-bold @(item.Cost > 1000000 ? "text-danger" : "text-dark")">
+                                    @item.Cost.ToString("N0") <small>đ</small>
+                                </span>
+                            </td>
+                            <td class="text-center pe-4">
+                                <div class="btn-group shadow-sm rounded">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-white border-end" title="Sửa"><i class="fas fa-edit text-warning"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-white border-end" title="Chi tiết"><i class="fas fa-eye text-info"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-white text-danger" title="Xóa"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Chống rung lắc */
+    .table-responsive {
+        overflow-x: hidden !important;
+        padding-bottom: 1px;
+    }
+
+    #maintenanceTable tbody tr {
+        transition: all 0.2s ease-in-out;
+        border-left: 3px solid transparent;
+    }
+
+        #maintenanceTable tbody tr:hover {
+            background-color: #fffaf0 !important; /* Màu cam nhạt nhẹ cho bảo trì */
+            border-left: 3px solid #dc3545; /* Vạch đỏ cảnh báo chi phí */
+            cursor: pointer;
+        }
+
+    .bg-danger-subtle {
+        background-color: #f8d7da !important;
+    }
+
+    .btn-white {
+        background: white;
+        border: 1px solid #dee2e6;
+    }
+
+        .btn-white:hover {
+            background: #f8f9fa;
+        }
+
+    /* Làm đẹp thanh cuộn */
+    .table-responsive::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #dee2e6;
+        border-radius: 10px;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        var table;
+        $(document).ready(function () {
+            table = $('#maintenanceTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
+                },
+                "order": [[0, "desc"]],
+                "dom": '<"d-flex justify-content-between align-items-center p-3"lf>rt<"d-flex justify-content-between align-items-center p-3"ip>'
+            });
+
+            // Tự động cập nhật tổng tiền khi tìm kiếm hoặc lọc
+            table.on('draw', function () {
+                var total = table.column(3, { filter: 'applied' }).data().reduce(function (a, b) {
+                    var price = parseFloat(b.replace(/[^\d]/g, '')) || 0;
+                    return a + price;
+                }, 0);
+
+                $('#totalCostDisplay').html('Tổng: ' + total.toLocaleString('vi-VN') + ' đ');
+            });
+        });
+
+        function filterLogs(type, btn) {
+            // Reset style tất cả các nút về outline
+            $('.btn-group .btn').removeClass('active btn-secondary btn-danger btn-primary text-white')
+                               .addClass('btn-outline-secondary');
+
+            // Set màu cho nút đang chọn
+            if (type === 'all') $(btn).addClass('active btn-secondary text-white');
+            else if (type === 'high-cost') $(btn).addClass('active btn-danger text-white');
+            else if (type === 'this-month') $(btn).addClass('active btn-primary text-white');
+
+            $(btn).removeClass('btn-outline-secondary');
+
+            // Logic lọc DataTable
+            $.fn.dataTable.ext.search = [];
+
+            if (type === 'high-cost') {
+                $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                    var cost = parseFloat(data[3].replace(/[^\d]/g, '')) || 0;
+                    return cost > 1000000;
+                });
+            }
+            else if (type === 'this-month') {
+                var now = new Date();
+                var currentMonth = now.getMonth() + 1;
+                var currentYear = now.getFullYear();
+
+                $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                    var dateParts = data[0].split('/');
+                    return (parseInt(dateParts[1]) === currentMonth && parseInt(dateParts[2]) === currentYear);
+                });
+            }
+
+            table.draw();
+        }
+    </script>
+}

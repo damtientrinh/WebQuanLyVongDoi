@@ -1,0 +1,141 @@
+﻿@model IEnumerable<WebQuanLyTaiSan.Models.Department>
+
+@{
+    ViewData["Title"] = "Phòng ban";
+}
+
+<div class="card shadow-sm border-0 rounded-3">
+    <div class="card-header bg-white py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h4 class="text-primary fw-bold mb-0">
+                    <i class="fas fa-building me-2"></i>Cơ cấu Phòng ban
+                </h4>
+                <small class="text-muted">Quản lý sơ đồ tổ chức và phân bổ tài sản</small>
+            </div>
+            <a asp-action="Create" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                <i class="fas fa-plus-circle me-1"></i> Thêm mới
+            </a>
+        </div>
+    </div>
+
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table id="departmentTable" class="table table-hover align-middle mb-0 no-datatable">
+                <thead class="bg-light text-secondary text-uppercase small fw-bolder">
+                    <tr>
+                        <th class="ps-4">Tên Phòng Ban</th>
+                        <th>Vị trí / Khu vực</th>
+                        <th class="text-center">Quy mô tài sản</th>
+                        <th class="text-end">Tổng giá trị vốn</th>
+                        <th class="text-center pe-4">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-primary-subtle text-primary rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                        <i class="fas fa-users-cog"></i>
+                                    </div>
+                                    <div class="fw-bold text-dark fs-6">@item.Name</div>
+                                </div>
+                            </td>
+                            <td>
+                                @if (string.IsNullOrEmpty(item.Location))
+                                {
+                                    <span class="text-muted small italic"><i class="fas fa-map-marker-alt me-1 opacity-50"></i>Chưa xác định</span>
+                                }
+                                else
+                                {
+                                    <span class="text-dark"><i class="fas fa-map-marker-alt text-danger me-2"></i>@item.Location</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <span class="badge rounded-pill bg-info-subtle text-info border border-info-subtle px-3 py-2">
+                                    <i class="fas fa-desktop me-1"></i> @(item.Computers?.Count ?? 0) máy tính
+                                </span>
+                            </td>
+                            <td class="text-end">
+                                <div class="fw-bold text-success">
+                                    @item.TotalDepartmentValue.ToString("N0") <small class="text-muted">đ</small>
+                                </div>
+                            </td>
+                            <td class="text-center pe-4">
+                                <div class="btn-group shadow-sm">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-white border-end" title="Sửa"><i class="fas fa-edit text-warning"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-white border-end" title="Chi tiết"><i class="fas fa-eye text-info"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-white text-danger" title="Xóa"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-footer bg-light border-0 py-3 ps-4">
+        <span class="text-muted small">Tổng cộng: <strong>@Model.Count()</strong> đơn vị phòng ban.</span>
+    </div>
+</div>
+
+<style>
+    /* Ngăn rung lắc thanh cuộn */
+    .table-responsive {
+        overflow-x: hidden !important;
+        padding-bottom: 1px;
+    }
+
+    #departmentTable tbody tr {
+        transition: all 0.2s ease-in-out;
+        border-left: 3px solid transparent;
+    }
+
+        #departmentTable tbody tr:hover {
+            background-color: #f8f9fc !important;
+            border-left: 3px solid #4e73df;
+            cursor: pointer;
+        }
+
+    .btn-white {
+        background: white;
+        border: 1px solid #dee2e6;
+    }
+
+        .btn-white:hover {
+            background: #f8f9fa;
+        }
+
+    /* Badge Color Palette */
+    .bg-primary-subtle {
+        background-color: #cfe2ff !important;
+    }
+
+    .bg-info-subtle {
+        background-color: #cff4fc !important;
+    }
+
+    .text-info {
+        color: #087990 !important;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#departmentTable').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
+                },
+                "pageLength": 10,
+                "columnDefs": [
+                    { "orderable": false, "targets": 4 }
+                ],
+                "dom": '<"d-flex justify-content-between align-items-center p-3"lf>rt<"d-flex justify-content-between align-items-center p-3"ip>'
+            });
+        });
+    </script>
+}

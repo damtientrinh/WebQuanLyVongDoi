@@ -1,0 +1,102 @@
+﻿@model WebQuanLyTaiSan.Models.Component
+
+@{
+    ViewData["Title"] = "Chỉnh sửa linh kiện";
+}
+
+<div class="container mt-4">
+    <div class="card shadow border-0">
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0"><i class="fas fa-edit"></i> Chỉnh Sửa Linh Kiện</h4>
+        </div>
+        <div class="card-body p-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="control-label fw-bold"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="SerialNumber" class="control-label fw-bold"></label>
+                            <input asp-for="SerialNumber" class="form-control" readonly/>
+                            <span asp-validation-for="SerialNumber" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Price" class="control-label fw-bold"></label>
+                            <div class="input-group">
+                                <input asp-for="Price" class="form-control" type="number" step="0.01" />
+                                <span class="input-group-text">VNĐ</span>
+                            </div>
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group mb-3">
+                            <label asp-for="CategoryId" class="control-label fw-bold">Loại linh kiện</label>
+                            <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId">
+                                <option value="">-- Chọn danh mục --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Status" class="control-label fw-bold"></label>
+                            <select asp-for="Status" class="form-select">
+                                <option value="Trong kho">Trong kho</option>
+                                <option value="Đang sử dụng">Đang sử dụng</option>
+                                <option value="Hỏng">Hỏng</option>
+                                <option value="Bảo trì">Bảo trì</option>
+                            </select>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ComputerId" class="control-label fw-bold">Lắp tại máy tính</label>
+                            <select asp-for="ComputerId" class="form-select" asp-items="ViewBag.ComputerId">
+                                <option value="">-- Để trong kho (Không gán máy) --</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <hr />
+                <div class="form-group mt-4">
+                    <button type="submit" class="btn btn-warning px-4 shadow-sm">
+                        <i class="fas fa-save"></i> Cập nhật
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary px-4 ms-2">
+                        <i class="fas fa-undo"></i> Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            // Tự động thay đổi Trạng thái khi thay đổi Máy tính được gán
+            $('#ComputerId').change(function () {
+                var computerId = $(this).val();
+                if (computerId) {
+                    $('#Status').val('Đang sử dụng');
+                } else {
+                    $('#Status').val('Trong kho');
+                }
+            });
+        });
+    </script>
+}

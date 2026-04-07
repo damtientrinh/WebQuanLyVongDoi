@@ -1,0 +1,68 @@
+﻿@model WebQuanLyTaiSan.Models.Category
+
+@{
+    ViewData["Title"] = "Xóa danh mục";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-3" role="alert">
+                    <i class="fas fa-exclamation-circle me-2"></i> @TempData["ErrorMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            <div class="card shadow border-0">
+                <div class="card-header bg-danger text-white py-3">
+                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Xác nhận xóa danh mục</h5>
+                </div>
+                <div class="card-body p-4 text-center">
+                    <div class="alert alert-danger mb-4">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Cảnh báo:</strong> Xóa danh mục này có thể ảnh hưởng đến các Máy tính và Linh kiện thuộc danh mục đó!
+                    </div>
+
+                    <h4 class="text-dark mb-2">@Model.Name</h4>
+                    <p class="text-muted mb-4">
+                        @(string.IsNullOrEmpty(Model.Description) ? "Không có mô tả cho danh mục này." : Model.Description)
+                    </p>
+
+                    <div class="row mb-4 border-top border-bottom py-3">
+                        <div class="col-6 border-end">
+                            <h6 class="text-muted mb-1">Máy tính liên quan</h6>
+                            <span class="badge bg-primary fs-6">@(Model.Computers?.Count ?? 0)</span>
+                        </div>
+                        <div class="col-6">
+                            <h6 class="text-muted mb-1">Linh kiện liên quan</h6>
+                            <span class="badge bg-info text-dark fs-6">@(Model.Components?.Count ?? 0)</span>
+                        </div>
+                    </div>
+
+                    <form asp-action="Delete" class="d-flex justify-content-center gap-2">
+                        <input type="hidden" asp-for="Id" />
+                        <button type="submit" class="btn btn-danger px-4 shadow-sm">
+                            <i class="fas fa-trash"></i> Xác nhận xóa
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                            <i class="fas fa-undo"></i> Hủy bỏ
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('form').submit(function () {
+                $(this).find("button[type='submit']")
+                       .prop('disabled', true)
+                       .html('<i class="fas fa-spinner fa-spin"></i> Đang xóa...');
+            });
+        });
+    </script>
+}

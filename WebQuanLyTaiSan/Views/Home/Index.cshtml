@@ -1,0 +1,341 @@
+﻿@model IEnumerable<WebQuanLyTaiSan.Models.Computer>
+
+@{
+    ViewData["Title"] = "Bảng điều khiển";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="text-dark fw-bold mb-0">Hệ Thống Quản Lý Tài Sản IT</h2>
+            <p class="text-muted mb-0">Chào mừng trở lại! Dưới đây là tình hình tài sản hôm nay.</p>
+        </div>
+        <div class="text-end">
+            <span class="badge bg-light text-dark border p-2 shadow-sm">
+                <i class="far fa-calendar-alt me-2"></i> @DateTime.Now.ToString("dd/MM/yyyy")
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm overflow-hidden h-100 stat-card" style="border-left: 5px solid #4e73df !important;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-xs fw-bold text-primary text-uppercase mb-1">Tổng Máy Tính</p>
+                            <h2 class="display-6 fw-bold mb-0 counter-value">@ViewBag.TotalComputers</h2>
+                        </div>
+                        <div class="stat-icon bg-primary-subtle text-primary">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 py-2">
+                    <a class="text-decoration-none small text-muted stretched-link" href="/Computers">
+                        Xem chi tiết <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm overflow-hidden h-100 stat-card" style="border-left: 5px solid #198754 !important;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-xs fw-bold text-success text-uppercase mb-1">Linh Kiện Trong Kho</p>
+                            <h2 class="display-6 fw-bold mb-0 counter-value">@ViewBag.TotalComponents</h2>
+                        </div>
+                        <div class="stat-icon bg-success-subtle text-success">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 py-2">
+                    <a class="text-decoration-none small text-muted stretched-link" href="/Components">
+                        Vào kho hàng <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm overflow-hidden h-100 stat-card" style="border-left: 5px solid #dc3545 !important;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-xs fw-bold text-danger text-uppercase mb-1">Máy Tính Đang Hỏng</p>
+                            <h2 class="display-6 fw-bold mb-0 counter-value">@ViewBag.BrokenComputers</h2>
+                        </div>
+                        <div class="stat-icon bg-danger-subtle text-danger pulsate">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 py-2">
+                    <a class="text-decoration-none small text-muted stretched-link" href="/MaintenanceLogs">
+                        Xử lý ngay <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card border-0 shadow-sm overflow-hidden h-100 stat-card" style="border-left: 5px solid #ffc107 !important;">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-xs fw-bold text-warning text-uppercase mb-1">Đơn Vị Phòng Ban</p>
+                            <h2 class="display-6 fw-bold mb-0 counter-value">@ViewBag.TotalDepartments</h2>
+                        </div>
+                        <div class="stat-icon bg-warning-subtle text-warning">
+                            <i class="fas fa-building"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-0 py-2">
+                    <a class="text-decoration-none small text-muted stretched-link" href="/Departments">
+                        Xem sơ đồ <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-8 col-lg-7">
+            <div class="card shadow-sm border-0 mb-4 h-100">
+                <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between border-0">
+                    <h6 class="m-0 font-weight-bold text-primary text-uppercase">Phân tích Chi phí Bảo trì @DateTime.Now.Year</h6>
+                    <div class="dropdown no-arrow">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-area" style="height: 350px; position: relative;">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-5">
+            <div class="card shadow-sm border-0 mb-4 h-100">
+                <div class="card-header bg-white py-3 border-0">
+                    <h6 class="m-0 font-weight-bold text-primary text-uppercase">Tỉ lệ Trạng thái Thiết bị</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2" style="height: 280px; position: relative;">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                        <span class="me-2"><i class="fas fa-circle text-success"></i> Đang dùng</span>
+                        <span class="me-2"><i class="fas fa-circle text-warning"></i> Bảo trì</span>
+                        <span><i class="fas fa-circle text-danger"></i> Hỏng</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 mt-4">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-0">
+            <h6 class="m-0 font-weight-bold text-primary text-uppercase">Máy tính mới cập nhật</h6>
+            <a href="/Computers" class="btn btn-sm btn-outline-primary rounded-pill px-3">Tất cả</a>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light text-secondary text-uppercase small">
+                        <tr>
+                            <th class="ps-4">Mã máy</th>
+                            <th>Tên thiết bị</th>
+                            <th>Trạng thái</th>
+                            <th class="text-end pe-4">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Take(5)) // Chỉ hiện 5 máy mới nhất
+                        {
+                            <tr>
+                                <td class="ps-4"><span class="fw-bold">@item.AssetCode</span></td>
+                                <td>@item.Name</td>
+                                <td>
+                                    @{
+                                        var (bgClass, icon) = item.Status switch
+                                        {
+                                            "Đang dùng" => ("bg-success", "fa-check-circle"),
+                                            "Bảo trì" => ("bg-warning text-dark", "fa-tools"),
+                                            "Hỏng" => ("bg-danger", "fa-exclamation-triangle"),
+                                            _ => ("bg-info", "fa-box")
+                                        };
+                                    }
+                                    <span class="badge rounded-pill @bgClass px-3 py-2">
+                                        <i class="fas @icon me-1 small"></i> @(item.Status ?? "Chưa rõ")
+                                    </span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a href="/Computers/Details/@item.Id" class="btn btn-sm btn-light border rounded-circle">
+                                        <i class="fas fa-eye text-primary"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Nâng tầm giao diện Card */
+    .stat-card {
+        transition: transform 0.2s, box-shadow 0.2s;
+        background: #fff;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+        }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+
+    .bg-primary-subtle {
+        background-color: #e7f0ff !important;
+    }
+
+    .bg-success-subtle {
+        background-color: #e6fcf5 !important;
+    }
+
+    .bg-danger-subtle {
+        background-color: #fff5f5 !important;
+    }
+
+    .bg-warning-subtle {
+        background-color: #fff9db !important;
+    }
+
+    .text-xs {
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+
+    /* Hiệu ứng nhịp đập cho cảnh báo hỏng */
+    .pulsate {
+        animation: pulsate 2s infinite ease-in-out;
+    }
+
+    @@keyframes pulsate {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+</style>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // 1. Biểu đồ Doughnut Trạng thái
+        var ctx = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Đang dùng', 'Bảo trì', 'Hỏng'],
+                datasets: [{
+                    data: [@ViewBag.ActiveCount, @ViewBag.MaintenanceCount, @ViewBag.BrokenOnlyCount],
+                    backgroundColor: ['#198754', '#ffc107', '#dc3545'],
+                    hoverBackgroundColor: ['#146c43', '#e9b106', '#bb2d3b'],
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                    borderWidth: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '75%',
+                plugins: { legend: { display: false } }
+            }
+        });
+
+        // 2. Biểu đồ Đường Chi phí với AJAX & Gradient
+        async function loadCostChart() {
+            try {
+                const response = await fetch('/Home/GetMaintenanceChartData');
+                const data = await response.json();
+
+                var ctxLine = document.getElementById('costChart').getContext('2d');
+
+                // Tạo Gradient cho đường biểu đồ
+                var gradient = ctxLine.createLinearGradient(0, 0, 0, 400);
+                gradient.addColorStop(0, 'rgba(78, 115, 223, 0.2)');
+                gradient.addColorStop(1, 'rgba(78, 115, 223, 0)');
+
+                new Chart(ctxLine, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'Chi phí (VNĐ)',
+                            data: data.costs,
+                            borderColor: '#4e73df',
+                            backgroundColor: gradient,
+                            fill: true,
+                            tension: 0.4, // Tạo độ cong mượt
+                            pointRadius: 4,
+                            pointBackgroundColor: '#4e73df',
+                            pointBorderColor: '#fff',
+                            pointHoverRadius: 6,
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: {
+                                grid: { drawBorder: false, color: '#f8f9fc' },
+                                ticks: { callback: (val) => val.toLocaleString() + ' đ' }
+                            },
+                            x: { grid: { display: false } }
+                        }
+                    }
+                });
+            } catch (error) { console.error("Lỗi biểu đồ:", error); }
+        }
+
+        loadCostChart();
+
+        // 3. Hiệu ứng đếm số (Counter)
+        $('.counter-value').each(function () {
+            $(this).prop('Counter',0).animate({
+                Counter: $(this).text()
+            }, {
+                duration: 1200,
+                easing: 'swing',
+                step: function (now) { $(this).text(Math.ceil(now).toLocaleString()); }
+            });
+        });
+    </script>
+}

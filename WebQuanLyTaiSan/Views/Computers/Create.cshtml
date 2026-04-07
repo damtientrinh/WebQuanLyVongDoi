@@ -1,0 +1,219 @@
+﻿@model WebQuanLyTaiSan.Models.Computer
+
+@{
+    ViewData["Title"] = "Đăng ký tài sản";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb border-0 bg-transparent p-0">
+                    <li class="breadcrumb-item"><a href="/Home" class="text-decoration-none">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="/Computers" class="text-decoration-none">Quản lý máy tính</a></li>
+                    <li class="breadcrumb-item active fw-bold text-primary">Thêm máy mới</li>
+                </ol>
+            </nav>
+
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-gradient-primary text-white p-4 border-0">
+                    <div class="d-flex align-items-center">
+                        <div class="header-icon bg-white text-primary rounded-circle me-3">
+                            <i class="fas fa-plus fa-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-1 fw-bold">Đăng Ký Máy Tính Mới</h4>
+                            <p class="mb-0 text-white-50 small">Vui lòng nhập đầy đủ thông tin để lưu vào hệ thống</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-5">
+                    <form asp-action="Create" id="createForm">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h5 class="mb-4 text-primary border-bottom pb-2">
+                                    <i class="fas fa-info-circle me-2"></i>Thông tin định danh
+                                </h5>
+
+                                <div class="form-floating mb-3">
+                                    <input asp-for="AssetCode" class="form-control border-0 bg-light shadow-none" placeholder="AssetCode" />
+                                    <label asp-for="AssetCode" class="fw-semibold text-muted">Mã tài sản (Asset Code)</label>
+                                    <span asp-validation-for="AssetCode" class="text-danger small"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Name" class="form-control border-0 bg-light shadow-none" placeholder="Name" />
+                                    <label asp-for="Name" class="fw-semibold text-muted">Tên thiết bị / Model</label>
+                                    <span asp-validation-for="Name" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="CategoryId" class="form-label fw-bold text-muted small ms-2 text-uppercase">Loại máy tính</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text border-0 bg-light"><i class="fas fa-tag text-muted"></i></span>
+                                        <select asp-for="CategoryId" class="form-select border-0 bg-light shadow-none py-2" asp-items="ViewBag.CategoryId">
+                                            <option value="">-- Chọn danh mục --</option>
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="CategoryId" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h5 class="mb-4 text-primary border-bottom pb-2">
+                                    <i class="fas fa-network-wired me-2"></i>Quản lý & Phân bổ
+                                </h5>
+
+                                <div class="form-floating mb-3">
+                                    <input asp-for="PurchaseDate" class="form-control border-0 bg-light shadow-none" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                                    <label asp-for="PurchaseDate" class="fw-semibold text-muted">Ngày nhập kho</label>
+                                    <span asp-validation-for="PurchaseDate" class="text-danger small"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="DepartmentId" class="form-label fw-bold text-muted small ms-2 text-uppercase">Phòng ban sử dụng</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text border-0 bg-light"><i class="fas fa-building text-muted"></i></span>
+                                        <select asp-for="DepartmentId" class="form-select border-0 bg-light shadow-none py-2" asp-items="ViewBag.DepartmentId">
+                                            <option value="">-- Để trống nếu ở trong kho --</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label asp-for="Status" class="form-label fw-bold text-muted small ms-2 text-uppercase">Trạng thái hiện tại</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text border-0 bg-light"><i class="fas fa-check-circle text-muted"></i></span>
+                                        <select asp-for="Status" class="form-select border-0 bg-light shadow-none py-2" id="StatusSelect">
+                                            <option value="Trong kho">Trong kho</option>
+                                            <option value="Đang dùng">Đang dùng</option>
+                                            <option value="Bảo trì">Bảo trì</option>
+                                            <option value="Hỏng">Hỏng</option>
+                                        </select>
+                                    </div>
+                                    <div id="statusHint" class="form-text small ps-2 mt-2"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
+                            <a asp-action="Index" class="btn btn-link text-decoration-none text-muted p-0">
+                                <i class="fas fa-arrow-left me-1"></i> Quay lại danh sách
+                            </a>
+                            <div class="d-flex gap-3">
+                                <button type="reset" class="btn btn-light px-4 rounded-pill">Làm mới</button>
+                                <button type="submit" class="btn btn-primary px-5 rounded-pill shadow-sm py-2 fw-bold">
+                                    <i class="fas fa-save me-2"></i>Lưu thông tin
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .bg-gradient-primary {
+        background: linear-gradient(45deg, #4e73df 0%, #224abe 100%);
+    }
+
+    .header-icon {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Tùy chỉnh input khi Focus */
+    .form-control:focus, .form-select:focus {
+        background-color: #fff !important;
+        box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.15) !important;
+        border: 1px solid #4e73df !important;
+    }
+
+    .card {
+        transition: all 0.3s ease;
+    }
+
+    .input-group-text {
+        border-radius: 0.5rem 0 0 0.5rem !important;
+    }
+
+    .form-select {
+        border-radius: 0 0.5rem 0.5rem 0 !important;
+    }
+
+    /* Animation cho nút bấm */
+    .btn-primary {
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 115, 223, 0.4) !important;
+        }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            const statusSelect = $('#StatusSelect');
+            const deptSelect = $('#DepartmentId');
+            const statusHint = $('#statusHint');
+
+            // Hàm cập nhật gợi ý
+            function updateStatusLogic() {
+                const deptId = deptSelect.val();
+                const currentStatus = statusSelect.val();
+
+                if (deptId) {
+                    // Nếu có chọn phòng ban
+                    if (currentStatus === 'Trong kho') {
+                        statusSelect.val('Đang dùng').trigger('change');
+                    }
+                    statusHint.html('<i class="fas fa-info-circle me-1"></i> Máy tính sẽ được bàn giao cho phòng ban đã chọn.').addClass('text-success').removeClass('text-muted');
+                } else {
+                    // Nếu không chọn phòng ban
+                    if (currentStatus === 'Đang dùng') {
+                        statusSelect.val('Trong kho').trigger('change');
+                    }
+                    statusHint.html('<i class="fas fa-box me-1"></i> Máy tính chưa phân bổ sẽ được lưu kho.').addClass('text-muted').removeClass('text-success text-warning');
+                }
+            }
+
+            // Lắng nghe sự kiện thay đổi
+            deptSelect.on('change', updateStatusLogic);
+
+            // Xử lý màu sắc Badge cho trạng thái ngay trong Form
+            statusSelect.on('change', function() {
+                const val = $(this).val();
+                if(val === 'Bảo trì' || val === 'Hỏng') {
+                    statusHint.html('<i class="fas fa-exclamation-triangle me-1"></i> Lưu ý: Thiết bị đang gặp sự cố.').addClass('text-warning').removeClass('text-success text-muted');
+                } else {
+                    updateStatusLogic();
+                }
+            });
+
+            // Chạy lần đầu khi load trang
+            updateStatusLogic();
+
+            // Hiệu ứng Fade In cho Form
+            $('.card').hide().fadeIn(800);
+        });
+    </script>
+}

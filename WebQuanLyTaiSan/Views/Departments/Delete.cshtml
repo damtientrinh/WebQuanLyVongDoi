@@ -1,0 +1,66 @@
+﻿@model WebQuanLyTaiSan.Models.Department
+
+@{
+    ViewData["Title"] = "Xóa phòng ban";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-danger text-white py-3">
+                    <h4 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Xác Nhận Xóa Phòng Ban</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-warning">
+                        <h5 class="alert-heading">Cảnh báo!</h5>
+                        <p class="mb-0">Hành động này không thể hoàn tác. Vui lòng kiểm tra kỹ các thông tin bên dưới trước khi thực hiện.</p>
+                    </div>
+
+                    <dl class="row mt-4 px-3">
+                        <dt class="col-sm-4 text-muted">@Html.DisplayNameFor(model => model.Name)</dt>
+                        <dd class="col-sm-8 fw-bold text-primary">@Html.DisplayFor(model => model.Name)</dd>
+
+                        <dt class="col-sm-4 text-muted">@Html.DisplayNameFor(model => model.Location)</dt>
+                        <dd class="col-sm-8">@(Model.Location ?? "Chưa xác định")</dd>
+
+                        <dt class="col-sm-4 text-muted">Số lượng máy tính:</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-secondary">@(Model.Computers?.Count ?? 0) thiết bị</span>
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted">Tổng trị giá tài sản:</dt>
+                        <dd class="col-sm-8 text-danger fw-bold">@Model.TotalDepartmentValue.ToString("N0") đ</dd>
+                    </dl>
+
+                    @if (Model.Computers?.Count > 0)
+                    {
+                        <div class="alert alert-danger mt-3">
+                            <i class="fas fa-info-circle"></i> <strong>Lưu ý:</strong> Phòng này đang chứa máy tính. Khi xóa, các máy tính sẽ bị gỡ khỏi phòng ban này (trở thành máy tính tự do).
+                        </div>
+                    }
+
+                    <hr />
+                    <form asp-action="Delete" class="d-flex gap-2 justify-content-end">
+                        <input type="hidden" asp-for="Id" />
+                        @if (Model.Computers?.Count > 0)
+                        {
+                            <button type="submit" class="btn btn-danger px-4" disabled title="Phải chuyển hết máy tính trước khi xóa">
+                                <i class="fas fa-trash-alt"></i> Xác nhận xóa
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-danger px-4">
+                                <i class="fas fa-trash-alt"></i> Xác nhận xóa
+                            </button>
+                        }
+                        <a asp-action="Index" class="btn btn-secondary">
+                            <i class="fas fa-undo"></i> Hủy bỏ
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

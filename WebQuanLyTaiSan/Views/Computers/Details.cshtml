@@ -1,0 +1,127 @@
+﻿@model WebQuanLyTaiSan.Models.Computer
+
+@{
+    ViewData["Title"] = "Chi tiết máy tính";
+}
+
+<div class="container-fluid shadow-sm p-4 bg-white rounded">
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+        <h2 class="text-primary"><i class="fas fa-desktop"></i> Thông tin máy tính: @Model.Name</h2>
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning"><i class="fas fa-edit"></i> Chỉnh sửa</a>
+            <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Quay lại</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h5 class="text-secondary border-start border-4 border-primary ps-2 mb-3">Thông tin cơ bản</h5>
+            <dl class="row">
+                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.AssetCode)</dt>
+                <dd class="col-sm-8"><span class="badge bg-dark">@Model.AssetCode</span></dd>
+
+                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Department)</dt>
+                <dd class="col-sm-8 text-info fw-bold">@Model.Department?.Name</dd>
+
+                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Status)</dt>
+                <dd class="col-sm-8">
+                    @{
+                        var statusClass = Model.Status == "Đang dùng" ? "bg-success" :
+                        (Model.Status == "Bảo trì" ? "bg-warning text-dark" : "bg-danger");
+                    }
+                    <span class="badge @statusClass">@Model.Status</span>
+                </dd>
+
+                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.TotalValue)</dt>
+                <dd class="col-sm-8"><h4 class="text-success fw-bold">@Model.TotalValue.ToString("N0") VNĐ</h4></dd>
+
+                <dt class="col-sm-4">@Html.DisplayNameFor(model => model.TotalOwnershipCost)</dt>
+                <dd class="col-sm-8">
+                    <h4 class="text-danger fw-bold">@Model.TotalOwnershipCost.ToString("N0") VNĐ</h4>
+                    <small class="text-muted">(Gồm giá mua + @Model.MaintenanceLogs?.Sum(x => x.Cost).ToString("N0") đ tiền sửa)</small>
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-3 text-secondary border-start border-4 border-success ps-2">
+                <h5 class="mb-0"><i class="fas fa-microchip me-2"></i>Danh sách linh kiện chi tiết</h5>
+                <span class="badge bg-success">@(Model.Components?.Count ?? 0) linh kiện</span>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover border shadow-sm">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th>Tên linh kiện</th>
+                            <th>Số Serial</th>
+                            <th class="text-end">Đơn giá</th>
+                            <th class="text-center">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Components != null && Model.Components.Any())
+                        {
+                            foreach (var comp in Model.Components)
+                            {
+                                <tr>
+                                    <td class="fw-bold">@comp.Name</td>
+                                    @* <td><code>@comp.SerialNumber</code></td> *@
+                                    <td><span class="badge bg-light text-dark border">
+                                        <i class="fas fa-barcode me-1 text-muted"></i>
+                                        @comp.SerialNumber</span>
+                                    </td>
+                                    <td class="text-end text-success">@comp.Price.ToString("N0") đ</td>
+                                    <td class="text-center">
+                                        <a asp-controller="Components" asp-action="Details" asp-route-id="@comp.Id" class="btn btn-sm btn-link text-info">Xem chi tiết</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+                <h5 class="mt-4"><i class="fas fa-history"></i> Lịch sử bảo trì</h5>
+                <div class="table-responsive mt-2">
+                    <table class="table table-sm table-hover border">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Ngày</th>
+                                <th>Nội dung sửa chữa</th>
+                                <th class="text-end">Chi phí</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.MaintenanceLogs != null && Model.MaintenanceLogs.Any())
+                            {
+                                foreach (var log in Model.MaintenanceLogs.OrderByDescending(x => x.RepairDate))
+                                {
+                                    <tr>
+                                        <td><i class="far fa-calendar-alt me-1 text-muted"></i>@log.RepairDate.ToString("dd/MM/yyyy")</td>
+                                        <td>@log.Description</td>
+                                        <td class="text-end fw-bold text-secondary">@log.Cost.ToString("N0") đ</td>
+                                    </tr>
+                                }
+                            }
+                            @* else
+                            {
+                            <tr>
+                                    <td colspan="3" class="text-center text-muted py-3" style="display: table-cell; width: 100%;">
+                                    <div class="text-muted">
+                                        <i class="fas fa-clipboard-list fa-3x mb-3 opacity-25"></i>
+                                        <p class="mb-0">Chưa có bất kỳ ghi chú bảo trì nào.</p>
+                                        <small>Mọi lịch sử sửa chữa sẽ được hiển thị tại đây.</small>
+                                    </div>
+                                </td>
+                            </tr>
+                            } *@
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

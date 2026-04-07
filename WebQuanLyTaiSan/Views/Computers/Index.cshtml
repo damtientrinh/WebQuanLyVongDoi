@@ -1,0 +1,182 @@
+﻿@model IEnumerable<WebQuanLyTaiSan.Models.Computer>
+
+@{
+    ViewData["Title"] = "Quản lý Máy tính";
+}
+
+<div class="card shadow-sm border-0 rounded-3">
+    <div class="card-header bg-white py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h4 class="text-primary fw-bold mb-0">
+                    <i class="fas fa-desktop me-2"></i>Danh sách Máy tính
+                </h4>
+                <small class="text-muted">Quản lý và theo dõi tài sản thiết bị IT</small>
+            </div>
+            <div>
+                <a asp-action="Create" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                    <i class="fas fa-plus-circle me-1"></i> Thêm mới
+                </a>
+                <a asp-action="Trash" class="btn btn-light rounded-pill px-4 border ms-2">
+                    <i class="fas fa-trash-alt text-danger me-1"></i> Thùng rác
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-0">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show m-3 border-0 shadow-sm" role="alert">
+                <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        }
+
+        <div class="table-responsive">
+            <table id="computerTable" class="table table-hover align-middle mb-0 no-datatable">
+                <thead class="bg-light text-secondary text-uppercase small fw-bolder">
+                    <tr>
+                        <th class="ps-4">Mã Tài Sản</th>
+                        <th>Tên Máy</th>
+                        <th class="text-center">Trạng Thái</th>
+                        <th>Phòng Ban / Loại</th>
+                        <th class="text-end">Giá Trị</th>
+                        <th class="text-center">Linh Kiện</th>
+                        <th class="text-center">Bảo Trì Cuối</th>
+                        <th class="text-center pe-4">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="ps-4">
+                                <span class="font-monospace fw-bold text-dark">@item.AssetCode</span>
+                            </td>
+                            <td>
+                                <div class="fw-bold text-dark">@item.Name</div>
+                                <div class="small text-muted" style="font-size: 0.75rem;">ID: #@item.Id</div>
+                            </td>
+                            <td class="text-center">
+                                @{
+                                    var (bgClass, icon) = item.Status switch
+                                    {
+                                        "Đang dùng" => ("bg-success-subtle text-success border-success", "fa-check-circle"),
+                                        "Bảo trì" => ("bg-warning-subtle text-warning border-warning", "fa-tools"),
+                                        "Hỏng" => ("bg-danger-subtle text-danger border-danger", "fa-times-circle"),
+                                        "Trong kho" => ("bg-primary-subtle text-primary border-primary", "fa-box"),
+                                        _ => ("bg-secondary-subtle text-secondary border-secondary", "fa-question-circle")
+                                    };
+                                }
+                                <span class="badge rounded-pill border px-3 py-2 @bgClass" style="font-size: 0.85rem;">
+                                    <i class="fas @icon me-1"></i> @item.Status
+                                </span>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-info-subtle text-info rounded-circle p-2 me-2" style="width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fas fa-building fa-xs"></i>
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold" style="font-size: 0.9rem;">@item.Department?.Name</div>
+                                        <div class="small text-muted">@item.Category?.Name</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-end fw-bold text-dark">
+                                @item.TotalValue.ToString("N0") <small class="text-muted">đ</small>
+                            </td>
+                            <td class="text-center">
+                                <div class="position-relative d-inline-block">
+                                    <i class="fas fa-microchip fa-lg text-secondary opacity-50"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark" style="font-size: 0.6rem;">
+                                        @(item.Components?.Count ?? 0)
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="text-center small text-muted">
+                                <i class="far fa-calendar-alt me-1"></i>
+                                @(item.MaintenanceLogs?.OrderByDescending(l => l.RepairDate).FirstOrDefault()?.RepairDate.ToString("dd/MM/yyyy") ?? "---")
+                            </td>
+                            <td class="text-center pe-4">
+                                <div class="btn-group shadow-sm rounded">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-white border-end" title="Sửa"><i class="fas fa-edit text-warning"></i></a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-white border-end" title="Chi tiết"><i class="fas fa-eye text-info"></i></a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-white" title="Xóa"><i class="fas fa-trash text-danger"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card-footer bg-light border-0 py-3 ps-4">
+        <div class="row align-items-center">
+            <div class="col text-muted small">
+                Hiển thị tổng số <strong>@Model.Count()</strong> máy tính trong hệ thống.
+            </div>
+            <div class="col text-end pe-4">
+                <span class="text-muted me-2">Tổng giá trị tài sản:</span>
+                <span class="h5 mb-0 fw-bold text-primary">@Model.Sum(i => i.TotalValue).ToString("N0") <small>VNĐ</small></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* 1. Ngăn chặn thanh cuộn hiện ra khi Hover */
+    .table-responsive {
+        overflow-x: hidden !important; /* Giấu thanh cuộn ngang nếu không cần thiết */
+        padding-bottom: 5px; /* Tạo khoảng trống nhỏ để bóng đổ không bị cắt */
+    }
+
+    /* 2. Hiệu ứng Hover mới: Sang trọng và KHÔNG rung lắc */
+    #computerTable tbody tr {
+        transition: all 0.2s ease-in-out;
+        cursor: pointer;
+        position: relative;
+    }
+
+        #computerTable tbody tr:hover {
+            /* Thay vì dịch chuyển (TranslateX), ta dùng đổ bóng và đổi màu nền nhẹ */
+            background-color: #f1f4fd !important;
+            box-shadow: inset 4px 0 0 #4e73df; /* Tạo một vạch màu xanh mỏng ở đầu hàng */
+            z-index: 1;
+        }
+
+            /* 3. Làm mượt các Badge khi hover */
+            #computerTable tbody tr:hover .badge {
+                filter: brightness(0.9);
+            }
+
+    /* 4. Tùy chỉnh thanh cuộn nếu bắt buộc phải có (để nó luôn hiện, tránh nhảy) */
+    .table-responsive::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #dee2e6;
+        border-radius: 10px;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#computerTable').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
+                },
+                "pageLength": 10,
+                "order": [[0, "desc"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": [3, 5, 7] }
+                ],
+                "dom": '<"d-flex justify-content-between align-items-center p-3"<"me-auto"l><"ms-auto"f>>rt<"d-flex justify-content-between align-items-center p-3"ip>'
+            });
+        });
+    </script>
+}
