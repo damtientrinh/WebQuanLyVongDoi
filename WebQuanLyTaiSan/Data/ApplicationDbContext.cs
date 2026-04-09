@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion; // Thêm dòng này
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;
 using System.Linq;
 using System.Threading;
@@ -11,10 +11,9 @@ namespace WebQuanLyTaiSan.Data
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options) { }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Computer> Computers { get; set; }
         public DbSet<Component> Components { get; set; }
         public DbSet<Category> Categories { get; set; }
