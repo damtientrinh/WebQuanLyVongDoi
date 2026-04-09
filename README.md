@@ -1,4 +1,4 @@
-﻿# 🏢 Web Quản Lý Tài Sản (Web Asset Management)
+
 
 [![.NET Version](https://img.shields.io/badge/.NET-8.0-blue.svg)](https://dotnet.microsoft.com/download/dotnet/8.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -38,4 +38,4 @@ A
 1. **Clone dự án:**
    ```bash
    git clone [https://github.com/damtientrinh/WebQuanLyVongDoi.git](https://github.com/damtientrinh/WebQuanLyVongDoi.git)
-   cd WebQuanLyTaiSan
+
