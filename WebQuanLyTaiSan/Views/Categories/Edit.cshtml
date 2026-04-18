@@ -1,72 +1,131 @@
 ﻿@model WebQuanLyTaiSan.Models.Category
 
 @{
-	ViewData["Title"] = "Chỉnh sửa danh mục";
+    ViewData["Title"] = "Chỉnh sửa danh mục";
 }
 
-<div class="container mt-4">
-	<div class="row justify-content-center">
-		<div class="col-md-6">
-			<div class="card shadow border-0">
-				<div class="card-header bg-warning text-dark py-3">
-					<h5 class="mb-0"><i class="fas fa-edit"></i> Chỉnh Sửa Danh Mục</h5>
-				</div>
-				<div class="card-body p-4">
-					<form asp-action="Edit">
-						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-5 col-lg-7 col-md-9">
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb bg-transparent p-0 small">
+                    <li class="breadcrumb-item"><a href="/Categories" class="text-decoration-none">Danh mục</a></li>
+                    <li class="breadcrumb-item active">Chỉnh sửa</li>
+                </ol>
+            </nav>
 
-						<input type="hidden" asp-for="Id" />
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-warning py-3 border-0">
+                    <div class="d-flex align-items-center">
+                        <div class="bg-white bg-opacity-25 rounded p-2 me-3">
+                            <i class="fas fa-folder-open text-dark"></i>
+                        </div>
+                        <h5 class="mb-0 fw-bold text-dark">Chỉnh Sửa Danh Mục</h5>
+                    </div>
+                </div>
 
-						<div class="form-group mb-3">
-							<label asp-for="Name" class="control-label fw-bold"></label>
-							<input asp-for="Name" class="form-control" />
-							<span asp-validation-for="Name" class="text-danger"></span>
-						</div>
+                <div class="card-body p-4">
+                    <form asp-action="Edit" id="editCategoryForm">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small border-0 shadow-sm"></div>
 
-						<div class="form-group mb-4">
-							<label asp-for="Description" class="control-label fw-bold"></label>
-							<textarea asp-for="Description" class="form-control" rows="3"></textarea>
-							<span asp-validation-for="Description" class="text-danger"></span>
-						</div>
+                        <input type="hidden" asp-for="Id" />
 
-						<div class="d-grid gap-2">
-							<button type="submit" class="btn btn-warning shadow-sm fw-bold" id="btnSave">
-								<span id="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-								<i id="iconSave" class="fas fa-save"></i>
-								<span id="btnText">Cập nhật thay đổi</span>
-							</button>
-							<a asp-action="Index" class="btn btn-outline-secondary">
-								<i class="fas fa-undo"></i> Quay lại danh sách
-							</a>
-						</div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="form-label fw-bold text-muted small text-uppercase">Tên danh mục</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-end-0"><i class="fas fa-tag text-muted"></i></span>
+                                <input asp-for="Name" class="form-control border-start-0 ps-0 shadow-none" placeholder="VD: Laptop, Linh kiện..." />
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger small"></span>
+                        </div>
 
-						<div class="mt-3 text-center">
-							<small class="text-muted">
-								Ngày tạo: @(Model.CreatedAt?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa xác định")
-							</small>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <div class="form-group mb-4">
+                            <label asp-for="Description" class="form-label fw-bold text-muted small text-uppercase">Mô tả chi tiết</label>
+                            <textarea asp-for="Description" class="form-control shadow-none" rows="4" placeholder="Nhập mô tả về danh mục tài sản này..."></textarea>
+                            <span asp-validation-for="Description" class="text-danger small"></span>
+                        </div>
+
+                        <div class="bg-light rounded-3 p-3 mb-4 d-flex justify-content-between align-items-center">
+                            <div class="small text-muted">
+                                <i class="far fa-calendar-alt me-1"></i> Ngày tạo:
+                                <span class="fw-bold text-dark">@(Model.CreatedAt.ToString("dd/MM/yyyy HH:mm") ?? "N/A")</span>
+                            </div>
+                            <i class="fas fa-info-circle text-muted" data-bs-toggle="tooltip" title="Thông tin này không thể thay đổi"></i>
+                        </div>
+
+                        <div class="row g-2">
+                            <div class="col-8">
+                                <button type="submit" class="btn btn-warning w-100 shadow-sm fw-bold py-2" id="btnSave">
+                                    <span id="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                    <i id="iconSave" class="fas fa-save me-1"></i>
+                                    <span id="btnText">Cập nhật thay đổi</span>
+                                </button>
+                            </div>
+                            <div class="col-4">
+                                <a asp-action="Index" class="btn btn-outline-secondary w-100 py-2">
+                                    Hủy
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <a href="/Categories" class="text-muted small text-decoration-none hover-link">
+                    <i class="fas fa-chevron-left me-1"></i> Quay lại danh sách
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
-@section Scripts {
-	@{
-		await Html.RenderPartialAsync("_ValidationScriptsPartial");
-	}
+<style>
+    body {
+        background-color: #f8f9fc;
+    }
 
-	<script>
-		$(document).ready(function () {
-			$('form').submit(function () {
-				if ($(this).valid()) {
-					$('#btnSave').prop('disabled', true);
-					$('#spinner').removeClass('d-none');
-					$('#iconSave').addClass('d-none');
-					$('#btnText').text(' Đang cập nhật...');
-				}
-			});
-		});
-	</script>
+    .card {
+        transition: transform 0.2s;
+    }
+
+    .form-control:focus {
+        border-color: #ffc107;
+        box-shadow: none;
+    }
+
+    .input-group-text {
+        border-color: #dee2e6;
+    }
+
+    .hover-link:hover {
+        color: #4e73df !important;
+        text-decoration: underline !important;
+    }
+</style>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            // Khởi tạo tooltip nếu có
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+
+            // Hiệu ứng khi submit
+            $('#editCategoryForm').submit(function () {
+                if ($(this).valid()) {
+                    $('#btnSave').addClass('disabled').prop('disabled', true);
+                    $('#spinner').removeClass('d-none');
+                    $('#iconSave').addClass('d-none');
+                    $('#btnText').text(' Đang xử lý...');
+                }
+            });
+        });
+    </script>
 }

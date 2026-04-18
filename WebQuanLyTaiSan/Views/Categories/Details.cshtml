@@ -8,96 +8,158 @@
     <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
         <h2 class="text-primary"><i class="fas fa-tags"></i> Danh mục: @Model.Name</h2>
         <div>
-            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Sửa</a>
-            <a asp-action="Index" class="btn btn-secondary btn-sm"><i class="fas fa-arrow-left"></i> Quay lại</a>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-warning btn-sm shadow-sm"><i class="fas fa-edit"></i> Sửa</a>
+            <a asp-action="Index" class="btn btn-secondary btn-sm shadow-sm"><i class="fas fa-arrow-left"></i> Quay lại</a>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-md-12">
-            <p><strong>Mô tả:</strong> @(string.IsNullOrEmpty(Model.Description) ? "Không có mô tả" : Model.Description)</p>
-            <p><strong>Tổng số tài sản:</strong> <span class="badge bg-dark">@Model.TotalAssets</span></p>
+            <p class="mb-2"><strong>Mô tả:</strong> @(string.IsNullOrEmpty(Model.Description) ? "Không có mô tả" : Model.Description)</p>
+            <div class="d-flex gap-3">
+                <p class="mb-0">
+                    <strong>Phân loại:</strong>
+                    @if (Model.Group == WebQuanLyTaiSan.Models.CategoryGroup.Device)
+                    {
+                        <span class="badge bg-primary"><i class="fas fa-laptop me-1"></i> Thiết bị chính</span>
+                    }
+                    else if (Model.Group == WebQuanLyTaiSan.Models.CategoryGroup.Component)
+                    {
+                        <span class="badge bg-success"><i class="fas fa-microchip me-1"></i> Linh kiện</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-info text-dark"><i class="fas fa-keyboard me-1"></i> Ngoại vi</span>
+                    }
+                </p>
+                <p class="mb-0">
+                    <strong>Tổng số tài sản:</strong>
+                    <span class="badge bg-dark">@(Model.ComputerCount + Model.ComponentCount)</span>
+                </p>
+            </div>
         </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row g-4">
+        @* CỘT BÊN TRÁI: MÁY TÍNH *@
         <div class="col-md-6">
-            <h5 class="text-primary"><i class="fas fa-desktop"></i> Máy tính (@(Model.Computers?.Count ?? 0))</h5>
-            <table class="table table-sm table-hover border mt-2">
-                <thead class="table-light">
-                    <tr>
-                        <th>Mã máy</th>
-                        <th>Tên máy</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.Computers != null && Model.Computers.Any())
-                    {
-                        foreach (var comp in Model.Computers)
-                        {
+            <div class="p-3 border rounded-3 bg-light bg-opacity-50">
+                <h5 class="text-primary mb-3"><i class="fas fa-desktop me-2"></i>Máy tính (@Model.ComputerCount)</h5>
+                <div class="table-responsive">
+                    <table id="tableComputers" class="table table-sm table-hover border bg-white mb-0">
+                        <thead class="table-light">
                             <tr>
-                                <td>@comp.AssetCode</td>
-                                <td>@comp.Name</td>
-                                <td><a asp-controller="Computers" asp-action="Details" asp-route-id="@comp.Id" class="btn btn-xs btn-outline-primary py-0">Xem</a></td>
+                                <th>Mã máy</th>
+                                <th>Tên máy</th>
+                                <th class="text-center">Thao tác</th>
                             </tr>
-                        }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="3" class="text-center text-muted py-3">
-                                <i class="fas fa-info-circle"></i> Chưa có máy tính nào trong danh mục này.
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-            <p>
-                <strong>Tổng giá trị:</strong>
-                <span class="text-danger fw-bold">
-                    @((Model.Computers?.Sum(c => c.TotalValue) + Model.Components?.Sum(c => c.Price))?.ToString("N0")) VNĐ
-                </span>
-            </p>
+                        </thead>
+                        <tbody>
+                            @if (Model.Computers != null && Model.Computers.Any())
+                            {
+                                foreach (var comp in Model.Computers)
+                                {
+                                    <tr>
+                                        <td class="fw-bold text-secondary">@comp.AssetCode</td>
+                                        <td>@comp.Name</td>
+                                        <td class="text-center">
+                                            <a asp-controller="Computers" asp-action="Details" asp-route-id="@comp.Id" class="btn btn-xs btn-outline-primary py-0 px-2 small">Xem</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr class="no-data">
+                                    <td class="text-center text-muted py-3">---</td>
+                                    <td class="text-center text-muted py-3 small">Chưa có máy tính nào</td>
+                                    <td class="text-center text-muted py-3">---</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
+        @* CỘT BÊN PHẢI: LINH KIỆN *@
         <div class="col-md-6">
-            <h5 class="text-success"><i class="fas fa-microchip"></i> Linh kiện (@(Model.Components?.Count ?? 0))</h5>
-            <table class="table table-sm table-hover border mt-2">
-                <thead class="table-light">
-                    <tr>
-                        <th>Tên linh kiện</th>
-                        <th>Trạng thái</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model.Components != null && Model.Components.Any())
-                    {
-                        foreach (var item in Model.Components)
-                        {
+            <div class="p-3 border rounded-3 bg-light bg-opacity-50">
+                @* Sửa chỗ này: Dùng Model.Components.Count để lấy số lượng thực tế *@
+                <h5 class="text-success mb-3"><i class="fas fa-microchip me-2"></i>Linh kiện (@(Model.Components?.Count(c => !c.IsDeleted) ?? 0))</h5>
+                <div class="table-responsive">
+                    <table id="tableComponents" class="table table-sm table-hover border bg-white mb-0">
+                        <thead class="table-light">
                             <tr>
-                                <td>@item.Name</td>
-                                <td>
-                                    <span class="badge rounded-pill @(item.Status == "Trong kho" ? "bg-info text-dark" : "bg-success")">
-                                        @item.Status
-                                    </span>
-                                </td>
-                                <td><a asp-controller="Components" asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs btn-outline-success py-0">Xem</a></td>
+                                <th>Tên linh kiện</th>
+                                <th>Trạng thái</th>
+                                <th class="text-center">Thao tác</th>
                             </tr>
-                        }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="3" class="text-center text-muted py-3">
-                                <i class="fas fa-info-circle"></i> Chưa có máy tính nào trong danh mục này.
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody>
+                            @* Sửa: Kiểm tra danh sách có null không và có phần tử nào không *@
+                            @if (Model.Components != null && Model.Components.Any())
+                            {
+                                @foreach (var item in Model.Components)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>
+                                            <span class="badge rounded-pill @(item.Status == "Trong kho" ? "bg-info text-dark" : "bg-success") small">
+                                                @item.Status
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a asp-controller="Components" asp-action="Details" asp-route-id="@item.Id" class="btn btn-xs btn-outline-success py-0 px-2 small">Xem</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr class="empty-row">
+                                    <td class="text-center text-muted py-3">---</td>
+                                    <td class="text-center text-muted py-3">Chưa có linh kiện nào</td>
+                                    <td class="text-center text-muted py-3">---</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    <div class="row mt-4 pt-3 border-top">
+        <div class="col-12 text-end">
+            <span class="text-muted me-2">Tổng giá trị đầu tư ước tính:</span>
+            <span class="text-danger fw-bold fs-4">
+                @((Model.Computers?.Sum(c => c.TotalValue) + Model.Components?.Sum(c => c.Price))?.ToString("N0")) VNĐ
+            </span>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var tableConfig = {
+                "language": { "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json" },
+                "pageLength": 5,
+                "searching": false,
+                "lengthChange": false,
+                "info": false,
+                "retrieve": true
+            };
+
+            // Khởi tạo bảng Máy tính nếu có dữ liệu (không có class no-data)
+            if ($('#tableComputers tbody tr td').not('.no-data').length > 0) {
+                $('#tableComputers').DataTable(tableConfig);
+            }
+
+            // Khởi tạo bảng Linh kiện nếu có dữ liệu
+            if ($('#tableComponents tbody tr td').not('.no-data').length > 0) {
+                $('#tableComponents').DataTable(tableConfig);
+            }
+        });
+    </script>
+}

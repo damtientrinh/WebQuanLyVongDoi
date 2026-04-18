@@ -88,7 +88,7 @@
                                 @item.TotalValue.ToString("N0") <small class="text-muted">đ</small>
                             </td>
                             <td class="text-center">
-                                <div class="position-relative d-inline-block">
+                                <div class="position-relative d-inline-block" data-bs-toggle="tooltip" title="Số lượng linh kiện đã lắp">
                                     <i class="fas fa-microchip fa-lg text-secondary opacity-50"></i>
                                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark" style="font-size: 0.6rem;">
                                         @(item.Components?.Count ?? 0)
@@ -97,7 +97,14 @@
                             </td>
                             <td class="text-center small text-muted">
                                 <i class="far fa-calendar-alt me-1"></i>
-                                @(item.MaintenanceLogs?.OrderByDescending(l => l.RepairDate).FirstOrDefault()?.RepairDate.ToString("dd/MM/yyyy") ?? "---")
+                                @if (item.MaintenanceLogs?.Any() == true)
+                                {
+                                    @item.MaintenanceLogs.Max(l => l.RepairDate).ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    <span class="opacity-25">---</span>
+                                }
                             </td>
                             <td class="text-center pe-4">
                                 <div class="btn-group shadow-sm rounded">
@@ -126,56 +133,95 @@
     </div>
 </div>
 
+
 <style>
-    /* 1. Ngăn chặn thanh cuộn hiện ra khi Hover */
-    .table-responsive {
-        overflow-x: hidden !important; /* Giấu thanh cuộn ngang nếu không cần thiết */
-        padding-bottom: 5px; /* Tạo khoảng trống nhỏ để bóng đổ không bị cắt */
+    /* 1. Thiết lập bảng chuyên nghiệp */
+    #computerTable {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100% !important;
     }
 
-    /* 2. Hiệu ứng Hover mới: Sang trọng và KHÔNG rung lắc */
-    #computerTable tbody tr {
-        transition: all 0.2s ease-in-out;
-        cursor: pointer;
-        position: relative;
-    }
-
-        #computerTable tbody tr:hover {
-            /* Thay vì dịch chuyển (TranslateX), ta dùng đổ bóng và đổi màu nền nhẹ */
-            background-color: #f1f4fd !important;
-            box-shadow: inset 4px 0 0 #4e73df; /* Tạo một vạch màu xanh mỏng ở đầu hàng */
-            z-index: 1;
+        /* 2. Hiệu ứng Hover: Dùng vạch màu mỏng và đổi nhẹ tone nền */
+        #computerTable tbody tr {
+            transition: background-color 0.15s ease-in-out;
+            cursor: pointer;
         }
 
-            /* 3. Làm mượt các Badge khi hover */
-            #computerTable tbody tr:hover .badge {
-                filter: brightness(0.9);
+            #computerTable tbody tr:hover {
+                background-color: rgba(78, 115, 223, 0.05) !important; /* Màu xanh Primary cực nhạt */
             }
 
-    /* 4. Tùy chỉnh thanh cuộn nếu bắt buộc phải có (để nó luôn hiện, tránh nhảy) */
-    .table-responsive::-webkit-scrollbar {
-        height: 6px;
+                /* Vạch chỉ thị bên trái khi hover */
+                #computerTable tbody tr:hover td:first-child {
+                    box-shadow: inset 4px 0 0 #4e73df;
+                }
+
+    /* 3. Tùy chỉnh các thành phần DataTables để khớp với Bootstrap 5 */
+    .dataTables_wrapper .dataTables_filter input {
+        border-radius: 20px;
+        padding: 5px 15px;
+        border: 1px solid #dee2e6;
+        outline: none;
     }
 
-    .table-responsive::-webkit-scrollbar-thumb {
-        background: #dee2e6;
+    .dataTables_wrapper .dataTables_length select {
         border-radius: 10px;
+        padding: 3px 10px;
+    }
+
+    .page-item.active .page-link {
+        background-color: #4e73df;
+        border-color: #4e73df;
+    }
+
+    /* Tùy chỉnh cụm nút thao tác */
+    .btn-white {
+        background-color: #fff;
+        border: 1px solid #e3e6f0;
+        transition: all 0.2s;
+    }
+
+    .btn-white:hover {
+        background-color: #f8f9fc;
+        transform: translateY(-1px);
+     }
+
+    /* Đảm bảo cột giá trị không bị ngắt dòng */
+    .text-end {
+        white-space: nowrap;
     }
 </style>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#computerTable').DataTable({
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl)
+            })
+
+            var table = $('#computerTable').DataTable({
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
                 },
                 "pageLength": 10,
                 "order": [[0, "desc"]],
                 "columnDefs": [
-                    { "orderable": false, "targets": [3, 5, 7] }
+                    { "orderable": false, "targets": [5, 7] } // Không cho sắp xếp cột Linh kiện & Thao tác
                 ],
-                "dom": '<"d-flex justify-content-between align-items-center p-3"<"me-auto"l><"ms-auto"f>>rt<"d-flex justify-content-between align-items-center p-3"ip>'
+                // Cải tiến dom: thêm các class Bootstrap để căn chỉnh padding
+                "dom": "<'row px-3 py-3'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                       "<'row'<'col-sm-12'tr>>" +
+                       "<'row px-3 py-3'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+            });
+
+            // Cho phép nhấn vào hàng để xem chi tiết (Trừ khi nhấn vào các nút thao tác)
+            $('#computerTable tbody').on('click', 'tr', function (e) {
+                if ($(e.target).closest('.btn-group').length === 0) {
+                    var detailUrl = $(this).find('a[title="Chi tiết"]').attr('href');
+                    if (detailUrl) window.location.href = detailUrl;
+                }
             });
         });
     </script>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebQuanLyTaiSan.Models;
+using BCrypt.Net;
 
 namespace WebQuanLyTaiSan.Data
 {
@@ -7,6 +8,17 @@ namespace WebQuanLyTaiSan.Data
     {
         public static void Seed(ModelBuilder modelBuilder)
         {
+            // --- 0. SEED USER (Để có tài khoản đăng nhập Admin) ---
+            modelBuilder.Entity<User>().HasData(new User
+            {
+                Id = 1,
+                FullName = "Administrator",
+                Email = "admin@epu.edu.vn",
+                Password = BCrypt.Net.BCrypt.HashPassword("123456"), 
+                Role = "Admin",
+                CreatedAt = DateTimeOffset.Now
+            });
+
             // --- 1. SEED PHÒNG BAN (20 PHÒNG) ---
             var departments = new List<Department>();
             string[] deptNames = { "Khoa CNTT", "Phòng Đào tạo", "Phòng Hành chính", "Phòng Kế hoạch", "Trung tâm Thí nghiệm", "Khoa Điện", "Khoa Cơ khí", "Phòng Tài vụ", "Thư viện", "Phòng Bảo vệ" };
@@ -15,6 +27,7 @@ namespace WebQuanLyTaiSan.Data
                 departments.Add(new Department
                 {
                     Id = i,
+                    DeptCode = i <= 10 ? new[] { "CNTT", "DT", "HC", "KH", "TTTN", "DIEN", "CK", "TVU", "TV", "BV" }[i - 1] : $"DEPT{i}",
                     Name = i <= 10 ? deptNames[i - 1] : $"Phòng chức năng {i}",
                     Location = $"Tầng {(i % 5) + 1} - Nhà {(char)('A' + (i % 4))}",
                     CreatedAt = DateTimeOffset.Now
@@ -22,7 +35,23 @@ namespace WebQuanLyTaiSan.Data
             }
             modelBuilder.Entity<Department>().HasData(departments);
 
-            // --- 2. SEED DANH MỤC (20 LOẠI) ---
+            // --- 2. SEED NHÂN VIÊN ---
+            var employees = new List<Employee>();
+            for (int i = 1; i <= 15; i++)
+            {
+                employees.Add(new Employee
+                {
+                    Id = i,
+                    FullName = $"Nhân viên {i}",
+                    EmployeeCode = $"NV{i:D3}",
+                    Email = $"nv{i}@epu.edu.vn",
+                    DepartmentId = (i % 10) + 1, // Chia đều vào 10 phòng ban đầu
+                    CreatedAt = DateTimeOffset.Now
+                });
+            }
+            modelBuilder.Entity<Employee>().HasData(employees);
+
+            // --- 3. SEED DANH MỤC (20 LOẠI) ---
             var categories = new List<Category>();
             string[] catNames = { "Máy tính để bàn", "Linh kiện rời", "Thiết bị mạng", "Laptop", "Máy in", "Máy chiếu", "Server", "Thiết bị lưu trữ" };
             for (int i = 1; i <= 20; i++)
@@ -31,13 +60,14 @@ namespace WebQuanLyTaiSan.Data
                 {
                     Id = i,
                     Name = i <= 8 ? catNames[i - 1] : $"Thiết bị loại {i}",
+                    Group = CategoryGroup.Device, 
                     Description = $"Mô tả cho danh mục {i}",
                     CreatedAt = DateTimeOffset.Now
                 });
             }
             modelBuilder.Entity<Category>().HasData(categories);
 
-            // --- 3. SEED MÁY TÍNH (20 MÁY) ---
+            // --- 4. SEED MÁY TÍNH (20 MÁY) ---
             var computers = new List<Computer>();
             string[] brands = { "Dell Optiplex", "HP ProDesk", "Lenovo ThinkCentre", "MacBook Air", "Asus ExpertCenter" };
             string[] statuses = { "Đang dùng", "Bảo trì", "Trong kho", "Hỏng" };
@@ -50,8 +80,11 @@ namespace WebQuanLyTaiSan.Data
                     Name = $"{brands[i % 5]} Gen {i}",
                     Status = statuses[i % 4],
                     PurchaseDate = DateTime.Now.AddDays(-i * 10),
+                    PurchasePrice = 10000000 + (i * 500000), // Giá gốc để tính TCO
+                    WarrantyMonths = 24,
                     DepartmentId = (i % 20) + 1,
-                    CategoryId = (i % 5 == 0) ? 4 : 1, // Xen kẽ Laptop và PC
+                    EmployeeId = (i % 15) + 1, // Giao máy cho nhân viên
+                    CategoryId = (i % 5 == 0) ? 4 : 1,
                     CreatedAt = DateTimeOffset.Now
                 });
             }

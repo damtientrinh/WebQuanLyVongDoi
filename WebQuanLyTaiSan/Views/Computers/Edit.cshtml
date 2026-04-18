@@ -4,75 +4,108 @@
     ViewData["Title"] = "Chỉnh sửa máy tính";
 }
 
-<div class="container mt-4">
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card shadow border-0">
-                <div class="card-header bg-warning text-dark py-3">
-                    <h4 class="mb-0"><i class="fas fa-edit"></i> Chỉnh Sửa Thông Tin Máy Tính</h4>
-                </div>
-                <div class="card-body p-4">
-                    <form asp-action="Edit">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-lg-10">
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb bg-transparent p-0 small">
+                    <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none text-muted">Danh sách</a></li>
+                    <li class="breadcrumb-item active fw-bold text-warning">Chỉnh sửa thiết bị</li>
+                </ol>
+            </nav>
 
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-gradient-warning py-4 border-0">
+                    <div class="d-flex align-items-center">
+                        <div class="header-icon bg-white text-warning rounded-circle me-3 shadow-sm">
+                            <i class="fas fa-edit fa-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="mb-0 fw-bold text-dark">Cập Nhật Thông Tin</h4>
+                            <p class="mb-0 text-dark-50 small">Đang chỉnh sửa máy: <span class="fw-bold">@Model.AssetCode</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <form asp-action="Edit" id="editForm">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
                         <input type="hidden" asp-for="Id" />
 
-                        <div class="row">
+                        <div class="row g-4">
                             <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label asp-for="AssetCode" class="control-label fw-bold"></label>
-                                    <input asp-for="AssetCode" class="form-control bg-light" readonly title="Mã tài sản không được phép sửa" />
-                                    <span asp-validation-for="AssetCode" class="text-danger"></span>
-                                    <small class="text-muted">Mã tài sản cố định không nên thay đổi.</small>
+                                <h6 class="text-uppercase text-muted fw-bold mb-4 small"><i class="fas fa-id-card me-2"></i>Định danh tài sản</h6>
+
+                                <div class="form-floating mb-3">
+                                    <input asp-for="AssetCode" class="form-control border-0 bg-light shadow-none fw-bold text-primary" readonly />
+                                    <label asp-for="AssetCode">Mã tài sản (Cố định)</label>
                                 </div>
 
-                                <div class="form-group mb-3">
-                                    <label asp-for="Name" class="control-label fw-bold"></label>
-                                    <input asp-for="Name" class="form-control" />
-                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Name" class="form-control border-0 bg-light shadow-none" placeholder="Tên máy" />
+                                    <label asp-for="Name">Tên máy / Model</label>
+                                    <span asp-validation-for="Name" class="text-danger small"></span>
                                 </div>
 
-                                <div class="form-group mb-3">
-                                    <label asp-for="Status" class="control-label fw-bold"></label>
-                                    <select asp-for="Status" class="form-select border-warning">
-                                        <option value="Đang dùng">Đang dùng</option>
-                                        <option value="Bảo trì">Bảo trì</option>
-                                        <option value="Hỏng">Hỏng</option>
-                                        <option value="Trong kho">Trong kho</option>
-                                    </select>
-                                    <span asp-validation-for="Status" class="text-danger"></span>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-muted ps-2">TRẠNG THÁI VẬN HÀNH</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text border-0 bg-light"><i class="fas fa-signal text-warning"></i></span>
+                                        <select asp-for="Status" class="form-select border-0 bg-light shadow-none">
+                                            <option value="Trong kho">Trong kho</option>
+                                            <option value="Đang dùng">Đang dùng</option>
+                                            <option value="Bảo trì">Bảo trì</option>
+                                            <option value="Hỏng">Hỏng</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-md-6 border-start ps-4">
-                                <div class="form-group mb-3">
-                                    <label asp-for="PurchaseDate" class="control-label fw-bold"></label>
-                                    <input asp-for="PurchaseDate" class="form-control" type="date" />
-                                    <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+                            <div class="col-md-6 border-start-md ps-md-4">
+                                <h6 class="text-uppercase text-muted fw-bold mb-4 small"><i class="fas fa-box-open me-2"></i>Chi tiết tình trạng</h6>
+
+                                <div class="form-floating mb-3">
+                                    <input asp-for="PurchaseDate" class="form-control border-0 bg-light shadow-none" type="date" />
+                                    <label asp-for="PurchaseDate">Ngày nhập kho</label>
                                 </div>
 
-                                <div class="form-group mb-3">
-                                    <label asp-for="CategoryId" class="control-label fw-bold">Danh mục</label>
-                                    <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId"></select>
-                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
-                                </div>
+                                <div id="vue-app">
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold text-muted ps-2">PHÒNG BAN QUẢN LÝ</label>
+                                        <select asp-for="DepartmentId" class="form-select border-0 bg-light shadow-none" asp-items="ViewBag.DepartmentId">
+                                            <option value="">-- Để trống nếu ở trong kho --</option>
+                                        </select>
+                                    </div>
 
-                                <div class="form-group mb-3">
-                                    <label asp-for="DepartmentId" class="control-label fw-bold">Phòng ban</label>
-                                    <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.DepartmentId"></select>
-                                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
+                                    <div class="mb-3">
+                                        <label class="form-label small fw-bold text-muted ps-2">ĐÓNG GÓI</label>
+                                        <select asp-for="Packaging" v-model="packaging" class="form-select border-0 bg-light shadow-none">
+                                            <option value="0">Fullbox (Nguyên hộp)</option>
+                                            <option value="1">No Box (Máy trần)</option>
+                                        </select>
+                                    </div>
+
+                                    <transition name="fade-slide">
+                                        <div class="mb-3" v-if="packaging == 1">
+                                            <label class="form-label small fw-bold text-danger ps-2">DANH SÁCH PHỤ KIỆN</label>
+                                            <textarea asp-for="Accessories" v-model="accessories"
+                                                      class="form-control border-0 bg-light shadow-none"
+                                                      rows="3" placeholder="Sạc, túi chống sốc, chuột..."></textarea>
+                                        </div>
+                                    </transition>
                                 </div>
                             </div>
                         </div>
 
-                        <hr />
-                        <div class="form-group d-flex gap-2">
-                            <button type="submit" class="btn btn-warning px-4 shadow-sm fw-bold">
-                                <i class="fas fa-save"></i> Cập nhật
-                            </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary px-4">
-                                <i class="fas fa-undo"></i> Quay lại
+                        <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
+                            <a asp-action="Index" class="btn btn-link text-decoration-none text-muted p-0">
+                                <i class="fas fa-chevron-left me-1"></i> Hủy thay đổi
                             </a>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-warning px-5 rounded-pill fw-bold shadow-sm">
+                                    <i class="fas fa-check-circle me-2"></i>Lưu cập nhật
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -81,8 +114,61 @@
     </div>
 </div>
 
+<style>
+    body {
+        background-color: #f4f7f6;
+    }
+
+    .bg-gradient-warning {
+        background: linear-gradient(45deg, #ffc107 0%, #ff9800 100%);
+    }
+
+    .header-icon {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Hiệu ứng mượt mà khi hiện ô phụ kiện */
+    .fade-slide-enter-active, .fade-slide-leave-active {
+        transition: all 0.3s ease;
+    }
+
+    .fade-slide-enter, .fade-slide-leave-to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    .form-control:focus, .form-select:focus {
+        background-color: #fff !important;
+        border: 1px solid #ffc107 !important;
+        box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.1) !important;
+    }
+
+    /* Responsive border */
+    @@media (min-width: 768px) {
+        .border-start-md {
+            border-left: 1px solid #dee2e6 !important;
+        }
+    }
+</style>
+
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#vue-app',
+            data: {
+                // Ép kiểu int để Vue so sánh với value 0/1 trong select
+                packaging: @((int)Model.Packaging),
+                accessories: '@Html.Raw(Model.Accessories ?? "")'
+            }
+        });
+    </script>
 }

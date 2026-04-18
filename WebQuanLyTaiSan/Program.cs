@@ -22,14 +22,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
 // Tự động kiểm tra và cập nhật Database khi khởi động
 using (var scope = app.Services.CreateScope())
@@ -39,18 +38,12 @@ using (var scope = app.Services.CreateScope())
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
 
-        // 1. Cập nhật cấu trúc bảng (Migration)
-        context.Database.Migrate();
-
-        // 2. GỌI SEEDER Ở ĐÂY (Đây là bước bạn đang thiếu)
-        // Giả sử class của bạn tên là DbSeeder và hàm là Seed
-        //DbSeeder.Seed(context);
         context.Database.Migrate();
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Có lỗi xảy ra khi khởi tạo Database.");
+        logger.LogError(ex, "Có lỗi xảy ra khi khởi tạo Database: " + ex.Message);
     }
 }
 

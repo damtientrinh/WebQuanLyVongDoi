@@ -1,26 +1,52 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace WebQuanLyTaiSan.Models
 {
+    public enum CategoryGroup
+    {
+        Device = 0,    // Thiết bị chính (Máy tính, Laptop, Điện thoại)
+        Component = 1, // Linh kiện (CPU, RAM, SSD)
+        Peripheral = 2 // Ngoại vi (Chuột, Phím, Màn hình) 
+    }
     public class Category : BaseEntity
     {
+        public Category()
+        {
+            Computers = new HashSet<Computer>();
+            Components = new HashSet<Component>();
+        }
+
+        [Required(ErrorMessage = "Mã danh mục không được để trống")]
+        [StringLength(20)]
+        [Display(Name = "Mã danh mục")]
+        public string CategoryCode { get; set; } = string.Empty; // Ví dụ: LAP, PC, SRV
+
         [Required(ErrorMessage = "Tên danh mục không được để trống")]
-        [StringLength(100, ErrorMessage = "Tên danh mục không quá 100 ký tự")]
+        [StringLength(100)]
         [Display(Name = "Tên danh mục")]
-        public string Name { get; set; } = string.Empty; // Khởi tạo giá trị mặc định để tránh Warning
+        public string Name { get; set; } = string.Empty;
 
         [Display(Name = "Mô tả")]
         [StringLength(500)]
         public string? Description { get; set; }
 
-        // Tính tổng tài sản thuộc danh mục này
-        [Display(Name = "Số lượng tài sản")]
-        public int TotalAssets => (Computers?.Count ?? 0) + (Components?.Count ?? 0);
+        [Display(Name = "Nhóm tài sản")]
+        public CategoryGroup Group { get; set; }
 
-        public int CategoryType { get; set; }
+        // Thêm Icon để giao diện đẹp hơn
+        [Display(Name = "Biểu tượng")]
+        public string? Icon { get; set; } // Ví dụ: fa-desktop, fa-laptop
 
         // Navigation properties
-        public virtual ICollection<Computer>? Computers { get; set; }
-        public virtual ICollection<Component>? Components { get; set; }
+        public virtual ICollection<Computer> Computers { get; set; }
+        public virtual ICollection<Component> Components { get; set; }
+
+        // Helper properties (Read-only)
+        public int ComputerCount => Computers?.Count ?? 0;
+        public int ComponentCount => Components?.Count ?? 0;
+
+        // Kiểm tra xem danh mục này có an toàn để xóa không
+        public bool IsSafeToDelete => ComputerCount == 0 && ComponentCount == 0;
     }
 }

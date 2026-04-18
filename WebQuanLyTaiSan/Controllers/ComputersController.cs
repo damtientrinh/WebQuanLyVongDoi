@@ -22,11 +22,12 @@ namespace WebQuanLyTaiSan.Controllers
         // GET: Computers
         public async Task<IActionResult> Index(string searchString, int? departmentId)
         {
-            // Lưu lại giá trị để hiển thị lại trên Form lọc ở View
             ViewData["CurrentSearch"] = searchString;
             ViewData["CurrentDept"] = departmentId;
 
+            // Thêm AsNoTracking để tối ưu bộ nhớ
             var query = _context.Computers
+                .AsNoTracking()
                 .Include(c => c.Category)
                 .Include(c => c.Department)
                 .Include(c => c.Components)
@@ -34,7 +35,7 @@ namespace WebQuanLyTaiSan.Controllers
                 .Where(c => !c.IsDeleted)
                 .AsQueryable();
 
-            // 1. Lọc theo từ khóa (Mã tài sản hoặc Tên máy)
+            // 1. Lọc theo từ khóa
             if (!string.IsNullOrEmpty(searchString))
             {
                 query = query.Where(c => c.AssetCode.Contains(searchString) || c.Name.Contains(searchString));
@@ -46,9 +47,9 @@ namespace WebQuanLyTaiSan.Controllers
                 query = query.Where(c => c.DepartmentId == departmentId);
             }
 
-            // Chuẩn bị danh sách phòng ban cho Dropdown lọc
-            ViewBag.DepartmentId = new SelectList(_context.Departments, "Id", "Name", departmentId);
+            ViewBag.DepartmentId = new SelectList(_context.Departments.AsNoTracking(), "Id", "Name", departmentId);
 
+            // Thực thi truy vấn và gửi về View
             return View(await query.ToListAsync());
         }
 
@@ -212,15 +213,16 @@ namespace WebQuanLyTaiSan.Controllers
         // GET: Computers/Trash
         public async Task<IActionResult> Trash()
         {
-            // 1. Lấy dữ liệu từ Database về
-            var computers = await _context.Computers
+            // 1. Lấy dữ liệu từ Database lên 
+            var trashedComputersData = await _context.Computers
                 .Include(c => c.Category)
                 .Include(c => c.Department)
-                .Where(c => c.IsDeleted) 
-                .ToListAsync(); // Đưa dữ liệu về RAM (List<Computer>)
+                .Where(c => c.IsDeleted)
+                .ToListAsync();
 
-            // 2. Sắp xếp bằng LINQ trên RAM 
-            var trashedComputers = computers
+            // 2. Sắp xếp trên bộ nhớ (Client-side sorting)
+            // Sau khi ToListAsync(), dữ liệu đã nằm trong RAM nên sắp xếp DateTimeOffset sẽ không bị lỗi
+            var trashedComputers = trashedComputersData
                 .OrderByDescending(c => c.DeletedAt)
                 .ToList();
 

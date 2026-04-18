@@ -83,6 +83,24 @@
                                     </div>
                                 </div>
 
+                                @* Thêm ID app để Vue nhận diện vùng quản lý *@
+                                <div id="vue-app">
+                                    <div class="mb-3">
+                                        <label asp-for="Packaging" class="form-label fw-bold">Tình trạng đóng gói</label>
+                                        @* Thêm v-model vào đây *@
+                                        <select asp-for="Packaging" v-model="packaging" class="form-select border-0 bg-light">
+                                            <option value="0">Fullbox (Nguyên hộp)</option>
+                                            <option value="1">No Box (Máy trần)</option>
+                                        </select>
+                                    </div>
+
+                                    @* Dùng v-if của Vue để ẩn hiện cực mượt *@
+                                    <div class="mb-3" v-if="packaging == '1'">
+                                        <label asp-for="Accessories" class="text-danger small fw-bold">Phụ kiện kèm theo</label>
+                                        <textarea asp-for="Accessories" v-model="accessories" class="form-control border-0 bg-light"></textarea>
+                                    </div>
+                                </div>
+
                                 <div class="mb-3">
                                     <label asp-for="Status" class="form-label fw-bold text-muted small ms-2 text-uppercase">Trạng thái hiện tại</label>
                                     <div class="input-group">
@@ -214,6 +232,17 @@
 
             // Hiệu ứng Fade In cho Form
             $('.card').hide().fadeIn(800);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#vue-app',
+            data: {
+                packaging: @(Model == null ? 0 : (int)Model.Packaging),
+                accessories: '@Html.Raw(Model?.Accessories ?? "")'
+            }
         });
     </script>
 }

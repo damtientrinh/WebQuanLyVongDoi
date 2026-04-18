@@ -141,53 +141,38 @@
 
     <div class="card shadow-sm border-0 mt-4">
         <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-0">
-            <h6 class="m-0 font-weight-bold text-primary text-uppercase">Máy tính mới cập nhật</h6>
-            <a href="/Computers" class="btn btn-sm btn-outline-primary rounded-pill px-3">Tất cả</a>
+            <h6 class="m-0 font-weight-bold text-primary text-uppercase">Hoạt động hệ thống gần đây</h6>
         </div>
         <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="bg-light text-secondary text-uppercase small">
-                        <tr>
-                            <th class="ps-4">Mã máy</th>
-                            <th>Tên thiết bị</th>
-                            <th>Trạng thái</th>
-                            <th class="text-end pe-4">Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Take(5)) // Chỉ hiện 5 máy mới nhất
-                        {
-                            <tr>
-                                <td class="ps-4"><span class="fw-bold">@item.AssetCode</span></td>
-                                <td>@item.Name</td>
-                                <td>
-                                    @{
-                                        var (bgClass, icon) = item.Status switch
-                                        {
-                                            "Đang dùng" => ("bg-success", "fa-check-circle"),
-                                            "Bảo trì" => ("bg-warning text-dark", "fa-tools"),
-                                            "Hỏng" => ("bg-danger", "fa-exclamation-triangle"),
-                                            _ => ("bg-info", "fa-box")
-                                        };
-                                    }
-                                    <span class="badge rounded-pill @bgClass px-3 py-2">
-                                        <i class="fas @icon me-1 small"></i> @(item.Status ?? "Chưa rõ")
-                                    </span>
-                                </td>
-                                <td class="text-end pe-4">
-                                    <a href="/Computers/Details/@item.Id" class="btn btn-sm btn-light border rounded-circle">
-                                        <i class="fas fa-eye text-primary"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+            <ul class="list-group list-group-flush">
+                @* Đây là ví dụ, Trình có thể lấy dữ liệu từ bảng MaintenanceLogs hoặc AuditLog *@
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-circle bg-success text-white me-3 p-2 rounded-circle">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <div>
+                            <div class="small text-muted">10:30 AM - Hôm nay</div>
+                            <span>Nhập kho 05 thanh <b>RAM DDR4 8GB</b></span>
+                        </div>
+                    </div>
+                    <span class="badge bg-light text-dark">Kho vận</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div class="d-flex align-items-center">
+                        <div class="icon-circle bg-warning text-white me-3 p-2 rounded-circle">
+                            <i class="fas fa-wrench"></i>
+                        </div>
+                        <div>
+                            <div class="small text-muted">Hôm qua</div>
+                            <span>Máy <b>PC-001</b> bắt đầu bảo trì nguồn</span>
+                        </div>
+                    </div>
+                    <span class="badge bg-light text-dark">Bảo trì</span>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
 
 <style>
     /* Nâng tầm giao diện Card */

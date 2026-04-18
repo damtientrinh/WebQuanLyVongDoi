@@ -3,9 +3,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebQuanLyTaiSan.Models
 {
+    public enum PackagingStatus
+    {
+        [Display(Name = "Fullbox (Nguyên hộp)")]
+        FullBox = 0,
+
+        [Display(Name = "No Box (Máy trần)")]
+        NoBox = 1
+    }
+
     // Kế thừa BaseEntity để đồng bộ ID và Soft Delete
     public class Computer : BaseEntity
     {
+        public Computer()
+        {
+            MaintenanceLogs = new HashSet<MaintenanceLog>();
+            Components = new HashSet<Component>();
+        }
+
         [Required(ErrorMessage = "Mã tài sản không được để trống")]
         [Display(Name = "Mã máy tính")]
         [StringLength(20, ErrorMessage = "Mã tài sản không quá 20 ký tự")]
@@ -24,6 +39,20 @@ namespace WebQuanLyTaiSan.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime PurchaseDate { get; set; } = DateTime.Now;
 
+        [Display(Name = "Giá mua máy (Barebone/Gốc)")]
+        public decimal PurchasePrice { get; set; } // Giá lúc mua máy chưa tính linh kiện rời
+
+        [Display(Name = "Thời hạn bảo hành (tháng)")]
+        public int WarrantyMonths { get; set; }
+
+        [Display(Name = "Nhà cung cấp")]
+        public string? Supplier { get; set; }
+
+        // Gắn với nhân viên cụ thể
+        [Display(Name = "Người sử dụng")]
+        public int? EmployeeId { get; set; }
+        public virtual Employee? Employee { get; set; }
+
         // --- Logic tính toán (Không lưu vào DB) ---
 
         [NotMapped]
@@ -37,8 +66,26 @@ namespace WebQuanLyTaiSan.Models
         public decimal TotalValue => Components?.Sum(c => c.Price) ?? 0;
 
         [NotMapped]
-        [Display(Name = "Tổng chi phí (TCO)")]
-        public decimal TotalOwnershipCost => TotalValue + (MaintenanceLogs?.Sum(m => m.Cost) ?? 0);
+        [Display(Name = "Hạn bảo hành")]
+        public DateTime WarrantyExpiration => PurchaseDate.AddMonths(WarrantyMonths);
+
+        [NotMapped]
+        [Display(Name = "Tình trạng bảo hành")]
+        public string WarrantyStatus => DateTime.Now > WarrantyExpiration ? "Hết hạn" : "Còn hạn";
+
+        [NotMapped]
+        [Display(Name = "Tổng giá trị tài sản")]
+        // Giá gốc + Tổng giá linh kiện lắp thêm
+        public decimal CurrentTotalValue => PurchasePrice + (Components?.Sum(c => c.Price) ?? 0);
+
+        // Cập nhật lại TCO bao gồm cả giá mua máy ban đầu
+        [NotMapped]
+        [Display(Name = "Tổng chi phí sở hữu (TCO)")]
+        public decimal TotalOwnershipCost => CurrentTotalValue + (MaintenanceLogs?.Sum(m => m.Cost) ?? 0);
+
+        public PackagingStatus Packaging { get; set; } = PackagingStatus.FullBox;
+        public string? Accessories { get; set; }
+
 
         // --- Mối quan hệ Navigation ---
 

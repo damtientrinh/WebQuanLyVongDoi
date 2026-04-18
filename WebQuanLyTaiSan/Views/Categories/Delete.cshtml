@@ -4,64 +4,122 @@
     ViewData["Title"] = "Xóa danh mục";
 }
 
-<div class="container mt-4">
+<div class="container-fluid py-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-xl-4 col-lg-6 col-md-8">
+
             @if (TempData["ErrorMessage"] != null)
             {
-                <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-3" role="alert">
-                    <i class="fas fa-exclamation-circle me-2"></i> @TempData["ErrorMessage"]
+                <div class="alert alert-danger alert-dismissible fade show shadow-sm mb-4 border-0" role="alert">
+                    <div class="d-flex">
+                        <i class="fas fa-exclamation-circle mt-1 me-2"></i>
+                        <div>@TempData["ErrorMessage"]</div>
+                    </div>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             }
-            <div class="card shadow border-0">
-                <div class="card-header bg-danger text-white py-3">
-                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Xác nhận xóa danh mục</h5>
+
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-danger py-4 border-0 text-center">
+                    <div class="display-4 text-white mb-2">
+                        <i class="fas fa-trash-alt animate__animated animate__shakeX"></i>
+                    </div>
+                    <h4 class="mb-0 fw-bold text-white">Xác Nhận Xóa</h4>
                 </div>
-                <div class="card-body p-4 text-center">
-                    <div class="alert alert-danger mb-4">
-                        <i class="fas fa-info-circle"></i>
-                        <strong>Cảnh báo:</strong> Xóa danh mục này có thể ảnh hưởng đến các Máy tính và Linh kiện thuộc danh mục đó!
+
+                <div class="card-body p-4">
+                    <div class="text-center mb-4">
+                        <p class="text-muted">Bạn có chắc chắn muốn xóa danh mục này không? Hành động này không thể hoàn tác.</p>
+                        <h3 class="text-dark fw-bold">@Model.Name</h3>
+                        <span class="badge bg-light text-secondary border px-3 py-2 mt-2">
+                            <i class="fas fa-fingerprint me-1"></i> ID: #@Model.Id
+                        </span>
                     </div>
 
-                    <h4 class="text-dark mb-2">@Model.Name</h4>
-                    <p class="text-muted mb-4">
-                        @(string.IsNullOrEmpty(Model.Description) ? "Không có mô tả cho danh mục này." : Model.Description)
-                    </p>
-
-                    <div class="row mb-4 border-top border-bottom py-3">
-                        <div class="col-6 border-end">
-                            <h6 class="text-muted mb-1">Máy tính liên quan</h6>
-                            <span class="badge bg-primary fs-6">@(Model.Computers?.Count ?? 0)</span>
-                        </div>
-                        <div class="col-6">
-                            <h6 class="text-muted mb-1">Linh kiện liên quan</h6>
-                            <span class="badge bg-info text-dark fs-6">@(Model.Components?.Count ?? 0)</span>
+                    <div class="bg-light rounded-3 p-3 mb-4">
+                        <div class="row g-0 text-center">
+                            <div class="col-6 border-end border-2">
+                                <div class="small text-uppercase fw-bold text-muted mb-1">Máy tính</div>
+                                <div class="h4 mb-0 text-primary fw-bold">@(Model.Computers?.Count ?? 0)</div>
+                            </div>
+                            <div class="col-6">
+                                <div class="small text-uppercase fw-bold text-muted mb-1">Linh kiện</div>
+                                <div class="h4 mb-0 text-success fw-bold">@(Model.Components?.Count ?? 0)</div>
+                            </div>
                         </div>
                     </div>
 
-                    <form asp-action="Delete" class="d-flex justify-content-center gap-2">
+                    @if ((Model.Computers?.Count > 0) || (Model.Components?.Count > 0))
+                    {
+                        <div class="alert alert-warning border-0 shadow-sm small mb-4">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Lưu ý:</strong> Danh mục này đang chứa dữ liệu. Bạn nên chuyển các tài sản sang danh mục khác trước khi xóa để tránh mất liên kết dữ liệu.
+                        </div>
+                    }
+
+                    <form asp-action="Delete" id="deleteForm">
                         <input type="hidden" asp-for="Id" />
-                        <button type="submit" class="btn btn-danger px-4 shadow-sm">
-                            <i class="fas fa-trash"></i> Xác nhận xóa
-                        </button>
-                        <a asp-action="Index" class="btn btn-outline-secondary px-4">
-                            <i class="fas fa-undo"></i> Hủy bỏ
-                        </a>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger btn-lg shadow-sm fw-bold py-3" id="btnConfirmDelete">
+                                <i class="fas fa-check-circle me-1"></i> Tôi xác nhận xóa
+                            </button>
+                            <a asp-action="Index" class="btn btn-link text-secondary text-decoration-none py-2">
+                                <i class="fas fa-times me-1"></i> Quay lại danh sách
+                            </a>
+                        </div>
                     </form>
                 </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <small class="text-muted">
+                    <i class="fas fa-clock me-1"></i> Tạo lúc: @(Model.CreatedAt.ToString("dd/MM/yyyy HH:mm") ?? "N/A")
+                </small>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        border-radius: 1rem !important;
+    }
+
+    .bg-danger {
+        background: linear-gradient(45deg, #dc3545, #ff4d5a) !important;
+    }
+
+    /* Hiệu ứng rung nhẹ cho icon khi load trang */
+    @@keyframes shakeX {
+        from, to {
+            transform: translate3d(0, 0, 0);
+        }
+
+        10%, 30%, 50%, 70%, 90% {
+            transform: translate3d(-5px, 0, 0);
+        }
+
+        20%, 40%, 60%, 80% {
+            transform: translate3d(5px, 0, 0);
+        }
+    }
+
+    .animate__shakeX {
+        animation: shakeX 1s;
+    }
+</style>
+
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('form').submit(function () {
-                $(this).find("button[type='submit']")
-                       .prop('disabled', true)
-                       .html('<i class="fas fa-spinner fa-spin"></i> Đang xóa...');
+            $('#deleteForm').submit(function () {
+                $('#btnConfirmDelete').addClass('disabled').prop('disabled', true);
+                $('#btnConfirmDelete').html('<span class="spinner-border spinner-border-sm me-2"></span> Đang xử lý...');
             });
         });
     </script>

@@ -18,18 +18,17 @@ namespace WebQuanLyTaiSan.Data
         public DbSet<Component> Components { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Employee> Employees { get; set; }
         public DbSet<MaintenanceLog> MaintenanceLogs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            // --- CẤU HÌNH SQLITE  ---
             if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
             {
-                // Bộ chuyển đổi Decimal sang Double để SQLite làm việc được với hàm Sum, Max, Min...
-                var decimalConverter = new ValueConverter<decimal, double>(
-                    v => (double)v,
-                    v => (decimal)v);
+                var decimalConverter = new ValueConverter<decimal, double>(v => (double)v, v => (decimal)v);
 
                 foreach (var entityType in modelBuilder.Model.GetEntityTypes())
                 {
@@ -42,8 +41,26 @@ namespace WebQuanLyTaiSan.Data
                         property.SetColumnType("REAL");
                     }
                 }
-                DbSeeder.Seed(modelBuilder);
             }
+
+            // --- GLOBAL QUERY FILTER (Tự động ẩn dữ liệu đã xóa) ---
+            // Giúp không cần viết .Where(x => !x.IsDeleted) trong Controller nữa
+            modelBuilder.Entity<Computer>().HasQueryFilter(c => !c.IsDeleted);
+            modelBuilder.Entity<Component>().HasQueryFilter(c => !c.IsDeleted);
+            modelBuilder.Entity<Employee>().HasQueryFilter(e => !e.IsDeleted);
+            modelBuilder.Entity<Department>().HasQueryFilter(d => !d.IsDeleted);
+            modelBuilder.Entity<Category>().HasQueryFilter(c => !c.IsDeleted);
+
+            // --- CẤU HÌNH QUAN HỆ ---
+            // Khi xóa một Phòng ban, không cho phép xóa nếu vẫn còn Nhân viên bên trong (Bảo vệ dữ liệu)
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Department)
+                .WithMany(d => d.Employees)
+                .HasForeignKey(e => e.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Seeder
+            DbSeeder.Seed(modelBuilder);
         }
 
         // 1. Ghi đè bản Async 

@@ -4,20 +4,26 @@ namespace WebQuanLyTaiSan.Models
 {
     public class User : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
+        // Bạn đã có Id ở BaseEntity rồi, không cần [Key] public int Id ở đây nữa
+
+        [Required(ErrorMessage = "Họ tên không được để trống")]
+        [Display(Name = "Họ và tên")]
+        public string FullName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email không được để trống")]
+        [EmailAddress(ErrorMessage = "Email không hợp lệ")]
+        public string Email { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(100)]
-        public string FullName { get; set; }
+        [DataType(DataType.Password)]
+        [Display(Name = "Mật khẩu")]
+        [StringLength(255, MinimumLength = 6, ErrorMessage = "Mật khẩu từ 6 đến 255 ký tự")]
+        public string Password { get; set; } = string.Empty;
 
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Quyền hạn")]
+        public string Role { get; set; } = "Staff"; // Admin, Manager, Staff
 
-        [Required]
-        public string Password { get; set; }
-
-        public string Role { get; set; } = "User"; // Mặc định là User, có thể là Admin
+        [Display(Name = "Trạng thái tài khoản")]
+        public bool IsActive { get; set; } = true;
     }
 }
