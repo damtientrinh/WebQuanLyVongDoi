@@ -48,7 +48,9 @@
                         <div class="bg-light rounded-3 p-3 mb-4 d-flex justify-content-between align-items-center">
                             <div class="small text-muted">
                                 <i class="far fa-calendar-alt me-1"></i> Ngày tạo:
-                                <span class="fw-bold text-dark">@(Model.CreatedAt.ToString("dd/MM/yyyy HH:mm") ?? "N/A")</span>
+                                <span class="fw-bold text-dark">
+                                    @(Model.CreatedAt.ToString("dd/MM/yyyy HH:mm") ?? "N/A")
+                                </span>
                             </div>
                             <i class="fas fa-info-circle text-muted" data-bs-toggle="tooltip" title="Thông tin này không thể thay đổi"></i>
                         </div>
@@ -102,6 +104,12 @@
         color: #4e73df !important;
         text-decoration: underline !important;
     }
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+        transition: all 0.3s ease;
+    }
 </style>
 
 @section Scripts {
@@ -124,6 +132,12 @@
                     $('#spinner').removeClass('d-none');
                     $('#iconSave').addClass('d-none');
                     $('#btnText').text(' Đang xử lý...');
+                }
+                else {
+                    $('#btnSave').removeClass('disabled').prop('disabled', false);
+                    $('#spinner').addClass('d-none');
+                    $('#iconSave').removeClass('d-none');
+                    $('#btnText').text('Cập nhật thay đổi');
                 }
             });
         });

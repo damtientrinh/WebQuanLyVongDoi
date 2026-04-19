@@ -44,7 +44,17 @@
                         <tr>
                             <td class="ps-4">
                                 <div class="fw-bold text-dark">@item.Name</div>
-                                <div class="small text-muted">ID: #@item.Id</div>
+                                <div class="d-flex gap-2 align-items-center">
+                                    <small class="text-muted">ID: #@item.Id</small>
+                                    @if (item.WarrantyStatus == "Hết hạn")
+                                    {
+                                        <span class="badge bg-danger p-1" style="font-size: 0.6rem;">Hết bảo hành</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success p-1" style="font-size: 0.6rem;">Còn BH</span>
+                                    }
+                                </div>
                             </td>
                             <td>
                                 <span class="badge bg-light text-dark border font-monospace">
@@ -108,7 +118,7 @@
 <style>
     /* Chống rung lắc và tạo hiệu ứng chuyên nghiệp */
     .table-responsive {
-        overflow-x: hidden !important;
+        overflow-x: auto !important;
         padding-bottom: 1px;
     }
 
@@ -121,6 +131,11 @@
             background-color: #f8f9fc !important;
             border-left: 3px solid #4e73df;
             cursor: pointer;
+        }
+
+        #componentTable tbody tr:active {
+            background-color: #ebf0ff !important;
+            transform: scale(0.99);
         }
 
     .btn-white {

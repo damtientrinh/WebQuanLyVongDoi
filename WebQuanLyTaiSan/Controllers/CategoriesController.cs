@@ -57,7 +57,7 @@ namespace WebQuanLyTaiSan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name, Description")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,CategoryCode,Name,Description,Group,Icon")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace WebQuanLyTaiSan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CategoryCode,Name,Description,Group,Icon")] Category category)
         {
             if (id != category.Id)
             {
@@ -156,17 +156,10 @@ namespace WebQuanLyTaiSan.Controllers
                 .Include(c => c.Components)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
-            if (category == null)
-            {
-                return NotFound();
-            }
+            if (category == null) return NotFound();
+            
 
-            // 2. Kiểm tra ràng buộc: Nếu vẫn còn máy tính/linh kiện thì không cho xóa
-            // Lưu ý: Chỉ đếm những máy tính/linh kiện CHƯA bị xóa (IsDeleted == false)
-            bool hasRelatedData = (category.Computers?.Any(c => !c.IsDeleted) ?? false) ||
-                                  (category.Components?.Any(c => !c.IsDeleted) ?? false);
-
-            if (hasRelatedData)
+            if (!category.IsSafeToDelete)
             {
                 TempData["ErrorMessage"] = "Không thể xóa danh mục này vì vẫn còn tài sản đang hoạt động thuộc danh mục!";
                 return RedirectToAction(nameof(Delete), new { id = id });
@@ -174,14 +167,10 @@ namespace WebQuanLyTaiSan.Controllers
 
             // 3. THỰC HIỆN XÓA MỀM (Soft Delete)
             category.IsDeleted = true;
-            category.UpdatedAt = DateTimeOffset.Now; // Cập nhật thời gian xóa
-
             _context.Update(category);
             await _context.SaveChangesAsync();
 
-            // Thông báo thành công cho người dùng
             TempData["SuccessMessage"] = "Đã xóa danh mục thành công!";
-
             return RedirectToAction(nameof(Index));
         }
 

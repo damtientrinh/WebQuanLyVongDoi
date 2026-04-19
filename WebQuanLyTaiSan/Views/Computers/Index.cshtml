@@ -44,6 +44,7 @@
                         <th class="text-end">Giá Trị</th>
                         <th class="text-center">Linh Kiện</th>
                         <th class="text-center">Bảo Trì Cuối</th>
+                        <th class="text-center">Khấu hao</th>
                         <th class="text-center pe-4">Thao Tác</th>
                     </tr>
                 </thead>
@@ -56,7 +57,13 @@
                             </td>
                             <td>
                                 <div class="fw-bold text-dark">@item.Name</div>
-                                <div class="small text-muted" style="font-size: 0.75rem;">ID: #@item.Id</div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <small class="text-muted" style="font-size: 0.75rem;">ID: #@item.Id</small>
+                                    @if (item.Packaging == PackagingStatus.FullBox)
+                                    {
+                                        <span class="badge bg-outline-secondary p-0 text-secondary" style="font-size: 0.65rem;"><i class="fas fa-box-open"></i> Fullbox</span>
+                                    }
+                                </div>
                             </td>
                             <td class="text-center">
                                 @{
@@ -85,7 +92,7 @@
                                 </div>
                             </td>
                             <td class="text-end fw-bold text-dark">
-                                @item.TotalValue.ToString("N0") <small class="text-muted">đ</small>
+                                @item.CurrentTotalValue.ToString("N0") <small class="text-muted">đ</small>
                             </td>
                             <td class="text-center">
                                 <div class="position-relative d-inline-block" data-bs-toggle="tooltip" title="Số lượng linh kiện đã lắp">
@@ -105,6 +112,15 @@
                                 {
                                     <span class="opacity-25">---</span>
                                 }
+                            </td>
+                            <td class="text-center">
+                                <div class="progress" style="height: 6px; width: 80px; margin: 0 auto;" data-bs-toggle="tooltip" title="@item.DepreciationPercentage%">
+                                    @{
+                                        var progressClass = item.DepreciationPercentage > 80 ? "bg-danger" : (item.DepreciationPercentage > 50 ? "bg-warning" : "bg-success");
+                                    }
+                                    <div class="progress-bar @progressClass" style="width: @item.DepreciationPercentage%"></div>
+                                </div>
+                                <small class="text-muted" style="font-size: 0.7rem;">@item.DepreciationPercentage%</small>
                             </td>
                             <td class="text-center pe-4">
                                 <div class="btn-group shadow-sm rounded">
@@ -127,7 +143,7 @@
             </div>
             <div class="col text-end pe-4">
                 <span class="text-muted me-2">Tổng giá trị tài sản:</span>
-                <span class="h5 mb-0 fw-bold text-primary">@Model.Sum(i => i.TotalValue).ToString("N0") <small>VNĐ</small></span>
+                <span class="h5 mb-0 fw-bold text-primary">@Model.Sum(i => i.CurrentTotalValue).ToString("N0") <small>VNĐ</small></span>
             </div>
         </div>
     </div>

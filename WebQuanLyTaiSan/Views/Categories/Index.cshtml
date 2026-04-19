@@ -15,7 +15,9 @@
                     <p class="text-muted small mb-0">Quản lý và định nghĩa các nhóm tài sản IT trong hệ thống</p>
                 </div>
                 <div class="col-md-6 text-md-end mt-2 mt-md-0">
-                    <button class="btn btn-outline-secondary btn-sm me-2 shadow-none"><i class="fas fa-print me-1"></i> In danh sách</button>
+                    <button id="btnInDanhSach"  class="btn btn-outline-secondary btn-sm me-2 shadow-none">
+                        <i class="fas fa-print me-1"></i> In danh sách
+                    </button>
                     <a asp-action="Create" class="btn btn-primary rounded-pill px-4 shadow-sm">
                         <i class="fas fa-plus-circle me-1"></i> Thêm danh mục
                     </a>
@@ -29,6 +31,13 @@
             {
                 <div class="alert alert-success alert-dismissible fade show m-3 border-0 shadow-sm" role="alert">
                     <i class="fas fa-check-circle me-2"></i> @TempData["SuccessMessage"]
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            }
+            @if (TempData["ErrorMessage"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible fade show m-3 border-0 shadow-sm" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i> @TempData["ErrorMessage"]
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             }
@@ -61,6 +70,7 @@
                                         </div>
                                         <div>
                                             <div class="fw-bold text-dark">@item.Name</div>
+                                            <small class="text-primary fw-semibold">@item.CategoryCode</small>
                                             <small class="text-muted" style="font-size: 0.75rem;">ID: #@item.Id</small>
                                         </div>
                                     </div>
@@ -162,23 +172,51 @@
 </style>
 
 @section Scripts {
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+
     <script>
         $(document).ready(function () {
-            // Kiểm tra nếu DataTable đã tồn tại thì hủy (destroy) trước khi tạo mới
+            // 1. Hủy thực thể cũ nếu có (để tránh lỗi Reinitialise)
             if ($.fn.DataTable.isDataTable('#categoryTable')) {
                 $('#categoryTable').DataTable().destroy();
             }
 
-            // Khởi tạo lại với cấu hình mong muốn
-            $('#categoryTable').DataTable({
+            // 2. Khởi tạo DataTable với cấu hình Buttons
+            var table = $('#categoryTable').DataTable({
                 "language": {
                     "url": "https://cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
                 },
-                "dom": '<"d-flex justify-content-between align-items-center p-3"lf>rt<"d-flex justify-content-between align-items-center p-3"ip>',
+                "dom": '<"d-flex justify-content-between align-items-center p-3"Blf>rt<"d-flex justify-content-between align-items-center p-3"ip>',
                 "columnDefs": [
                     { "orderable": false, "targets": [3, 4] }
                 ],
-                "retrieve": true // Thêm thuộc tính này để tránh lỗi reinitialise
+                "buttons": [
+                    {
+                        extend: 'print',
+                        className: 'd-none',
+                        title: '', // Để trống nếu muốn tự thiết kế tiêu đề trong trang in
+                        messageTop: function () {
+                            return '<h2 class="text-center my-4">DANH SÁCH DANH MỤC PHÂN LOẠI TÀI SẢN</h2>';
+                        },
+                        exportOptions: {
+                            columns: [0, 1, 2, 3] // Bỏ cột "Thao tác" (cột số 4)
+                        },
+                        customize: function (win) {
+                            // Tùy chỉnh thêm CSS cho trang in nếu cần
+                            $(win.document.body).css('font-size', '12pt');
+                            $(win.document.body).find('table').addClass('compact').css('font-size', 'inherit');
+                        }
+                    }
+                ]
+            });
+
+            // 3. Kích hoạt nút In khi bấm vào nút của Trình
+            // Dùng .closest('button') để đảm bảo bắt đúng sự kiện dù bấm vào icon hay chữ
+            $('#btnInDanhSach').on('click', function (e) {
+                e.preventDefault();
+                table.button('.buttons-print').trigger();
             });
         });
     </script>

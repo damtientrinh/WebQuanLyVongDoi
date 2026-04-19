@@ -36,9 +36,10 @@
                             <div class="col-md-6">
                                 <h6 class="text-uppercase text-muted fw-bold mb-4 small"><i class="fas fa-id-card me-2"></i>Định danh tài sản</h6>
 
-                                <div class="form-floating mb-3">
+                                <div class="form-floating mb-3 position-relative">
                                     <input asp-for="AssetCode" class="form-control border-0 bg-light shadow-none fw-bold text-primary" readonly />
                                     <label asp-for="AssetCode">Mã tài sản (Cố định)</label>
+                                    <i class="fas fa-lock text-muted position-absolute" style="top: 50%; right: 15px; transform: translateY(-50%); z-index: 5;"></i>
                                 </div>
 
                                 <div class="form-floating mb-3">
@@ -166,9 +167,26 @@
             el: '#vue-app',
             data: {
                 // Ép kiểu int để Vue so sánh với value 0/1 trong select
-                packaging: @((int)Model.Packaging),
+                packaging: @((int)(Model?.Packaging ?? 0)),
                 accessories: '@Html.Raw(Model.Accessories ?? "")'
             }
+        });
+
+        $(document).ready(function () {
+            const statusSelect = $('select[name="Status"]');
+            const deptSelect = $('select[name="DepartmentId"]');
+
+            deptSelect.on('change', function() {
+                if ($(this).val()) {
+                    if (statusSelect.val() === 'Trong kho') {
+                        statusSelect.val('Đang dùng');
+                    }
+                } else {
+                    if (statusSelect.val() === 'Đang dùng') {
+                        statusSelect.val('Trong kho');
+                    }
+                }
+            });
         });
     </script>
 }

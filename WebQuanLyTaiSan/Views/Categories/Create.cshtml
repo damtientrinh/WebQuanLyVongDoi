@@ -15,6 +15,13 @@
                     <form asp-action="Create">
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-3 fw-bold"></div>
 
+                        @* Mã danh mục *@
+                        <div class="form-group mb-3">
+                            <label asp-for="CategoryCode" class="control-label fw-bold"></label>
+                            <input asp-for="CategoryCode" class="form-control shadow-sm text-uppercase" placeholder="Ví dụ: LAP, PC, SSD..." />
+                            <span asp-validation-for="CategoryCode" class="text-danger"></span>
+                        </div>
+
                         @* 1. Tên danh mục *@
                         <div class="form-group mb-3">
                             <label asp-for="Name" class="control-label fw-bold"></label>
@@ -22,15 +29,25 @@
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 
-                        @* 2. CHỖ MỚI THÊM: Chọn nhóm tài sản *@
+                        @* 2. Chọn nhóm tài sản *@
                         <div class="form-group mb-3">
                             <label asp-for="Group" class="control-label fw-bold">Phân loại nhóm</label>
-                            <select asp-for="Group" class="form-select shadow-sm border-2 border-primary-subtle">
-                                <option value="0">💻 Thiết bị chính (Máy tính, Laptop...)</option>
-                                <option value="1">⚙️ Linh kiện (CPU, RAM, SSD...)</option>
-                                <option value="2">🖱️ Ngoại vi (Chuột, Phím, Màn hình...)</option>
+                            <select asp-for="Group" class="form-select shadow-sm border-2 border-primary-subtle"
+                                    asp-items="Html.GetEnumSelectList<WebQuanLyTaiSan.Models.CategoryGroup>()">
                             </select>
                             <span asp-validation-for="Group" class="text-danger"></span>
+                        </div>
+
+                        @* Icon *@
+                        <div class="form-group mb-3">
+                            <label asp-for="Icon" class="control-label fw-bold"></label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i id="previewIcon" class="fas fa-icons text-primary"></i>
+                                </span>
+                                <input asp-for="Icon" id="iconInput" class="form-control shadow-sm" placeholder="Ví dụ: fa-laptop, fa-server..." />
+                            </div>
+                            <small class="text-muted">Xem tên icon tại FontAwesome 5/6.</small>
                         </div>
 
                         @* 3. Mô tả *@
@@ -64,14 +81,34 @@
     }
     <script>
         $(document).ready(function () {
-            $('form').submit(function () {
+            $('form').submit(function (e) {
                 if ($(this).valid()) {
                     $('#btnSave').prop('disabled', true);
                     $('#spinner').removeClass('d-none');
                     $('#iconSave').addClass('d-none');
                     $('#btnText').text('Đang xử lý...');
+                } 
+                else 
+                {
+                    $('#btnSave').prop('disabled', false);
+                    $('#spinner').addClass('d-none');
+                    $('#iconSave').removeClass('d-none');
+                    $('#btnText').text('Lưu danh mục');
                 }
             });
+        });
+
+        $('#CategoryCode').on('blur', function() {
+            $(this).val($(this).val().toUpperCase());
+        });
+
+        $('#iconInput').on('input', function() {
+            var iconClass = $(this).val();
+            if(iconClass.trim() !== "") {
+                $('#previewIcon').attr('class', 'fas ' + iconClass + ' text-primary');
+            } else {
+                $('#previewIcon').attr('class', 'fas fa-icons text-primary');
+            }
         });
     </script>
 }

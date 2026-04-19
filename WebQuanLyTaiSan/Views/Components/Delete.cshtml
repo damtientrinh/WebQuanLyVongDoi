@@ -29,9 +29,11 @@
 
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Status)</dt>
                         <dd class="col-sm-8">
-                            <span class="badge @(Model.Status == "Đang sử dụng" ? "bg-success" : "bg-info")">
-                                @Model.Status
-                            </span>
+                            @{
+                                var statusClass = Model.Status == "Trong kho" ? "bg-info" :
+                                (Model.Status == "Đang sử dụng" ? "bg-success" : "bg-danger");
+                            }
+                            <span class="badge @statusClass px-3 py-2">@Model.Status</span>
                         </dd>
 
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Category)</dt>
@@ -41,6 +43,9 @@
                         <dd class="col-sm-8">
                             @(Model.Computer != null ? Model.Computer.AssetCode : "Chưa gán máy")
                         </dd>
+
+                        <dt class="col-sm-4">@Html.DisplayNameFor(model => model.PurchaseDate)</dt>
+                        <dd class="col-sm-8">@Model.PurchaseDate.ToString("dd/MM/yyyy")</dd>
                     </dl>
 
                     <div class="mt-4 pt-3 border-top d-flex justify-content-between">
@@ -48,9 +53,9 @@
                         {
                             @* Trường hợp linh kiện ĐANG ĐƯỢC LẮP - Khóa nút xóa *@
                             <div class="d-flex align-items-center">
-                                <button type="button" class="btn btn-secondary px-4 shadow-sm" disabled title="Không thể xóa linh kiện đang sử dụng">
-                                    <i class="fas fa-ban"></i> Không thể xóa
-                                </button>
+                                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning px-4 shadow-sm">
+                                    <i class="fas fa-external-link-alt"></i> Đi tới gỡ linh kiện
+                                </a>
                                 <span class="text-danger ms-3 small">
                                     <i class="fas fa-info-circle"></i> Hãy gỡ linh kiện khỏi máy <strong>@Model.Computer.AssetCode</strong> trước khi xóa.
                                 </span>
@@ -79,7 +84,7 @@
 
 <script>
     $(document).ready(function () {
-        $('form').submit(function (e) {
+        $('form[asp-action="Delete"]').submit(function (e) {
             if (!confirm("Bạn có chắc chắn muốn xác nhận xóa linh kiện này không?")) {
                 e.preventDefault();
             }

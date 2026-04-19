@@ -207,8 +207,10 @@ namespace WebQuanLyTaiSan.Controllers
             var component = await _context.Components.FindAsync(id);
             if (component != null)
             {
-                component.IsDeleted = true; // Đánh dấu xóa
-                component.UpdatedAt = DateTime.Now; // Lưu vết thời gian
+                component.IsDeleted = true;
+                component.UpdatedAt = DateTime.Now;
+                component.DeletedAt = DateTime.Now;
+
                 _context.Update(component);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Đã xóa linh kiện thành công!";
@@ -220,12 +222,53 @@ namespace WebQuanLyTaiSan.Controllers
         public async Task<IActionResult> Trash()
         {
             var components = await _context.Components
+                .IgnoreQueryFilters()
                 .Include(c => c.Category)
                 .Include(c => c.Computer)
                 .Where(c => c.IsDeleted)
                 .ToListAsync();
 
             return View(components.OrderByDescending(x => x.DeletedAt).ToList());
+        }
+
+        // Khôi phục linh kiện
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var component = await _context.Components
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (component != null)
+            {
+                component.IsDeleted = false;
+                component.DeletedAt = null;
+                component.Status = component.ComputerId.HasValue ? "Đang sử dụng" : "Trong kho";
+
+                _context.Update(component);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Khôi phục linh kiện thành công!";
+            }
+            return RedirectToAction(nameof(Trash));
+        }
+
+        // Xóa vĩnh viễn linh kiện
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePermanent(int id)
+        {
+            var component = await _context.Components
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (component != null)
+            {
+                _context.Components.Remove(component);
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Linh kiện đã bị xóa vĩnh viễn!";
+            }
+            return RedirectToAction(nameof(Trash));
         }
 
         private bool ComponentExists(int id)

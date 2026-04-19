@@ -22,7 +22,9 @@
 
                         <div class="text-center p-2 bg-light rounded border border-dashed ms-2 shadow-sm">
                             <i class="fas fa-qrcode fa-3x text-dark mb-1"></i>
-                            <div class="small text-muted mb-0 fw-bold">SN: @Model.SerialNumber</div>
+                            <div class="small text-muted mb-0 fw-bold" style="font-family: 'Courier New', Courier, monospace;">
+                                SN: @Model.SerialNumber
+                            </div>
                         </div>
                     </div>
 
@@ -35,6 +37,11 @@
 
                         <dt class="col-sm-4">@Html.DisplayNameFor(model => model.Category)</dt>
                         <dd class="col-sm-8 text-primary">@Model.Category?.Name</dd>
+
+                        <dt class="col-sm-4">Thông số kỹ thuật</dt>
+                        <dd class="col-sm-8">
+                            @(string.IsNullOrEmpty(Model.Specifications) ? "Không có thông tin" : Model.Specifications)
+                        </dd>
                     </dl>
                 </div>
 
@@ -49,10 +56,25 @@
                         <dt class="col-sm-5">@Html.DisplayNameFor(model => model.Status)</dt>
                         <dd class="col-sm-7">
                             @{
-                                var statusClass = Model.Status == "Trong kho" ? "bg-info" :
-                                (Model.Status == "Đang sử dụng" ? "bg-success" : "bg-danger");
+                                var (statusClass, icon) = Model.Status switch
+                                {
+                                    "Đang sử dụng" => ("bg-success-subtle text-success border-success", "fa-link"),
+                                    "Trong kho" => ("bg-primary-subtle text-primary border-primary", "fa-archive"),
+                                    "Hỏng" => ("bg-danger-subtle text-danger border-danger", "fa-exclamation-circle"),
+                                    _ => ("bg-secondary-subtle text-secondary border-secondary", "fa-question")
+                                };
                             }
-                            <span class="badge @statusClass px-3 py-2">@Model.Status</span>
+                            <span class="badge rounded-pill border px-3 py-2 @statusClass">
+                                <i class="fas @icon me-1"></i> @Model.Status
+                            </span>
+                        </dd>
+
+                        <dt class="col-sm-5">Hạn bảo hành</dt>
+                        <dd class="col-sm-7">
+                            <div class="fw-bold @(Model.WarrantyStatus == "Hết hạn" ? "text-danger" : "text-dark")">
+                                @Model.WarrantyExpiration.ToString("dd/MM/yyyy")
+                            </div>
+                            <small class="text-muted">(@Model.WarrantyStatus)</small>
                         </dd>
 
                         <dt class="col-sm-5">Đang lắp tại máy</dt>

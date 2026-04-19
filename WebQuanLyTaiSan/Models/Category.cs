@@ -5,8 +5,11 @@ namespace WebQuanLyTaiSan.Models
 {
     public enum CategoryGroup
     {
+        [Display(Name = "Thiết bị chính")]
         Device = 0,    // Thiết bị chính (Máy tính, Laptop, Điện thoại)
+        [Display(Name = "Linh kiện")]
         Component = 1, // Linh kiện (CPU, RAM, SSD)
+        [Display(Name = "Ngoại vi")]
         Peripheral = 2 // Ngoại vi (Chuột, Phím, Màn hình) 
     }
     public class Category : BaseEntity

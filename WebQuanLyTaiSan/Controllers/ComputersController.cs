@@ -88,7 +88,7 @@ namespace WebQuanLyTaiSan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AssetCode,Name,Status,PurchaseDate,CategoryId,DepartmentId")] Computer computer)
+        public async Task<IActionResult> Create([Bind("Id,AssetCode,Name,Status,PurchaseDate,PurchasePrice,WarrantyMonths,Supplier,Packaging,Accessories,CategoryId,DepartmentId")] Computer computer)
         {
             if (ModelState.IsValid)
             {
@@ -112,16 +112,14 @@ namespace WebQuanLyTaiSan.Controllers
         // GET: Computers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var computer = await _context.Computers.FindAsync(id);
-            if (computer == null)
-            {
-                return NotFound();
-            }
+            var computer = await _context.Computers
+                .Include(c => c.Components)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (computer == null) return NotFound();
+            
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", computer.CategoryId);
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "Id", "Name", computer.DepartmentId);
             return View(computer);
@@ -132,7 +130,7 @@ namespace WebQuanLyTaiSan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AssetCode,Name,Status,PurchaseDate,CategoryId,DepartmentId")] Computer computer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,AssetCode,Name,Status,PurchaseDate,PurchasePrice,WarrantyMonths,Supplier,Packaging,Accessories,CategoryId,DepartmentId")] Computer computer)
         {
             if (id != computer.Id) return NotFound();
 
@@ -215,6 +213,7 @@ namespace WebQuanLyTaiSan.Controllers
         {
             // 1. Lấy dữ liệu từ Database lên 
             var trashedComputersData = await _context.Computers
+                .IgnoreQueryFilters()
                 .Include(c => c.Category)
                 .Include(c => c.Department)
                 .Where(c => c.IsDeleted)
@@ -234,11 +233,15 @@ namespace WebQuanLyTaiSan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Restore(int id)
         {
-            var computer = await _context.Computers.FindAsync(id);
+            var computer = await _context.Computers
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (computer != null)
             {
                 computer.IsDeleted = false;
                 computer.DeletedAt = null;
+                computer.UpdatedAt = DateTime.Now;
                 computer.Status = "Trong kho"; 
 
                 _context.Update(computer);
@@ -254,13 +257,38 @@ namespace WebQuanLyTaiSan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeletePermanent(int id)
         {
-            var computer = await _context.Computers.FindAsync(id);
+            var computer = await _context.Computers
+                .IgnoreQueryFilters()
+                .Include(c => c.MaintenanceLogs)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (computer != null)
             {
-                _context.Computers.Remove(computer); // Đây mới là xóa thật khỏi DB
+                if (computer.Components != null && computer.Components.Any())
+                {
+                    foreach (var comp in computer.Components)
+                    {
+                        comp.ComputerId = null; // Gỡ khỏi máy
+                        comp.Status = "Trong kho";
+                        _context.Update(comp);
+                    }
+                }
+
+                if (computer.MaintenanceLogs != null && computer.MaintenanceLogs.Any())
+                {
+                    _context.MaintenanceLogs.RemoveRange(computer.MaintenanceLogs);
+                }
+
+                _context.Computers.Remove(computer);
                 await _context.SaveChangesAsync();
+
                 TempData["SuccessMessage"] = "Đã xóa vĩnh viễn máy tính khỏi hệ thống!";
             }
+            else
+            {
+                TempData["ErrorMessage"] = "Không tìm thấy dữ liệu để xóa!";
+            }
+
             return RedirectToAction(nameof(Trash));
         }
 

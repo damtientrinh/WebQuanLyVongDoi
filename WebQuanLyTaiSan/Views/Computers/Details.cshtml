@@ -71,7 +71,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="text-muted small d-block">Chi phí sửa chữa tích lũy:</label>
-                        <span class="fw-bold text-secondary">@Model.MaintenanceLogs?.Sum(x => x.Cost).ToString("N0") VNĐ</span>
+                        <span class="fw-bold text-secondary">@(Model.MaintenanceLogs?.Sum(x => x.Cost) ?? 0).ToString("N0") VNĐ</span>
                     </div>
                     <hr>
                     <div class="bg-light p-3 rounded-3 mt-3">
@@ -176,6 +176,11 @@
     .card {
         transition: transform 0.2s;
     }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+     }
 
     .nav-pills .nav-link {
         color: #6c757d;

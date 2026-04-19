@@ -18,6 +18,7 @@ namespace WebQuanLyTaiSan.Models
         [Display(Name = "Thông số kỹ thuật")]
         public string? Specifications { get; set; } // Ví dụ: 8GB DDR4, SSD 256GB
 
+        [Required(ErrorMessage = "Vui lòng nhập giá nhập")]
         [Display(Name = "Giá nhập")]
         [Range(0, double.MaxValue, ErrorMessage = "Giá nhập không được âm")]
         public decimal Price { get; set; }
@@ -47,5 +48,9 @@ namespace WebQuanLyTaiSan.Models
 
         [NotMapped]
         public DateTime WarrantyExpiration => PurchaseDate.AddMonths(WarrantyMonths);
+
+        [NotMapped]
+        [Display(Name = "Tình trạng bảo hành")]
+        public string WarrantyStatus => DateTime.Now > WarrantyExpiration ? "Hết hạn" : "Còn hạn";
     }
 }

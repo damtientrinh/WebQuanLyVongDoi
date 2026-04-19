@@ -76,7 +76,7 @@ namespace WebQuanLyTaiSan.Models
         [NotMapped]
         [Display(Name = "Tổng giá trị tài sản")]
         // Giá gốc + Tổng giá linh kiện lắp thêm
-        public decimal CurrentTotalValue => PurchasePrice + (Components?.Sum(c => c.Price) ?? 0);
+        public decimal CurrentTotalValue => PurchasePrice + TotalValue;
 
         // Cập nhật lại TCO bao gồm cả giá mua máy ban đầu
         [NotMapped]
@@ -85,6 +85,20 @@ namespace WebQuanLyTaiSan.Models
 
         public PackagingStatus Packaging { get; set; } = PackagingStatus.FullBox;
         public string? Accessories { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Mức độ khấu hao (%)")]
+        public int DepreciationPercentage
+        {
+            get
+            {
+                // Giả sử vòng đời máy tính là 5 năm (60 tháng)
+                var monthsUsed = ((DateTime.Now.Year - PurchaseDate.Year) * 12) + DateTime.Now.Month - PurchaseDate.Month;
+                if (monthsUsed <= 0) return 0;
+                if (monthsUsed >= 60) return 100;
+                return (monthsUsed * 100) / 60;
+            }
+        }
 
 
         // --- Mối quan hệ Navigation ---

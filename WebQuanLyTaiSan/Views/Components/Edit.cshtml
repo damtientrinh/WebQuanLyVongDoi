@@ -67,6 +67,27 @@
                     </div>
                 </div>
 
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group mb-3">
+                            <label asp-for="PurchaseDate" class="control-label fw-bold"></label>
+                            <input asp-for="PurchaseDate" class="form-control" type="date" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-3">
+                            <label asp-for="WarrantyMonths" class="control-label fw-bold">Bảo hành (tháng)</label>
+                            <input asp-for="WarrantyMonths" class="form-control" type="number" min="0" />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mb-3">
+                            <label asp-for="Specifications" class="control-label fw-bold"></label>
+                            <textarea asp-for="Specifications" class="form-control" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+
                 <hr />
                 <div class="form-group mt-4">
                     <button type="submit" class="btn btn-warning px-4 shadow-sm">
