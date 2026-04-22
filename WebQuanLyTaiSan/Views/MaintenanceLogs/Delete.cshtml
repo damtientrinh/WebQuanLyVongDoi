@@ -13,14 +13,14 @@
                 </div>
                 <div class="card-body p-4">
                     <div class="text-center mb-4">
-                        <i class="fas fa-exclamation-circle text-danger fa-3x mb-3"></i>
-                        <h5 class="text-secondary">Bạn có chắc chắn muốn xóa bản ghi này?</h5>
-                        <p class="text-muted small">Hành động này sẽ loại bỏ vĩnh viễn chi phí bảo trì khỏi lịch sử máy tính.</p>
+                        <i class="fas fa-trash-restore text-warning fa-3x mb-3"></i>
+                        <h5 class="text-secondary">Bạn muốn đưa bản ghi này vào thùng rác?</h5>
+                        <p class="text-muted small">Bản ghi sẽ được tạm ẩn khỏi danh sách chính và có thể khôi phục lại sau này.</p>
                     </div>
 
                     <div class="bg-light rounded p-3 mb-4 border">
                         <dl class="row mb-0">
-                            <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.RepairDate)</dt>
+                            <dt class="col-sm-5 text-muted">Ngày bảo trì</dt>
                             <dd class="col-sm-7 fw-bold">@Model.RepairDate.ToString("dd/MM/yyyy")</dd>
 
                             <dt class="col-sm-5 text-muted">Máy tính liên quan</dt>
@@ -28,18 +28,26 @@
                                 <strong>@Model.Computer?.Name</strong> (@Model.Computer?.AssetCode)
                             </dd>
 
-                            <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.Cost)</dt>
+                            <dt class="col-sm-5 text-muted">Chi phí</dt>
                             <dd class="col-sm-7 text-danger fw-bold">@Model.Cost.ToString("N0") đ</dd>
 
-                            <dt class="col-sm-5 text-muted">@Html.DisplayNameFor(model => model.Description)</dt>
+                            <dt class="col-sm-5 text-muted">Mô tả lỗi</dt>
                             <dd class="col-sm-7 small">@Model.Description</dd>
+
+                            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                            {
+                                <dt class="col-sm-5 text-muted">Hình ảnh đính kèm</dt>
+                                <dd class="col-sm-7">
+                                    <img src="~/images/maintenance/@Model.ImageUrl" class="img-thumbnail" style="height: 100px;" />
+                                </dd>
+                            }
                         </dl>
                     </div>
 
                     <form asp-action="Delete" class="d-flex gap-2 justify-content-center border-top pt-3">
                         <input type="hidden" asp-for="Id" />
                         <button type="submit" class="btn btn-danger px-4 shadow-sm">
-                            <i class="fas fa-check-circle"></i> Xác nhận xóa
+                            <i class="fas fa-trash me-1"></i> Xóa tạm thời
                         </button>
                         <a asp-action="Index" class="btn btn-outline-secondary px-4">
                             <i class="fas fa-times"></i> Hủy bỏ

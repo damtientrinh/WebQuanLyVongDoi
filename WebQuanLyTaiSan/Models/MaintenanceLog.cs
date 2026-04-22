@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebQuanLyTaiSan.Models
 {
@@ -17,6 +18,7 @@ namespace WebQuanLyTaiSan.Models
         [Range(0, double.MaxValue, ErrorMessage = "Chi phí không được là số âm")]
         [Display(Name = "Chi phí")]
         [DisplayFormat(DataFormatString = "{0:N0} đ")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Cost { get; set; }
 
         [Display(Name = "Đơn vị sửa chữa")]

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using WebQuanLyTaiSan.Data;
@@ -6,42 +7,32 @@ using WebQuanLyTaiSan.Models;
 
 namespace WebQuanLyTaiSan.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            // 1. Thống kê nhanh cho các Card
+            // --- CÁC CARD THỐNG KÊ ---
             ViewBag.TotalComputers = await _context.Computers.CountAsync();
             ViewBag.TotalComponents = await _context.Components.CountAsync();
-
-            ViewBag.BrokenComputers = await _context.Computers.CountAsync(c => c.Status == "Bảo trì" || c.Status == "Hỏng");
-
-            // Đếm tổng số LƯỢT bảo trì (từ bảng MaintenanceLog)
-            ViewBag.MaintenanceCount = await _context.MaintenanceLogs.CountAsync();
-
             ViewBag.TotalDepartments = await _context.Departments.CountAsync();
 
-            ViewBag.TotalMaintenanceLogs = await _context.MaintenanceLogs.CountAsync();
-
-            // 1. Đếm máy đang dùng (Màu xanh)
+            // Thống kê trạng thái máy tính
             ViewBag.ActiveCount = await _context.Computers.CountAsync(c => c.Status == "Đang dùng");
-
-            // 2. Đếm máy đang bảo trì (Màu vàng)
             ViewBag.MaintenanceCount = await _context.Computers.CountAsync(c => c.Status == "Bảo trì");
+            ViewBag.BrokenCount = await _context.Computers.CountAsync(c => c.Status == "Hỏng");
 
-            // 3. Đếm máy bị hỏng (Màu đỏ)
-            ViewBag.BrokenOnlyCount = await _context.Computers.CountAsync(c => c.Status == "Hỏng");
+            // Tổng chi phí bảo trì tích lũy (Hiển thị con số ấn tượng trên Dashboard)
+            ViewBag.TotalRepairCost = await _context.MaintenanceLogs.SumAsync(m => m.Cost);
 
-            // 2. Lấy 5 máy tính mới nhất
+            // --- DANH SÁCH GẦN ĐÂY ---
             var recentComputers = await _context.Computers
                 .Include(c => c.Department)
                 .OrderByDescending(c => c.Id)
@@ -51,26 +42,22 @@ namespace WebQuanLyTaiSan.Controllers
             return View(recentComputers);
         }
 
-        // --- WEB API CHO AJAX ---
-        // Hàm này trả về dữ liệu JSON để vẽ biểu đồ mà không cần load lại trang
         [HttpGet]
         public async Task<IActionResult> GetMaintenanceChartData()
         {
             var currentYear = DateTime.Now.Year;
-            var maintenanceData = await _context.MaintenanceLogs
-                .AsNoTracking()
+            // Lấy dữ liệu và thực hiện tính toán trên bộ nhớ để đảm bảo tính ổn định
+            var logs = await _context.MaintenanceLogs
                 .Where(m => m.RepairDate.Year == currentYear)
-                .GroupBy(m => m.RepairDate.Month)
-                .Select(g => new { Month = g.Key, Total = g.Sum(m => m.Cost) })
+                .Select(m => new { m.RepairDate.Month, m.Cost })
                 .ToListAsync();
 
             var monthlyCosts = new decimal[12];
-            foreach (var item in maintenanceData)
+            foreach (var month in Enumerable.Range(1, 12))
             {
-                monthlyCosts[item.Month - 1] = item.Total;
+                monthlyCosts[month - 1] = logs.Where(l => l.Month == month).Sum(l => l.Cost);
             }
 
-            // Trả về dữ liệu kiểu JSON cho AJAX gọi
             return Json(new
             {
                 costs = monthlyCosts,

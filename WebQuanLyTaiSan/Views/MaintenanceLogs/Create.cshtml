@@ -17,32 +17,34 @@
 
                         <div class="row">
                             <div class="form-group mb-3 col-md-6">
-                                <label asp-for="ComputerId" class="control-label fw-bold mb-1"></label>
+                                <label asp-for="ComputerId" class="control-label fw-bold mb-1">Máy tính</label>
                                 <select asp-for="ComputerId" class="form-control select-search" asp-items="ViewBag.ComputerId">
-                                    <option value="">-- Chọn máy tính cần sửa --</option>
+                                    <option value="">-- Chọn máy tính --</option>
                                 </select>
                                 <span asp-validation-for="ComputerId" class="text-danger"></span>
                             </div>
 
                             <div class="form-group mb-3 col-md-6">
-                                <label asp-for="RepairDate" class="control-label fw-bold mb-1"></label>
+                                <label asp-for="RepairDate" class="control-label fw-bold mb-1">Ngày sửa</label>
                                 <input asp-for="RepairDate" class="form-control" />
                                 <span asp-validation-for="RepairDate" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label asp-for="Description" class="control-label fw-bold mb-1"></label>
-                            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Nhập chi tiết các linh kiện thay thế hoặc lỗi đã khắc phục..."></textarea>
+                            <label asp-for="Description" class="control-label fw-bold mb-1">Chi tiết nội dung</label>
+                            <textarea asp-for="Description" class="form-control" rows="3" placeholder="Lỗi gì, thay linh kiện gì..."></textarea>
                             <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
 
                         <div class="form-group mb-4">
-                            <label asp-for="Cost" class="control-label fw-bold mb-1"></label>
+                            <label asp-for="Cost" class="control-label fw-bold mb-1">Chi phí</label>
                             <div class="input-group">
-                                <input asp-for="Cost" class="form-control text-end" placeholder="0" />
-                                <span class="input-group-text">VNĐ</span>
+                                <input asp-for="Cost" id="costInput" type="number" step="any"
+                                       class="form-control text-end font-monospace fw-bold" placeholder="0" />
+                                <span class="input-group-text bg-light fw-bold">VNĐ</span>
                             </div>
+                            <div id="costPreview" class="text-muted small mt-1 text-end italic"></div>
                             <span asp-validation-for="Cost" class="text-danger"></span>
                         </div>
 
@@ -55,16 +57,20 @@
 
                             <div id="previewContainer" class="mt-3 d-none text-center">
                                 <img id="imagePreview" src="#" alt="Preview" class="img-thumbnail shadow-sm" style="max-height: 200px;" />
-                                <div class="mt-1"><button type="button" class="btn btn-sm btn-outline-danger" onclick="removeImage()">Xóa ảnh</button></div>
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeImage()">
+                                        <i class="fas fa-times"></i> Xóa ảnh
+                                    </button>
+                                </div>
                             </div>
                         </div>
 
                         <div class="d-flex gap-2 border-top pt-3">
                             <button type="submit" class="btn btn-primary px-4 shadow-sm">
-                                <i class="fas fa-save"></i> Lưu nhật ký
+                                <i class="fas fa-save me-1"></i> Lưu nhật ký
                             </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary">
-                                <i class="fas fa-undo"></i> Quay lại
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4">
+                                <i class="fas fa-undo me-1"></i> Quay lại
                             </a>
                         </div>
                     </form>
@@ -73,6 +79,34 @@
         </div>
     </div>
 </div>
+
+
+<style>
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-header {
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    /* Custom Select2 để khớp với Bootstrap 5 */
+    .select2-container--default .select2-selection--single {
+        height: 38px !important;
+        padding: 5px 12px;
+        border: 1px solid #dee2e6;
+        border-radius: 0.375rem;
+    }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 26px;
+            color: #212529;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 36px;
+        }
+</style>
 
 @section Scripts {
     @{
@@ -84,22 +118,44 @@
 
     <script>
         $(document).ready(function() {
+            // 1. Khởi tạo Select2
             $('.select-search').select2({
                 placeholder: "-- Chọn máy tính --",
                 allowClear: true,
                 width: '100%'
             });
-        });
-    </script>
 
-    <script>
-        document.getElementById('imageInput').onchange = function (evt) {
-            const [file] = this.files;
-            if (file) {
-                document.getElementById('imagePreview').src = URL.createObjectURL(file);
-                document.getElementById('previewContainer').classList.remove('d-none');
-            }
-        };
+            const costInput = document.getElementById('costInput');
+            const costPreview = document.getElementById('costPreview');
+
+            // 2. Hàm cập nhật bản xem trước có dấu phẩy (VNĐ)
+            const updateCostPreview = (val) => {
+                if (!val || val == 0) {
+                    costPreview.innerText = "";
+                    return;
+                }
+                // Định dạng số có dấu phẩy: 1,000,000
+                const formatted = new Intl.NumberFormat('en-US').format(val);
+                costPreview.innerText = "Xem trước: " + formatted + " VNĐ";
+            };
+
+            // Cập nhật khi load (nếu có giá trị mặc định)
+            updateCostPreview(costInput.value);
+
+            // Cập nhật khi người dùng nhập số
+            $(costInput).on('input', function () {
+                updateCostPreview(this.value);
+            });
+
+            // 3. Xử lý Preview ảnh
+            $('#imageInput').on('change', function() {
+                const [file] = this.files;
+                if (file) {
+                    $('#imagePreview').attr('src', URL.createObjectURL(file));
+                    $('#previewContainer').removeClass('d-none');
+                }
+            });
+        });
 
         function removeImage() {
             document.getElementById('imageInput').value = "";
@@ -107,17 +163,3 @@
         }
     </script>
 }
-
-<style>
-    /* Làm cho ô Select2 khớp với độ cao của các input Bootstrap 5 */
-    .select2-container .select2-selection--single {
-        height: 38px !important;
-        border: 1px solid #dee2e6 !important;
-        display: flex;
-        align-items: center;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__arrow {
-        height: 36px !important;
-    }
-</style>

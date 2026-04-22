@@ -11,8 +11,8 @@ using WebQuanLyTaiSan.Data;
 namespace WebQuanLyTaiSan.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260418043608_InitialProDB")]
-    partial class InitialProDB
+    [Migration("20260421080328_InitialProSystem")]
+    partial class InitialProSystem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,7 +76,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 1,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6226), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6897), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 1",
                             Group = 0,
                             IsDeleted = false,
@@ -86,7 +86,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 2,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6233), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6910), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 2",
                             Group = 0,
                             IsDeleted = false,
@@ -96,7 +96,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 3,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6238), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6916), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 3",
                             Group = 0,
                             IsDeleted = false,
@@ -106,7 +106,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 4,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6243), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6923), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 4",
                             Group = 0,
                             IsDeleted = false,
@@ -116,7 +116,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 5,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6248), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6929), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 5",
                             Group = 0,
                             IsDeleted = false,
@@ -126,7 +126,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 6,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6261), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6937), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 6",
                             Group = 0,
                             IsDeleted = false,
@@ -136,7 +136,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 7,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6266), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6944), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 7",
                             Group = 0,
                             IsDeleted = false,
@@ -146,7 +146,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 8,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6272), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6994), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 8",
                             Group = 0,
                             IsDeleted = false,
@@ -156,7 +156,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 9,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6279), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7005), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 9",
                             Group = 0,
                             IsDeleted = false,
@@ -166,7 +166,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 10,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6288), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7016), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 10",
                             Group = 0,
                             IsDeleted = false,
@@ -176,7 +176,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 11,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6295), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7024), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 11",
                             Group = 0,
                             IsDeleted = false,
@@ -186,7 +186,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 12,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6302), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7032), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 12",
                             Group = 0,
                             IsDeleted = false,
@@ -196,7 +196,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 13,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6309), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7040), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 13",
                             Group = 0,
                             IsDeleted = false,
@@ -206,7 +206,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 14,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6316), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7049), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 14",
                             Group = 0,
                             IsDeleted = false,
@@ -216,7 +216,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 15,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6322), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7057), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 15",
                             Group = 0,
                             IsDeleted = false,
@@ -226,7 +226,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 16,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6329), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7065), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 16",
                             Group = 0,
                             IsDeleted = false,
@@ -236,7 +236,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 17,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6336), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7073), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 17",
                             Group = 0,
                             IsDeleted = false,
@@ -246,7 +246,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 18,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6342), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7083), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 18",
                             Group = 0,
                             IsDeleted = false,
@@ -256,7 +256,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 19,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6349), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7091), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 19",
                             Group = 0,
                             IsDeleted = false,
@@ -266,7 +266,7 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 20,
                             CategoryCode = "",
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6356), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7100), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Mô tả cho danh mục 20",
                             Group = 0,
                             IsDeleted = false,
@@ -347,12 +347,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 1,
                             CategoryId = 2,
                             ComputerId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7031), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7958), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "SSD Samsung 256GB",
                             Price = 600000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6851),
-                            SerialNumber = "SN-C65969F0",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7814),
+                            SerialNumber = "SN-4E70DF4D",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -361,12 +361,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 2,
                             CategoryId = 2,
                             ComputerId = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7040), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7983), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "CPU Intel i5",
                             Price = 700000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7034),
-                            SerialNumber = "SN-6BA34F51",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7975),
+                            SerialNumber = "SN-05D2D444",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -374,12 +374,12 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 3,
                             CategoryId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7047), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7994), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "VGA GTX 1650",
                             Price = 800000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7041),
-                            SerialNumber = "SN-D30F036F",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7985),
+                            SerialNumber = "SN-5D45B2A7",
                             Status = "Trong kho",
                             WarrantyMonths = 0
                         },
@@ -388,12 +388,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 4,
                             CategoryId = 2,
                             ComputerId = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7054), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8004), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "Nguồn Cooler Master",
                             Price = 900000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7048),
-                            SerialNumber = "SN-B6FADB4C",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7996),
+                            SerialNumber = "SN-CF8521AF",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -402,12 +402,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 5,
                             CategoryId = 2,
                             ComputerId = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7061), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8031), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "RAM Kington 8GB",
                             Price = 1000000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7055),
-                            SerialNumber = "SN-7B308E3B",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8007),
+                            SerialNumber = "SN-014E054E",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -415,12 +415,12 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 6,
                             CategoryId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7076), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8041), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "SSD Samsung 256GB",
                             Price = 1100000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7063),
-                            SerialNumber = "SN-5DD7D60E",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8034),
+                            SerialNumber = "SN-8A328301",
                             Status = "Trong kho",
                             WarrantyMonths = 0
                         },
@@ -429,12 +429,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 7,
                             CategoryId = 2,
                             ComputerId = 8,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7083), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8062), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "CPU Intel i5",
                             Price = 1200000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7077),
-                            SerialNumber = "SN-42CC93E6",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8044),
+                            SerialNumber = "SN-27DEFC90",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -443,12 +443,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 8,
                             CategoryId = 2,
                             ComputerId = 9,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7107), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8073), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "VGA GTX 1650",
                             Price = 1300000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7085),
-                            SerialNumber = "SN-1216987A",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8064),
+                            SerialNumber = "SN-4993AF7B",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -456,12 +456,12 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 9,
                             CategoryId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7117), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8082), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "Nguồn Cooler Master",
                             Price = 1400000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7108),
-                            SerialNumber = "SN-74901126",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8075),
+                            SerialNumber = "SN-61FE6B1B",
                             Status = "Trong kho",
                             WarrantyMonths = 0
                         },
@@ -470,12 +470,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 10,
                             CategoryId = 2,
                             ComputerId = 11,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7140), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8115), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "RAM Kington 8GB",
                             Price = 1500000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7119),
-                            SerialNumber = "SN-6A25268C",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8085),
+                            SerialNumber = "SN-E61092AB",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -484,12 +484,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 11,
                             CategoryId = 2,
                             ComputerId = 12,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7153), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8124), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "SSD Samsung 256GB",
                             Price = 1600000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7142),
-                            SerialNumber = "SN-7692865D",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8117),
+                            SerialNumber = "SN-C378A063",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -497,12 +497,12 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 12,
                             CategoryId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7160), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8133), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "CPU Intel i5",
                             Price = 1700000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7154),
-                            SerialNumber = "SN-BB779E5F",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8126),
+                            SerialNumber = "SN-2A5F00CB",
                             Status = "Trong kho",
                             WarrantyMonths = 0
                         },
@@ -511,12 +511,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 13,
                             CategoryId = 2,
                             ComputerId = 14,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7168), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8189), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "VGA GTX 1650",
                             Price = 1800000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7162),
-                            SerialNumber = "SN-1758DEB5",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8135),
+                            SerialNumber = "SN-B49FBDD2",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -525,12 +525,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 14,
                             CategoryId = 2,
                             ComputerId = 15,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7175), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8200), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "Nguồn Cooler Master",
                             Price = 1900000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7169),
-                            SerialNumber = "SN-291BE856",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8191),
+                            SerialNumber = "SN-67793E24",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -538,12 +538,12 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 15,
                             CategoryId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7187), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8216), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "RAM Kington 8GB",
                             Price = 2000000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7176),
-                            SerialNumber = "SN-DC37ED2B",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8202),
+                            SerialNumber = "SN-1704F11C",
                             Status = "Trong kho",
                             WarrantyMonths = 0
                         },
@@ -552,12 +552,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 16,
                             CategoryId = 2,
                             ComputerId = 17,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7194), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8226), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "SSD Samsung 256GB",
                             Price = 2100000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7189),
-                            SerialNumber = "SN-B9145DD2",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8218),
+                            SerialNumber = "SN-093FA831",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -566,12 +566,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 17,
                             CategoryId = 2,
                             ComputerId = 18,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7204), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8236), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "CPU Intel i5",
                             Price = 2200000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7196),
-                            SerialNumber = "SN-3DAAE00B",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8228),
+                            SerialNumber = "SN-E3E5A0BE",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -579,12 +579,12 @@ namespace WebQuanLyTaiSan.Migrations
                         {
                             Id = 18,
                             CategoryId = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7211), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8246), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "VGA GTX 1650",
                             Price = 2300000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7206),
-                            SerialNumber = "SN-27A03514",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8239),
+                            SerialNumber = "SN-AFFC1AD2",
                             Status = "Trong kho",
                             WarrantyMonths = 0
                         },
@@ -593,12 +593,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 19,
                             CategoryId = 2,
                             ComputerId = 20,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7218), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8255), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "Nguồn Cooler Master",
                             Price = 2400000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7213),
-                            SerialNumber = "SN-1DFE57FA",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8248),
+                            SerialNumber = "SN-20A90F4F",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         },
@@ -607,12 +607,12 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 20,
                             CategoryId = 2,
                             ComputerId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7225), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8264), new TimeSpan(0, 7, 0, 0, 0)),
                             IsDeleted = false,
                             Name = "RAM Kington 8GB",
                             Price = 2500000.0,
-                            PurchaseDate = new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7220),
-                            SerialNumber = "SN-8E009254",
+                            PurchaseDate = new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8257),
+                            SerialNumber = "SN-AD088685",
                             Status = "Đang sử dụng",
                             WarrantyMonths = 0
                         });
@@ -702,13 +702,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 1,
                             AssetCode = "EPU-PC-001",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6577), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7319), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 2,
                             EmployeeId = 2,
                             IsDeleted = false,
                             Name = "HP ProDesk Gen 1",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 4, 8, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6563),
+                            PurchaseDate = new DateTime(2026, 4, 11, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7301),
                             PurchasePrice = 10500000.0,
                             Status = "Bảo trì",
                             WarrantyMonths = 24
@@ -718,13 +718,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 2,
                             AssetCode = "EPU-PC-002",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6587), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7340), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 3,
                             EmployeeId = 3,
                             IsDeleted = false,
                             Name = "Lenovo ThinkCentre Gen 2",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 3, 29, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6586),
+                            PurchaseDate = new DateTime(2026, 4, 1, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7338),
                             PurchasePrice = 11000000.0,
                             Status = "Trong kho",
                             WarrantyMonths = 24
@@ -734,13 +734,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 3,
                             AssetCode = "EPU-PC-003",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6595), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7402), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 4,
                             EmployeeId = 4,
                             IsDeleted = false,
                             Name = "MacBook Air Gen 3",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 3, 19, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6594),
+                            PurchaseDate = new DateTime(2026, 3, 22, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7400),
                             PurchasePrice = 11500000.0,
                             Status = "Hỏng",
                             WarrantyMonths = 24
@@ -750,13 +750,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 4,
                             AssetCode = "EPU-PC-004",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6603), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7415), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 5,
                             EmployeeId = 5,
                             IsDeleted = false,
                             Name = "Asus ExpertCenter Gen 4",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 3, 9, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6602),
+                            PurchaseDate = new DateTime(2026, 3, 12, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7413),
                             PurchasePrice = 12000000.0,
                             Status = "Đang dùng",
                             WarrantyMonths = 24
@@ -766,13 +766,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 5,
                             AssetCode = "EPU-PC-005",
                             CategoryId = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6610), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7428), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 6,
                             EmployeeId = 6,
                             IsDeleted = false,
                             Name = "Dell Optiplex Gen 5",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 2, 27, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6609),
+                            PurchaseDate = new DateTime(2026, 3, 2, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7426),
                             PurchasePrice = 12500000.0,
                             Status = "Bảo trì",
                             WarrantyMonths = 24
@@ -782,13 +782,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 6,
                             AssetCode = "EPU-PC-006",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6618), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7442), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 7,
                             EmployeeId = 7,
                             IsDeleted = false,
                             Name = "HP ProDesk Gen 6",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 2, 17, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6617),
+                            PurchaseDate = new DateTime(2026, 2, 20, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7440),
                             PurchasePrice = 13000000.0,
                             Status = "Trong kho",
                             WarrantyMonths = 24
@@ -798,13 +798,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 7,
                             AssetCode = "EPU-PC-007",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6627), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7454), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 8,
                             EmployeeId = 8,
                             IsDeleted = false,
                             Name = "Lenovo ThinkCentre Gen 7",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 2, 7, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6626),
+                            PurchaseDate = new DateTime(2026, 2, 10, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7453),
                             PurchasePrice = 13500000.0,
                             Status = "Hỏng",
                             WarrantyMonths = 24
@@ -814,13 +814,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 8,
                             AssetCode = "EPU-PC-008",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6636), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7477), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 9,
                             EmployeeId = 9,
                             IsDeleted = false,
                             Name = "MacBook Air Gen 8",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 1, 28, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6635),
+                            PurchaseDate = new DateTime(2026, 1, 31, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7467),
                             PurchasePrice = 14000000.0,
                             Status = "Đang dùng",
                             WarrantyMonths = 24
@@ -830,13 +830,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 9,
                             AssetCode = "EPU-PC-009",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6645), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7489), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 10,
                             EmployeeId = 10,
                             IsDeleted = false,
                             Name = "Asus ExpertCenter Gen 9",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 1, 18, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6644),
+                            PurchaseDate = new DateTime(2026, 1, 21, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7487),
                             PurchasePrice = 14500000.0,
                             Status = "Bảo trì",
                             WarrantyMonths = 24
@@ -846,13 +846,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 10,
                             AssetCode = "EPU-PC-010",
                             CategoryId = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6654), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7503), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 11,
                             EmployeeId = 11,
                             IsDeleted = false,
                             Name = "Dell Optiplex Gen 10",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2026, 1, 8, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6653),
+                            PurchaseDate = new DateTime(2026, 1, 11, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7501),
                             PurchasePrice = 15000000.0,
                             Status = "Trong kho",
                             WarrantyMonths = 24
@@ -862,13 +862,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 11,
                             AssetCode = "EPU-PC-011",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6662), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7516), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 12,
                             EmployeeId = 12,
                             IsDeleted = false,
                             Name = "HP ProDesk Gen 11",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 12, 29, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6661),
+                            PurchaseDate = new DateTime(2026, 1, 1, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7514),
                             PurchasePrice = 15500000.0,
                             Status = "Hỏng",
                             WarrantyMonths = 24
@@ -878,13 +878,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 12,
                             AssetCode = "EPU-PC-012",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6671), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7528), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 13,
                             EmployeeId = 13,
                             IsDeleted = false,
                             Name = "Lenovo ThinkCentre Gen 12",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 12, 19, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6670),
+                            PurchaseDate = new DateTime(2025, 12, 22, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7527),
                             PurchasePrice = 16000000.0,
                             Status = "Đang dùng",
                             WarrantyMonths = 24
@@ -894,13 +894,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 13,
                             AssetCode = "EPU-PC-013",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6679), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7540), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 14,
                             EmployeeId = 14,
                             IsDeleted = false,
                             Name = "MacBook Air Gen 13",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 12, 9, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6678),
+                            PurchaseDate = new DateTime(2025, 12, 12, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7539),
                             PurchasePrice = 16500000.0,
                             Status = "Bảo trì",
                             WarrantyMonths = 24
@@ -910,13 +910,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 14,
                             AssetCode = "EPU-PC-014",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6698), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7553), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 15,
                             EmployeeId = 15,
                             IsDeleted = false,
                             Name = "Asus ExpertCenter Gen 14",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 11, 29, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6697),
+                            PurchaseDate = new DateTime(2025, 12, 2, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7552),
                             PurchasePrice = 17000000.0,
                             Status = "Trong kho",
                             WarrantyMonths = 24
@@ -926,13 +926,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 15,
                             AssetCode = "EPU-PC-015",
                             CategoryId = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6730), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7587), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 16,
                             EmployeeId = 1,
                             IsDeleted = false,
                             Name = "Dell Optiplex Gen 15",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 11, 19, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6721),
+                            PurchaseDate = new DateTime(2025, 11, 22, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7572),
                             PurchasePrice = 17500000.0,
                             Status = "Hỏng",
                             WarrantyMonths = 24
@@ -942,13 +942,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 16,
                             AssetCode = "EPU-PC-016",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6747), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7600), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 17,
                             EmployeeId = 2,
                             IsDeleted = false,
                             Name = "HP ProDesk Gen 16",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 11, 9, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6746),
+                            PurchaseDate = new DateTime(2025, 11, 12, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7598),
                             PurchasePrice = 18000000.0,
                             Status = "Đang dùng",
                             WarrantyMonths = 24
@@ -958,13 +958,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 17,
                             AssetCode = "EPU-PC-017",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6756), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7613), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 18,
                             EmployeeId = 3,
                             IsDeleted = false,
                             Name = "Lenovo ThinkCentre Gen 17",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 10, 30, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6755),
+                            PurchaseDate = new DateTime(2025, 11, 2, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7611),
                             PurchasePrice = 18500000.0,
                             Status = "Bảo trì",
                             WarrantyMonths = 24
@@ -974,13 +974,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 18,
                             AssetCode = "EPU-PC-018",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6766), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7674), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 19,
                             EmployeeId = 4,
                             IsDeleted = false,
                             Name = "MacBook Air Gen 18",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 10, 20, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6765),
+                            PurchaseDate = new DateTime(2025, 10, 23, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7672),
                             PurchasePrice = 19000000.0,
                             Status = "Trong kho",
                             WarrantyMonths = 24
@@ -990,13 +990,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 19,
                             AssetCode = "EPU-PC-019",
                             CategoryId = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6775), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7687), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 20,
                             EmployeeId = 5,
                             IsDeleted = false,
                             Name = "Asus ExpertCenter Gen 19",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 10, 10, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6774),
+                            PurchaseDate = new DateTime(2025, 10, 13, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7685),
                             PurchasePrice = 19500000.0,
                             Status = "Hỏng",
                             WarrantyMonths = 24
@@ -1006,13 +1006,13 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 20,
                             AssetCode = "EPU-PC-020",
                             CategoryId = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6784), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(7700), new TimeSpan(0, 7, 0, 0, 0)),
                             DepartmentId = 1,
                             EmployeeId = 6,
                             IsDeleted = false,
                             Name = "Dell Optiplex Gen 20",
                             Packaging = 0,
-                            PurchaseDate = new DateTime(2025, 9, 30, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(6783),
+                            PurchaseDate = new DateTime(2025, 10, 3, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(7698),
                             PurchasePrice = 20000000.0,
                             Status = "Đang dùng",
                             WarrantyMonths = 24
@@ -1071,7 +1071,7 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(4875), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5098), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "CNTT",
                             IsDeleted = false,
                             Location = "Tầng 2 - Nhà B",
@@ -1080,7 +1080,7 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5218), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5474), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "DT",
                             IsDeleted = false,
                             Location = "Tầng 3 - Nhà C",
@@ -1089,7 +1089,7 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5227), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5487), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "HC",
                             IsDeleted = false,
                             Location = "Tầng 4 - Nhà D",
@@ -1098,7 +1098,7 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5232), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5509), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "KH",
                             IsDeleted = false,
                             Location = "Tầng 5 - Nhà A",
@@ -1107,7 +1107,7 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5238), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5559), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "TTTN",
                             IsDeleted = false,
                             Location = "Tầng 1 - Nhà B",
@@ -1116,7 +1116,7 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5252), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5578), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "DIEN",
                             IsDeleted = false,
                             Location = "Tầng 2 - Nhà C",
@@ -1125,7 +1125,7 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5257), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5586), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "CK",
                             IsDeleted = false,
                             Location = "Tầng 3 - Nhà D",
@@ -1134,7 +1134,7 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5262), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5593), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "TVU",
                             IsDeleted = false,
                             Location = "Tầng 4 - Nhà A",
@@ -1143,7 +1143,7 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5325), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5599), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "TV",
                             IsDeleted = false,
                             Location = "Tầng 5 - Nhà B",
@@ -1152,101 +1152,11 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5336), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(5608), new TimeSpan(0, 7, 0, 0, 0)),
                             DeptCode = "BV",
                             IsDeleted = false,
                             Location = "Tầng 1 - Nhà C",
                             Name = "Phòng Bảo vệ"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5348), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT11",
-                            IsDeleted = false,
-                            Location = "Tầng 2 - Nhà D",
-                            Name = "Phòng chức năng 11"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5355), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT12",
-                            IsDeleted = false,
-                            Location = "Tầng 3 - Nhà A",
-                            Name = "Phòng chức năng 12"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5376), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT13",
-                            IsDeleted = false,
-                            Location = "Tầng 4 - Nhà B",
-                            Name = "Phòng chức năng 13"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5384), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT14",
-                            IsDeleted = false,
-                            Location = "Tầng 5 - Nhà C",
-                            Name = "Phòng chức năng 14"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5443), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT15",
-                            IsDeleted = false,
-                            Location = "Tầng 1 - Nhà D",
-                            Name = "Phòng chức năng 15"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5451), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT16",
-                            IsDeleted = false,
-                            Location = "Tầng 2 - Nhà A",
-                            Name = "Phòng chức năng 16"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5509), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT17",
-                            IsDeleted = false,
-                            Location = "Tầng 3 - Nhà B",
-                            Name = "Phòng chức năng 17"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5521), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT18",
-                            IsDeleted = false,
-                            Location = "Tầng 4 - Nhà C",
-                            Name = "Phòng chức năng 18"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5529), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT19",
-                            IsDeleted = false,
-                            Location = "Tầng 5 - Nhà D",
-                            Name = "Phòng chức năng 19"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5538), new TimeSpan(0, 7, 0, 0, 0)),
-                            DeptCode = "DEPT20",
-                            IsDeleted = false,
-                            Location = "Tầng 1 - Nhà A",
-                            Name = "Phòng chức năng 20"
                         });
                 });
 
@@ -1284,8 +1194,14 @@ namespace WebQuanLyTaiSan.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("TEXT");
@@ -1303,152 +1219,182 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5979), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 2,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6259), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 1,
                             Email = "nv1@epu.edu.vn",
                             EmployeeCode = "NV001",
-                            FullName = "Nhân viên 1",
-                            IsDeleted = false
+                            FullName = "Nguyễn Văn Admin",
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654301"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(5990), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 3,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6281), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 2,
                             Email = "nv2@epu.edu.vn",
                             EmployeeCode = "NV002",
                             FullName = "Nhân viên 2",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654302"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6007), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 4,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6315), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 3,
                             Email = "nv3@epu.edu.vn",
                             EmployeeCode = "NV003",
                             FullName = "Nhân viên 3",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654303"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6015), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 5,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6327), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 4,
                             Email = "nv4@epu.edu.vn",
                             EmployeeCode = "NV004",
                             FullName = "Nhân viên 4",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654304"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6022), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 6,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6405), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 5,
                             Email = "nv5@epu.edu.vn",
                             EmployeeCode = "NV005",
                             FullName = "Nhân viên 5",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654305"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6031), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 7,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6499), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 6,
                             Email = "nv6@epu.edu.vn",
                             EmployeeCode = "NV006",
                             FullName = "Nhân viên 6",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654306"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6040), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 8,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6514), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 7,
                             Email = "nv7@epu.edu.vn",
                             EmployeeCode = "NV007",
                             FullName = "Nhân viên 7",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654307"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6048), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 9,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6526), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 8,
                             Email = "nv8@epu.edu.vn",
                             EmployeeCode = "NV008",
                             FullName = "Nhân viên 8",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654308"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6056), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 10,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6538), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 9,
                             Email = "nv9@epu.edu.vn",
                             EmployeeCode = "NV009",
                             FullName = "Nhân viên 9",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654309"
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6065), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 1,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6578), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 10,
                             Email = "nv10@epu.edu.vn",
                             EmployeeCode = "NV010",
                             FullName = "Nhân viên 10",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654310"
                         },
                         new
                         {
                             Id = 11,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6073), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 2,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6610), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 1,
                             Email = "nv11@epu.edu.vn",
                             EmployeeCode = "NV011",
                             FullName = "Nhân viên 11",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654311"
                         },
                         new
                         {
                             Id = 12,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6082), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 3,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6629), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 2,
                             Email = "nv12@epu.edu.vn",
                             EmployeeCode = "NV012",
                             FullName = "Nhân viên 12",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654312"
                         },
                         new
                         {
                             Id = 13,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6091), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 4,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6641), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 3,
                             Email = "nv13@epu.edu.vn",
                             EmployeeCode = "NV013",
                             FullName = "Nhân viên 13",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654313"
                         },
                         new
                         {
                             Id = 14,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6098), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 5,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6653), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 4,
                             Email = "nv14@epu.edu.vn",
                             EmployeeCode = "NV014",
                             FullName = "Nhân viên 14",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654314"
                         },
                         new
                         {
                             Id = 15,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(6106), new TimeSpan(0, 7, 0, 0, 0)),
-                            DepartmentId = 6,
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(6688), new TimeSpan(0, 7, 0, 0, 0)),
+                            DepartmentId = 5,
                             Email = "nv15@epu.edu.vn",
                             EmployeeCode = "NV015",
                             FullName = "Nhân viên 15",
-                            IsDeleted = false
+                            IsActive = true,
+                            IsDeleted = false,
+                            PhoneNumber = "0987654315"
                         });
                 });
 
@@ -1515,10 +1461,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 1,
                             ComputerId = 2,
                             Cost = 150000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7290), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8379), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 1",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 17, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7279),
+                            RepairDate = new DateTime(2026, 4, 20, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8369),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1526,10 +1472,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 2,
                             ComputerId = 3,
                             Cost = 200000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7297), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8392), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 2",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 16, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7294),
+                            RepairDate = new DateTime(2026, 4, 19, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8388),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1537,10 +1483,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 3,
                             ComputerId = 4,
                             Cost = 250000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7303), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8400), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 3",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 15, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7300),
+                            RepairDate = new DateTime(2026, 4, 18, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8397),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1548,10 +1494,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 4,
                             ComputerId = 5,
                             Cost = 300000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7308), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8408), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 4",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 14, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7306),
+                            RepairDate = new DateTime(2026, 4, 17, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8405),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1559,10 +1505,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 5,
                             ComputerId = 6,
                             Cost = 350000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7315), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8416), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 5",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 13, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7311),
+                            RepairDate = new DateTime(2026, 4, 16, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8413),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1570,10 +1516,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 6,
                             ComputerId = 7,
                             Cost = 400000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7320), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8425), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 6",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 12, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7318),
+                            RepairDate = new DateTime(2026, 4, 15, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8422),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1581,10 +1527,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 7,
                             ComputerId = 8,
                             Cost = 450000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7326), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8433), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 7",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 11, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7324),
+                            RepairDate = new DateTime(2026, 4, 14, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8429),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1592,10 +1538,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 8,
                             ComputerId = 9,
                             Cost = 500000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7332), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8441), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 8",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 10, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7329),
+                            RepairDate = new DateTime(2026, 4, 13, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8437),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1603,10 +1549,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 9,
                             ComputerId = 10,
                             Cost = 550000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7337), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8449), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 9",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 9, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7335),
+                            RepairDate = new DateTime(2026, 4, 12, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8445),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1614,10 +1560,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 10,
                             ComputerId = 11,
                             Cost = 600000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7368), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8466), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 10",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 8, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7341),
+                            RepairDate = new DateTime(2026, 4, 11, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8454),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1625,10 +1571,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 11,
                             ComputerId = 12,
                             Cost = 650000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7375), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8475), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 11",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 7, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7371),
+                            RepairDate = new DateTime(2026, 4, 10, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8471),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1636,10 +1582,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 12,
                             ComputerId = 13,
                             Cost = 700000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7381), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8569), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 12",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 6, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7378),
+                            RepairDate = new DateTime(2026, 4, 9, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8479),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1647,10 +1593,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 13,
                             ComputerId = 14,
                             Cost = 750000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7386), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8577), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 13",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 5, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7384),
+                            RepairDate = new DateTime(2026, 4, 8, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8573),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1658,10 +1604,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 14,
                             ComputerId = 15,
                             Cost = 800000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7391), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8586), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 14",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 4, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7389),
+                            RepairDate = new DateTime(2026, 4, 7, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8582),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1669,10 +1615,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 15,
                             ComputerId = 16,
                             Cost = 850000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7397), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8593), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 15",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 3, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7394),
+                            RepairDate = new DateTime(2026, 4, 6, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8590),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1680,10 +1626,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 16,
                             ComputerId = 17,
                             Cost = 900000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7402), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8602), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 16",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 2, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7400),
+                            RepairDate = new DateTime(2026, 4, 5, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8598),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1691,10 +1637,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 17,
                             ComputerId = 18,
                             Cost = 950000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7408), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8610), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 17",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 4, 1, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7405),
+                            RepairDate = new DateTime(2026, 4, 4, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8606),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1702,10 +1648,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 18,
                             ComputerId = 19,
                             Cost = 1000000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7414), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8619), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 18",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 3, 31, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7411),
+                            RepairDate = new DateTime(2026, 4, 3, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8615),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1713,10 +1659,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 19,
                             ComputerId = 20,
                             Cost = 1050000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7419), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8627), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 19",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 3, 30, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7417),
+                            RepairDate = new DateTime(2026, 4, 2, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8623),
                             Status = "Hoàn thành"
                         },
                         new
@@ -1724,10 +1670,10 @@ namespace WebQuanLyTaiSan.Migrations
                             Id = 20,
                             ComputerId = 1,
                             Cost = 1100000.0,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(7425), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(8635), new TimeSpan(0, 7, 0, 0, 0)),
                             Description = "Bảo trì định kỳ lần thứ 20",
                             IsDeleted = false,
-                            RepairDate = new DateTime(2026, 3, 29, 11, 36, 4, 314, DateTimeKind.Local).AddTicks(7422),
+                            RepairDate = new DateTime(2026, 4, 1, 15, 3, 27, 442, DateTimeKind.Local).AddTicks(8631),
                             Status = "Hoàn thành"
                         });
                 });
@@ -1754,9 +1700,8 @@ namespace WebQuanLyTaiSan.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int?>("EmployeeId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("INTEGER");
@@ -1764,9 +1709,8 @@ namespace WebQuanLyTaiSan.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Role")
@@ -1779,7 +1723,14 @@ namespace WebQuanLyTaiSan.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("Users");
 
@@ -1787,13 +1738,14 @@ namespace WebQuanLyTaiSan.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 18, 11, 36, 4, 314, DateTimeKind.Unspecified).AddTicks(3485), new TimeSpan(0, 7, 0, 0, 0)),
+                            CreatedAt = new DateTimeOffset(new DateTime(2026, 4, 21, 15, 3, 27, 442, DateTimeKind.Unspecified).AddTicks(3546), new TimeSpan(0, 7, 0, 0, 0)),
                             Email = "admin@epu.edu.vn",
-                            FullName = "Administrator",
+                            EmployeeId = 1,
                             IsActive = true,
                             IsDeleted = false,
-                            Password = "$2a$11$xMbJTLJoH82XWAXkuaFk3.aaW9IGvUyrNXgxmp9S0Lnc5KAbTsEV.",
-                            Role = "Admin"
+                            PasswordHash = "$2a$11$mwAlHo1UJDvGGx0W4fTuwuBT3YJ4aM5vDQ2iIpfjZQaCy9zt4HJU.",
+                            Role = "Admin",
+                            Username = "admin"
                         });
                 });
 
@@ -1853,6 +1805,15 @@ namespace WebQuanLyTaiSan.Migrations
                         .IsRequired();
 
                     b.Navigation("Computer");
+                });
+
+            modelBuilder.Entity("WebQuanLyTaiSan.Models.User", b =>
+                {
+                    b.HasOne("WebQuanLyTaiSan.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("WebQuanLyTaiSan.Models.Category", b =>

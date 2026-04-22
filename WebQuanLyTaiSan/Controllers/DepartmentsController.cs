@@ -23,6 +23,7 @@ namespace WebQuanLyTaiSan.Controllers
         public async Task<IActionResult> Index()
         {
             var departments = _context.Departments
+                .Where(d => !d.IsDeleted)
                 .Include(d => d.Computers)
                 .AsNoTracking(); // Tốc độ xử lý sẽ nhanh hơn đáng kể
             return View(await departments.ToListAsync());
@@ -40,6 +41,15 @@ namespace WebQuanLyTaiSan.Controllers
 
             if (department == null) return NotFound();
 
+            var availableComputers = await _context.Computers
+                .Where(c => c.DepartmentId == null || c.Status == "Trong kho")
+                .Select(c => new {
+                    Id = c.Id,
+                    DisplayName = c.AssetCode + " - " + c.Name
+                }).ToListAsync();
+
+            ViewBag.AvailableComputers = new SelectList(availableComputers, "Id", "DisplayName");
+
             return View(department);
         }
 
@@ -54,11 +64,15 @@ namespace WebQuanLyTaiSan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Location")] Department department)
+        public async Task<IActionResult> Create([Bind("Name,Location, ManagerName, DeptCode")] Department department)
         {
             if (ModelState.IsValid)
             {
-                bool exists = await _context.Departments.AnyAsync(d => d.Name.ToLower() == department.Name.ToLower());
+                bool exists = await _context.Departments.AnyAsync(d =>
+                    d.Name.ToLower() == department.Name.ToLower() ||
+                    d.DeptCode.ToLower() == department.DeptCode.ToLower()
+                );
+
                 if (exists)
                 {
                     ModelState.AddModelError("Name", "Phòng ban này đã tồn tại!");
@@ -74,16 +88,11 @@ namespace WebQuanLyTaiSan.Controllers
         // GET: Departments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var department = await _context.Departments
-                .Include(d => d.Computers)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var department = await _context.Departments.FindAsync(id);
 
-            if (department == null) return NotFound();
+            if (department == null || department.IsDeleted) return NotFound(); // Không cho sửa đồ đã vào thùng rác
             return View(department);
         }
 
@@ -92,38 +101,36 @@ namespace WebQuanLyTaiSan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Location")] Department department)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Location, ManagerName, DeptCode")] Department department)
         {
-            if (id != department.Id)
-            {
-                return NotFound();
-            }
+            if (id != department.Id) return NotFound();
+            
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    bool nameExists = await _context.Departments
-                        .AnyAsync(d => d.Name.ToLower() == department.Name.ToLower() && d.Id != department.Id);
-                    if (nameExists)
-                    {
-                        ModelState.AddModelError("Name", "Tên phòng ban này đã được sử dụng bởi phòng ban khác!");
-                        return View(department);
-                    }
+                    var existingDept = await _context.Departments.FindAsync(id);
+                    if (existingDept == null) return NotFound();
 
-                    _context.Update(department);
+                    // Chỉ cập nhật các trường thay đổi từ Form
+                    existingDept.Name = department.Name;
+                    existingDept.Location = department.Location;
+                    existingDept.ManagerName = department.ManagerName;
+                    existingDept.DeptCode = department.DeptCode;
+
+                    // Cập nhật metadata từ BaseEntity
+                    existingDept.UpdatedAt = DateTimeOffset.Now;
+                    existingDept.UpdatedBy = User.Identity?.Name ?? "Admin";
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DepartmentExists(department.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if  (!DepartmentExists(department.Id)) return NotFound();
+                    
+                    else throw;
+                    
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -136,6 +143,7 @@ namespace WebQuanLyTaiSan.Controllers
             if (id == null) return NotFound();
 
             var department = await _context.Departments
+                .Include(d => d.Employees)
                 .Include(d => d.Computers)
                     .ThenInclude(c => c.Components)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -160,12 +168,61 @@ namespace WebQuanLyTaiSan.Controllers
                 foreach (var computer in department.Computers)
                 {
                     computer.DepartmentId = null;
+                    computer.Status = "Trong kho";
                 }
-                _context.Departments.Remove(department);
+                department.IsDeleted = true;
+                department.DeletedAt = DateTimeOffset.Now;
+                department.DeletedBy = User.Identity?.Name ?? "Admin";
+
+                _context.Departments.Update(department);
                 await _context.SaveChangesAsync();
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Trash()
+        {
+            var deletedDepartment = await _context.Departments
+                .IgnoreQueryFilters()
+                .Where(d => d.IsDeleted == true)
+                .AsNoTracking()
+                .ToListAsync();
+            return View(deletedDepartment);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var department = await _context.Departments
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (department == null) return NotFound();
+
+            department.IsDeleted = false;
+            department.DeletedAt = null;
+            department.UpdatedAt = DateTimeOffset.Now;
+            department.UpdatedBy = User.Identity?.Name ?? "Admin";
+
+            _context.Update(department);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Trash));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> HardDelete(int id)
+        {
+            var department = await _context.Departments.FindAsync(id);
+            if (department != null)
+            {
+                _context.Departments.Remove(department);
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction(nameof(Trash));
         }
 
         private bool DepartmentExists(int id)

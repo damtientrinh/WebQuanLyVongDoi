@@ -292,6 +292,25 @@ namespace WebQuanLyTaiSan.Controllers
             return RedirectToAction(nameof(Trash));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AssignToDepartment(int computerId, int deptId)
+        {
+            var computer = await _context.Computers.FindAsync(computerId);
+            if (computer == null) return NotFound();
+
+            // Cập nhật ID phòng ban và trạng thái
+            computer.DepartmentId = deptId;
+            computer.Status = "Đang dùng";
+            computer.UpdatedAt = DateTimeOffset.Now;
+            computer.UpdatedBy = User.Identity?.Name ?? "Admin";
+
+            await _context.SaveChangesAsync();
+
+            // Quay lại trang chi tiết của phòng ban đó
+            return RedirectToAction("Details", "Departments", new { id = deptId });
+        }
+
         private bool ComputerExists(int id)
         {
             return _context.Computers.Any(e => e.Id == id);

@@ -25,6 +25,7 @@ namespace WebQuanLyTaiSan.Controllers
         public async Task<IActionResult> Index()
         {
             var logs = await _context.MaintenanceLogs
+                .Where(m => !m.IsDeleted)
                 .Include(m => m.Computer)
                 .OrderByDescending(m => m.RepairDate)
                 .AsNoTracking()
@@ -71,7 +72,7 @@ namespace WebQuanLyTaiSan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken] 
-        public async Task<IActionResult> Create([Bind("RepairDate,Description,Cost,ComputerId")] MaintenanceLog log, IFormFile? imageFile) 
+        public async Task<IActionResult> Create([Bind("RepairDate,Description,Cost,ComputerId, Status, ServiceProvider")] MaintenanceLog log, IFormFile? imageFile) 
         {
             if (ModelState.IsValid)
             {
@@ -144,24 +145,27 @@ namespace WebQuanLyTaiSan.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RepairDate,Description,Cost,ComputerId")] MaintenanceLog maintenanceLog, IFormFile? imageFile)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RepairDate,Description,Cost,ComputerId, Status, ServiceProvider")] MaintenanceLog maintenanceLog, IFormFile? imageFile)
         {
-            if (id != maintenanceLog.Id)
-            {
-                return NotFound();
-            }
+            if (id != maintenanceLog.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (imageFile != null)
-                    {
-                        // 1. Xử lý lưu file mới (giống bên Create)
-                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/maintenance", fileName);
+                    var existingLog = await _context.MaintenanceLogs.AsNoTracking().FirstOrDefaultAsync(m => m.Id == id);
+                    if (existingLog == null) return NotFound();
 
-                        using (var stream = new FileStream(path, FileMode.Create))
+                    if (imageFile != null && imageFile.Length > 0)
+                    {
+                        
+                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+                        string uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "maintenance");
+
+                        if (!Directory.Exists(uploadDir)) Directory.CreateDirectory(uploadDir);
+                        string filePath = Path.Combine(uploadDir, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
                         {
                             await imageFile.CopyToAsync(stream);
                         }
@@ -169,15 +173,21 @@ namespace WebQuanLyTaiSan.Controllers
                         // 2. Xóa ảnh cũ nếu có (để dọn dẹp bộ nhớ)
                         if (!string.IsNullOrEmpty(maintenanceLog.ImageUrl))
                         {
-                            string oldPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/maintenance", maintenanceLog.ImageUrl);
+                            string oldPath = Path.Combine(uploadDir, existingLog.ImageUrl);
                             if (System.IO.File.Exists(oldPath)) System.IO.File.Delete(oldPath);
                         }
 
                         maintenanceLog.ImageUrl = fileName;
                     }
+                    else
+                    {
+                        maintenanceLog.ImageUrl = existingLog.ImageUrl;
+                    }
 
                     _context.Update(maintenanceLog);
                     await _context.SaveChangesAsync();
+
+                    TempData["Success"] = "Cập nhật nhật ký bảo trì thành công.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -225,21 +235,78 @@ namespace WebQuanLyTaiSan.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var maintenanceLog = await _context.MaintenanceLogs.FindAsync(id);
-            if (maintenanceLog != null)
+            var log = await _context.MaintenanceLogs.FindAsync(id);
+            if (log != null)
             {
-                var computer = await _context.Computers.FindAsync(maintenanceLog.ComputerId);
-                if (computer != null)
+                log.IsDeleted = true;
+                log.DeletedAt = DateTimeOffset.Now;
+                log.DeletedBy = User.Identity?.Name ?? "Admin";
+
+                // Sau khi bảo trì xong (hoặc hủy phiếu), trả trạng thái máy về bình thường
+                var computer = await _context.Computers.FindAsync(log.ComputerId);
+                if (computer != null && computer.Status == "Bảo trì")
                 {
-                    // Trả máy về trạng thái bình thường sau khi xóa log bảo trì
                     computer.Status = "Đang sử dụng";
-                    TempData["Success"] = $"Đã xóa phiếu bảo trì. Máy {computer.AssetCode} đã quay lại trạng thái Đang sử dụng.";
                 }
-                _context.MaintenanceLogs.Remove(maintenanceLog);
+
+                await _context.SaveChangesAsync();
             }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Trash()
+        {
+            var deletedLogs = await _context.MaintenanceLogs
+                .IgnoreQueryFilters()
+                .Where(m => m.IsDeleted)
+                .Include(m => m.Computer)
+                .ToListAsync();
+            return View(deletedLogs);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Restore(int id)
+        {
+            var log = await _context.MaintenanceLogs
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (log == null) return NotFound();
+
+            log.IsDeleted = false;
+            log.DeletedAt = null;
+
+            var computer = await _context.Computers.FindAsync(log.ComputerId);
+            if (computer != null) computer.Status = "Bảo trì";
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Trash));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeletePermanently(int id)
+        {
+            var log = await _context.MaintenanceLogs
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (log == null) return NotFound();
+
+            // 1. Xóa file ảnh vật lý nếu có
+            if (!string.IsNullOrEmpty(log.ImageUrl))
+            {
+                string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "maintenance", log.ImageUrl);
+                if (System.IO.File.Exists(filePath)) System.IO.File.Delete(filePath);
+            }
+
+            // 2. Xóa khỏi Database
+            _context.MaintenanceLogs.Remove(log);
+            await _context.SaveChangesAsync();
+
+            TempData["Success"] = "Đã xóa vĩnh viễn bản ghi và tệp tin đính kèm.";
+            return RedirectToAction(nameof(Trash));
         }
 
         private bool MaintenanceLogExists(int id)

@@ -1,0 +1,73 @@
+﻿@model WebQuanLyTaiSan.Models.User
+
+@{
+    ViewData["Title"] = "Xác nhận xóa tài khoản";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow border-0 mt-4">
+                <div class="card-header bg-danger text-white py-3">
+                    <h5 class="m-0 font-weight-bold text-center">
+                        <i class="fas fa-exclamation-triangle me-2"></i> XÁC NHẬN XÓA TÀI KHOẢN
+                    </h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-warning border-start border-warning border-4 text-dark mb-4">
+                        <p class="mb-1"><strong>Cảnh báo:</strong> Bạn đang yêu cầu xóa tài khoản người dùng này khỏi hệ thống.</p>
+                        <small>Hành động này có thể ảnh hưởng đến lịch sử đăng nhập và quản lý tài sản liên quan.</small>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <th class="text-muted w-40">Tên đăng nhập:</th>
+                                <td class="fw-bold">@Model.Username</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Email:</th>
+                                <td>@Model.Email</td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Vai trò:</th>
+                                <td>
+                                    <span class="badge @(Model.Role == "Admin" ? "bg-danger" : "bg-info")">
+                                        @Model.Role
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Nhân viên sở hữu:</th>
+                                <td>@Model.Employee?.FullName <small class="text-muted">(@Model.Employee?.EmployeeCode)</small></td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Ngày tạo:</th>
+                                <td>@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <hr />
+
+                    <div class="text-center mt-4">
+                        <form asp-action="Delete">
+                            <input type="hidden" asp-for="Id" />
+                            <div class="d-grid gap-2 d-md-block">
+                                <a asp-action="Index" class="btn btn-outline-secondary px-4 me-md-2">
+                                    <i class="fas fa-arrow-left me-1"></i> Không, quay lại
+                                </a>
+                                <button type="submit" class="btn btn-danger px-4 shadow-sm">
+                                    <i class="fas fa-trash-alt me-1"></i> Xác nhận xóa vĩnh viễn
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-footer bg-light text-center py-2">
+                    <small class="text-muted italic">Mã định danh hệ thống: #@Model.Id</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

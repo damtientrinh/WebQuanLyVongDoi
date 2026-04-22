@@ -1,0 +1,97 @@
+﻿@model WebQuanLyTaiSan.Models.Employee
+
+@{
+    ViewData["Title"] = "Cập nhật thông tin nhân viên";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-white d-flex justify-content-between align-items-center">
+            <h5 class="m-0 font-weight-bold text-primary">
+                <i class="fas fa-user-edit me-2"></i>Chỉnh sửa nhân viên: <span class="text-dark">@Model.FullName</span>
+            </h5>
+            <span class="badge @(Model.IsActive ? "bg-success" : "bg-secondary")">
+                @(Model.IsActive ? "Đang làm việc" : "Tạm nghỉ")
+            </span>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreatedAt" />
+                <input type="hidden" asp-for="CreatedBy" />
+                <input type="hidden" asp-for="IsDeleted" />
+
+                <div class="row">
+                    <div class="col-md-6 border-end">
+                        <h6 class="text-muted mb-3 border-bottom pb-2">Thông tin định danh</h6>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Họ và tên</label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Số điện thoại</label>
+                            <input asp-for="PhoneNumber" class="form-control" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 ps-md-4">
+                        <h6 class="text-muted mb-3 border-bottom pb-2">Vị trí & Trạng thái</h6>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Mã nhân viên</label>
+                            <input asp-for="EmployeeCode" class="form-control bg-light" readonly />
+                            <small class="text-muted">Mã nhân viên cố định trong hệ thống.</small>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">Phòng ban</label>
+                            <select asp-for="DepartmentId" class="form-select" asp-items="ViewBag.DepartmentId"></select>
+                            <span asp-validation-for="DepartmentId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="card bg-light">
+                            <div class="card-body py-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" asp-for="IsActive">
+                                    <label class="form-check-label fw-bold" asp-for="IsActive">Kích hoạt trạng thái làm việc</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-top d-flex justify-content-between align-items-center">
+                    <small class="text-muted italic">
+                        <i class="fas fa-history me-1"></i> Ngày tạo hồ sơ: @Model.CreatedAt.ToString("dd/MM/yyyy")
+                    </small>
+                    <div>
+                        <a asp-action="Index" class="btn btn-outline-secondary px-4 me-2">
+                            <i class="fas fa-undo me-1"></i> Hủy
+                        </a>
+                        <button type="submit" class="btn btn-primary px-4 shadow-sm">
+                            <i class="fas fa-save me-1"></i> Cập nhật thay đổi
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

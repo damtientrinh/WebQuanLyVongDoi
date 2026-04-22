@@ -9,20 +9,20 @@
         <div class="col-md-8">
             <div class="card shadow border-0">
                 <div class="card-header bg-danger text-white py-3">
-                    <h4 class="mb-0"><i class="fas fa-exclamation-triangle"></i> Xác Nhận Xóa Phòng Ban</h4>
+                    <h4 class="mb-0"><i class="fas fa-trash-restore"></i> Chuyển Phòng Ban Vào Thùng Rác</h4>
                 </div>
                 <div class="card-body p-4">
-                    <div class="alert alert-warning">
-                        <h5 class="alert-heading">Cảnh báo!</h5>
-                        <p class="mb-0">Hành động này không thể hoàn tác. Vui lòng kiểm tra kỹ các thông tin bên dưới trước khi thực hiện.</p>
+                    <div class="alert alert-info">
+                        <h5 class="alert-heading"><i class="fas fa-info-circle"></i> Thông báo hệ thống</h5>
+                        <p class="mb-0">Hành động này sẽ tạm ẩn phòng ban khỏi danh sách hoạt động. Bạn có thể khôi phục lại trong <strong>Thùng rác</strong> nếu cần.</p>
                     </div>
 
                     <dl class="row mt-4 px-3">
                         <dt class="col-sm-4 text-muted">@Html.DisplayNameFor(model => model.Name)</dt>
                         <dd class="col-sm-8 fw-bold text-primary">@Html.DisplayFor(model => model.Name)</dd>
 
-                        <dt class="col-sm-4 text-muted">@Html.DisplayNameFor(model => model.Location)</dt>
-                        <dd class="col-sm-8">@(Model.Location ?? "Chưa xác định")</dd>
+                        <dt class="col-sm-4 text-muted">Mã phòng ban:</dt>
+                        <dd class="col-sm-8"><code>@(Model.DeptCode ?? "N/A")</code></dd>
 
                         <dt class="col-sm-4 text-muted">Số lượng máy tính:</dt>
                         <dd class="col-sm-8">
@@ -35,28 +35,23 @@
 
                     @if (Model.Computers?.Count > 0)
                     {
-                        <div class="alert alert-danger mt-3">
-                            <i class="fas fa-info-circle"></i> <strong>Lưu ý:</strong> Phòng này đang chứa máy tính. Khi xóa, các máy tính sẽ bị gỡ khỏi phòng ban này (trở thành máy tính tự do).
+                        <div class="alert alert-warning mt-3 border-start border-4 border-warning">
+                            <i class="fas fa-exclamation-circle text-warning"></i>
+                            <strong>Lưu ý:</strong> Hiện có @Model.Computers.Count máy tính đang thuộc phòng này.
+                            Khi xóa, các máy tính này sẽ tự động được đưa về trạng thái <strong>"Tự do"</strong> (Chưa gán phòng).
                         </div>
                     }
 
                     <hr />
                     <form asp-action="Delete" class="d-flex gap-2 justify-content-end">
                         <input type="hidden" asp-for="Id" />
-                        @if (Model.Computers?.Count > 0)
-                        {
-                            <button type="submit" class="btn btn-danger px-4" disabled title="Phải chuyển hết máy tính trước khi xóa">
-                                <i class="fas fa-trash-alt"></i> Xác nhận xóa
-                            </button>
-                        }
-                        else
-                        {
-                            <button type="submit" class="btn btn-danger px-4">
-                                <i class="fas fa-trash-alt"></i> Xác nhận xóa
-                            </button>
-                        }
-                        <a asp-action="Index" class="btn btn-secondary">
-                            <i class="fas fa-undo"></i> Hủy bỏ
+
+                        <button type="submit" class="btn btn-danger px-4 shadow-sm fw-bold">
+                            <i class="fas fa-trash-alt"></i> Xác nhận xóa tạm
+                        </button>
+
+                        <a asp-action="Index" class="btn btn-outline-secondary">
+                            <i class="fas fa-undo"></i> Quay lại
                         </a>
                     </form>
                 </div>

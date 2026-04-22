@@ -137,10 +137,27 @@
                                 <i class="fa fa-cog"></i>Hệ Thống
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                                <li><a class="dropdown-item" asp-controller="Departments" asp-action="Index"><i class="fa fa-building me-2 text-info"></i>Cơ cấu Phòng ban</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa fa-users me-2 text-secondary"></i>Người dùng</a></li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Departments" asp-action="Index">
+                                        <i class="fa fa-building me-2 text-info"></i>Cơ cấu Phòng ban
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Employees" asp-action="Index">
+                                        <i class="fa fa-user-tie me-2 text-primary"></i>Quản lý Nhân viên
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Users" asp-action="Index">
+                                        <i class="fa fa-users me-2 text-secondary"></i>Tài khoản hệ thống
+                                    </a>
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                                <li>
+                                    <a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Đăng xuất
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -187,10 +204,18 @@
                             },
                             "pageLength": 10,
                             "responsive": true,
+                            "order": [], // Không tự động sắp xếp cột đầu tiên
+                            "columnDefs": [
+                                { "orderable": false, "targets": "no-sort" } // Các cột có class 'no-sort' sẽ không cho sắp xếp
+                            ],
                             "dom": '<"d-flex justify-content-between align-items-center mb-3"lf>rt<"d-flex justify-content-between align-items-center mt-3"ip>'
                         });
                     }
                 });
+            }
+
+            if (User.IsInRole("Admin")) {
+                <li><a class="dropdown-item" asp-controller="Users" asp-action="Index">Người dùng</a></li>
             }
         });
     </script>

@@ -1,0 +1,113 @@
+﻿@model WebQuanLyTaiSan.Models.Employee
+
+@{
+    ViewData["Title"] = "Hồ sơ nhân viên";
+}
+
+<div class="container-fluid">
+    <div class="card shadow border-0 mb-4">
+        <div class="card-body p-4">
+            <div class="d-flex align-items-center">
+                <div class="avatar-lg bg-primary rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 80px; height: 80px; font-size: 2rem;">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="ms-4 flex-grow-1">
+                    <h3 class="mb-1 fw-bold text-dark">@Model.FullName</h3>
+                    <p class="text-muted mb-0">
+                        <span class="badge bg-light text-primary border me-2">ID: #@Model.Id</span>
+                        <span class="badge bg-light text-dark border">Mã NV: @Model.EmployeeCode</span>
+                    </p>
+                </div>
+                <div class="text-end">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning shadow-sm">
+                        <i class="fas fa-edit me-1"></i> Chỉnh sửa
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary shadow-sm">
+                        <i class="fas fa-list me-1"></i> Danh sách
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-white py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Thông tin chi tiết</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-4">
+                        <div class="col-sm-6">
+                            <label class="text-muted small text-uppercase fw-bold">Phòng ban</label>
+                            <p class="fs-5 fw-bold text-dark">
+                                <i class="fas fa-building text-secondary me-2"></i>
+                                @Model.Department?.Name <small class="text-muted fw-normal">(@Model.Department?.DeptCode)</small>
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="text-muted small text-uppercase fw-bold">Trạng thái nhân sự</label>
+                            <p class="mb-0">
+                                @if (Model.IsActive)
+                                {
+                                    <span class="text-success fs-5 fw-bold"><i class="fas fa-check-circle me-2"></i>Đang hoạt động</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger fs-5 fw-bold"><i class="fas fa-pause-circle me-2"></i>Đã nghỉ việc / Tạm nghỉ</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="text-muted small text-uppercase fw-bold">Liên hệ Email</label>
+                            <p class="text-dark">
+                                <i class="fas fa-envelope text-secondary me-2"></i>@Model.Email
+                            </p>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="text-muted small text-uppercase fw-bold">Số điện thoại</label>
+                            <p class="text-dark">
+                                <i class="fas fa-phone text-secondary me-2"></i>@Model.PhoneNumber
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow border-0 mb-4">
+                <div class="card-header bg-light py-3">
+                    <h6 class="m-0 font-weight-bold text-secondary">Nhật ký hệ thống</h6>
+                </div>
+                <div class="card-body">
+                    <div class="timeline-small small">
+                        <div class="mb-3 border-start ps-3 border-primary">
+                            <span class="text-muted d-block">Ngày tạo hồ sơ:</span>
+                            <span class="fw-bold text-dark">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</span>
+                            <span class="text-muted d-block mt-1 small">Bởi: @(Model.CreatedBy ?? "Hệ thống")</span>
+                        </div>
+
+                        <div class="mb-3 border-start ps-3 border-info">
+                            <span class="text-muted d-block">Cập nhật cuối:</span>
+                            <span class="fw-bold text-dark">@(Model.UpdatedAt?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa có thay đổi")</span>
+                            <span class="text-muted d-block mt-1 small">Bởi: @(Model.UpdatedBy ?? "N/A")</span>
+                        </div>
+
+                        @if (Model.IsDeleted)
+                        {
+                            <div class="border-start ps-3 border-danger">
+                                <span class="text-danger d-block">Thời điểm xóa:</span>
+                                <span class="fw-bold text-danger">@Model.DeletedAt?.ToString("dd/MM/yyyy HH:mm")</span>
+                                <span class="text-muted d-block mt-1 small">Bởi: @Model.DeletedBy</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,9 +20,14 @@
                         Tổng: @Model.Sum(x => x.Cost).ToString("N0") đ
                     </span>
                 </div>
-                <a asp-action="Create" class="btn btn-primary rounded-pill px-4 shadow-sm">
-                    <i class="fas fa-plus-circle me-1"></i> Thêm nhật ký
-                </a>
+                <div class="col-md-6 text-md-end mt-2 mt-md-0">
+                    <a asp-action="Create" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                        <i class="fas fa-plus-circle me-1"></i> Thêm nhật ký
+                    </a>
+                    <a asp-action="Trash" class="btn btn-outline-secondary rounded-pill px-3 shadow-sm me-2">
+                        <i class="fas fa-trash-alt me-1"></i> Thùng rác
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -67,8 +72,8 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td class="ps-4">
+                        <tr class="@(item.Cost > 5000000 ? "table-danger" : "")">
+                            <td class="ps-4" data-search="@item.RepairDate.ToString("dd/MM/yyyy")">
                                 <div class="d-flex align-items-center">
                                     <div class="bg-light text-primary rounded p-2 me-2 text-center" style="width: 40px;">
                                         <i class="far fa-calendar-alt"></i>
@@ -147,6 +152,10 @@
         background: #dee2e6;
         border-radius: 10px;
     }
+
+    tr.table-danger {
+        border-left: 5px solid #dc3545 !important;
+    }
 </style>
 
 @section Scripts {
@@ -164,8 +173,8 @@
             // Tự động cập nhật tổng tiền khi tìm kiếm hoặc lọc
             table.on('draw', function () {
                 var total = table.column(3, { filter: 'applied' }).data().reduce(function (a, b) {
-                    var price = parseFloat(b.replace(/[^\d]/g, '')) || 0;
-                    return a + price;
+                    var price = typeof b === 'string' ? b.replace(/[^\d]/g, '') : b;
+                    return a + (parseFloat(price) || 0);
                 }, 0);
 
                 $('#totalCostDisplay').html('Tổng: ' + total.toLocaleString('vi-VN') + ' đ');
@@ -199,7 +208,8 @@
                 var currentYear = now.getFullYear();
 
                 $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-                    var dateParts = data[0].split('/');
+                    var dateStr = $(settings.aoData[dataIndex].anCells[0]).attr('data-search');
+                    var dateParts = dateStr.split('/');
                     return (parseInt(dateParts[1]) === currentMonth && parseInt(dateParts[2]) === currentYear);
                 });
             }

@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebQuanLyTaiSan.Models
 {
     public class User : BaseEntity
     {
-        // Bạn đã có Id ở BaseEntity rồi, không cần [Key] public int Id ở đây nữa
-
-        [Required(ErrorMessage = "Họ tên không được để trống")]
-        [Display(Name = "Họ và tên")]
-        public string FullName { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Tên đăng nhập không được để trống")]
+        [Display(Name = "Tên đăng nhập")]
+        [StringLength(50)]
+        public string Username { get; set; } = string.Empty; 
 
         [Required(ErrorMessage = "Email không được để trống")]
         [EmailAddress(ErrorMessage = "Email không hợp lệ")]
@@ -17,13 +17,19 @@ namespace WebQuanLyTaiSan.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Mật khẩu")]
-        [StringLength(255, MinimumLength = 6, ErrorMessage = "Mật khẩu từ 6 đến 255 ký tự")]
-        public string Password { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty; // Lưu mật khẩu đã mã hóa
 
         [Display(Name = "Quyền hạn")]
         public string Role { get; set; } = "Staff"; // Admin, Manager, Staff
 
-        [Display(Name = "Trạng thái tài khoản")]
+        [Display(Name = "Trạng thái")]
         public bool IsActive { get; set; } = true;
+
+        // Liên kết tới nhân viên
+        [Display(Name = "Nhân viên")]
+        public int? EmployeeId { get; set; }
+
+        [ForeignKey("EmployeeId")]
+        public virtual Employee? Employee { get; set; }
     }
 }

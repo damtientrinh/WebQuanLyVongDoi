@@ -20,6 +20,13 @@ namespace WebQuanLyTaiSan.Models
 
         [Display(Name = "Phòng ban")]
         public int DepartmentId { get; set; }
+
+        [Display(Name = "Số điện thoại")]
+        [RegularExpression(@"^\d{10,11}$", ErrorMessage = "Số điện thoại không hợp lệ")]
+        public string? PhoneNumber { get; set; }
+
+        [Display(Name = "Trạng thái")]
+        public bool IsActive { get; set; } = true; // True: Đang làm việc, False: Đã nghỉ
         public virtual Department? Department { get; set; }
 
         // Một nhân viên có thể sở hữu nhiều thiết bị

@@ -1,0 +1,89 @@
+﻿@model WebQuanLyTaiSan.Models.User
+
+@{
+    ViewData["Title"] = "Chi tiết tài khoản";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 bg-white d-flex justify-content-between align-items-center">
+            <h5 class="m-0 font-weight-bold text-primary"><i class="fas fa-user-circle me-2"></i>Hồ sơ tài khoản: @Model.Username</h5>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">
+                    <i class="fas fa-edit"></i> Chỉnh sửa
+                </a>
+                <a asp-action="Index" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-list"></i> Danh sách
+                </a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 border-end">
+                    <h6 class="text-uppercase text-muted fw-bold small mb-3">Thông tin cơ bản</h6>
+                    <dl class="row">
+                        <dt class="col-sm-4 text-muted">Tên đăng nhập:</dt>
+                        <dd class="col-sm-8 fw-bold">@Model.Username</dd>
+
+                        <dt class="col-sm-4 text-muted">Email:</dt>
+                        <dd class="col-sm-8">@Model.Email</dd>
+
+                        <dt class="col-sm-4 text-muted">Vai trò:</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge @(Model.Role == "Admin" ? "bg-danger" : "bg-info")">@Model.Role</span>
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted">Trạng thái:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.IsActive)
+                            {
+                                <span class="text-success"><i class="fas fa-check-circle"></i> Đang hoạt động</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger"><i class="fas fa-lock"></i> Đã khóa</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4 text-muted">Nhân viên:</dt>
+                        <dd class="col-sm-8">
+                            <strong>@Model.Employee?.FullName</strong> <br />
+                            <small class="text-muted">Mã NV: @Model.Employee?.EmployeeCode</small>
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="col-md-6 ps-md-4">
+                    <h6 class="text-uppercase text-muted fw-bold small mb-3">Dấu vết hệ thống</h6>
+                    <div class="bg-light p-3 rounded">
+                        <dl class="row mb-0 small">
+                            <dt class="col-sm-5 text-muted">Ngày tạo:</dt>
+                            <dd class="col-sm-7">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                            <dt class="col-sm-5 text-muted">Người tạo:</dt>
+                            <dd class="col-sm-7">@(Model.CreatedBy ?? "Hệ thống")</dd>
+
+                            <dt class="col-sm-5 text-muted">Cập nhật cuối:</dt>
+                            <dd class="col-sm-7">@(Model.UpdatedAt?.ToString("dd/MM/yyyy HH:mm") ?? "Chưa cập nhật")</dd>
+
+                            <dt class="col-sm-5 text-muted">Người cập nhật:</dt>
+                            <dd class="col-sm-7">@(Model.UpdatedBy ?? "N/A")</dd>
+
+                            @if (Model.IsDeleted)
+                            {
+                                <dt class="col-sm-5 text-danger">Ngày xóa:</dt>
+                                <dd class="col-sm-7 text-danger">@Model.DeletedAt?.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                                <dt class="col-sm-5 text-danger">Người xóa:</dt>
+                                <dd class="col-sm-7 text-danger">@Model.DeletedBy</dd>
+                            }
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-white text-end">
+            <small class="text-muted">ID định danh: #@Model.Id</small>
+        </div>
+    </div>
+</div>
